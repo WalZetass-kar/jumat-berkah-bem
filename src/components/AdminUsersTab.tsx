@@ -28,7 +28,7 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({
     phone: '',
     status: 'Aktif',
     password: ''
-  });
+  } as any);
 
   const [deleteConfirmAdmin, setDeleteConfirmAdmin] = useState<AdminUser | null>(null);
 
@@ -45,7 +45,7 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({
         phone: '',
         status: 'Aktif',
         password: ''
-      });
+      } as any);
     }
     setIsModalOpen(true);
   };
