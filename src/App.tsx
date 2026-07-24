@@ -63,8 +63,10 @@ function TabWrapper({ component: Component }: { component: any }) {
 
   if (Component === AdminUsersTab) {
     return <Component 
-      config={appData.config} 
-      onSaveConfig={appData.handleSaveConfig} 
+      adminUsers={appData.adminUsers} 
+      onAddAdminUser={appData.handleAddAdminUser}
+      onUpdateAdminUser={appData.handleUpdateAdminUser}
+      onDeleteAdminUser={appData.handleDeleteAdminUser}
     />;
   }
 

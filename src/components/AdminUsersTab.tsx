@@ -4,20 +4,18 @@ import { WeeklyConfig, AdminUser } from '../types';
 import { ConfirmModal } from './ConfirmModal';
 
 interface AdminUsersTabProps {
-  config: WeeklyConfig;
-  onSaveConfig: (newConfig: WeeklyConfig) => Promise<void>;
+  adminUsers: AdminUser[];
+  onAddAdminUser: (admin: any) => Promise<void>;
+  onUpdateAdminUser: (id: string, data: any) => Promise<void>;
+  onDeleteAdminUser: (id: string) => Promise<void>;
 }
 
-export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({ config, onSaveConfig }) => {
-  const [admins, setAdmins] = useState<AdminUser[]>(config.admins || [
-    {
-      id: 'default-admin',
-      name: 'Admin Utama',
-      role: 'Koordinator',
-      email: 'admin@lp3i.ac.id',
-      status: 'Aktif'
-    }
-  ]);
+export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({ 
+  adminUsers, 
+  onAddAdminUser, 
+  onUpdateAdminUser, 
+  onDeleteAdminUser 
+}) => {
   
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingAdmin, setEditingAdmin] = useState<AdminUser | null>(null);
@@ -54,18 +52,11 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({ config, onSaveConf
     e.preventDefault();
     setIsSaving(true);
     
-    let newAdmins = [...admins];
     if (editingAdmin) {
-      newAdmins = newAdmins.map(a => a.id === editingAdmin.id ? { ...a, ...formData } as AdminUser : a);
+      await onUpdateAdminUser(editingAdmin.id, formData);
     } else {
-      newAdmins.push({
-        ...formData,
-        id: Date.now().toString()
-      } as AdminUser);
+      await onAddAdminUser(formData);
     }
-    
-    setAdmins(newAdmins);
-    await onSaveConfig({ ...config, admins: newAdmins });
     
     setIsSaving(false);
     setIsModalOpen(false);
@@ -75,9 +66,7 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({ config, onSaveConf
     if (!deleteConfirmAdmin) return;
     setIsSaving(true);
     
-    const newAdmins = admins.filter(a => a.id !== deleteConfirmAdmin.id);
-    setAdmins(newAdmins);
-    await onSaveConfig({ ...config, admins: newAdmins });
+    await onDeleteAdminUser(deleteConfirmAdmin.id);
     
     setIsSaving(false);
     setDeleteConfirmAdmin(null);
@@ -116,7 +105,7 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({ config, onSaveConf
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {admins.map(admin => (
+        {adminUsers && adminUsers.map(admin => (
           <div key={admin.id} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all">
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-3">

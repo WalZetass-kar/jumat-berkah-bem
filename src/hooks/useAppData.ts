@@ -11,22 +11,25 @@ export function useAppData() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [spots, setSpots] = useState<DistributionSpot[]>([]);
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
+  const [adminUsers, setAdminUsers] = useState<any[]>([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const [txRes, spotsRes, galleryRes, configRes] = await Promise.all([
+        const [txRes, spotsRes, galleryRes, configRes, adminsRes] = await Promise.all([
           supabase.from('transactions').select('*').order('created_at', { ascending: false }),
           supabase.from('distribution_spots').select('*').order('created_at', { ascending: true }),
           supabase.from('gallery_items').select('*').order('created_at', { ascending: false }),
-          supabase.from('config').select('*').eq('id', 1).single()
+          supabase.from('config').select('*').eq('id', 1).single(),
+          supabase.from('admin_users').select('*').order('created_at', { ascending: true })
         ]);
         
         if (txRes.data) setTransactions(txRes.data as Transaction[]);
         if (spotsRes.data) setSpots(spotsRes.data as DistributionSpot[]);
         if (galleryRes.data) setGalleryItems(galleryRes.data as GalleryItem[]);
         if (configRes.data) setConfig(configRes.data as WeeklyConfig);
+        if (adminsRes.data) setAdminUsers(adminsRes.data);
       } catch (err) {
         console.error("Error fetching data from Supabase", err);
       } finally {
@@ -180,11 +183,46 @@ export function useAppData() {
     addToast('Titik Penyaluran Dihapus', 'info', 'Lokasi penyaluran telah dihapus dari database.');
   };
 
+  const handleAddAdminUser = async (newAdmin: any) => {
+    const { data, error } = await supabase.from('admin_users').insert([newAdmin]).select();
+    if (error) {
+      addToast('Gagal Menambah Admin', 'error', error.message);
+      return;
+    }
+    if (data && data.length > 0) {
+      setAdminUsers((prev) => [...prev, data[0]]);
+      addToast('Admin Berhasil Ditambahkan', 'success', `Admin ${newAdmin.name} telah didaftarkan.`);
+    }
+  };
+
+  const handleUpdateAdminUser = async (id: string, updatedData: any) => {
+    const { data, error } = await supabase.from('admin_users').update(updatedData).eq('id', id).select();
+    if (error) {
+      addToast('Gagal Mengupdate Admin', 'error', error.message);
+      return;
+    }
+    if (data && data.length > 0) {
+      setAdminUsers((prev) => prev.map((a) => a.id === id ? data[0] : a));
+      addToast('Data Admin Diperbarui', 'success', `Data admin berhasil disimpan.`);
+    }
+  };
+
+  const handleDeleteAdminUser = async (id: string) => {
+    const { error } = await supabase.from('admin_users').delete().eq('id', id);
+    if (error) {
+      addToast('Gagal Menghapus Admin', 'error', error.message);
+      return;
+    }
+    setAdminUsers((prev) => prev.filter((a) => a.id !== id));
+    addToast('Admin Dihapus', 'info', 'Data admin telah dihapus.');
+  };
+
   return {
-    config, transactions, spots, galleryItems, isDataLoaded,
+    config, transactions, spots, galleryItems, adminUsers, isDataLoaded,
     handleAddTransaction, handleDeleteTransaction,
     handleUpdateSpotStatus, handleAddSpot, handleDeleteSpot,
     handleSaveConfig, handleResetData,
-    handleAddGalleryItem, handleDeleteGalleryItem
+    handleAddGalleryItem, handleDeleteGalleryItem,
+    handleAddAdminUser, handleUpdateAdminUser, handleDeleteAdminUser
   };
 }
