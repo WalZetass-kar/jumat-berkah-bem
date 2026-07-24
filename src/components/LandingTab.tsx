@@ -680,8 +680,8 @@ export const LandingTab: React.FC<LandingTabProps> = ({
             {/* Brand */}
             <div className="space-y-1.5">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
-                  <Heart className="w-4 h-4 fill-white" />
+                <div className="w-8 h-8 rounded-xl bg-white text-blue-600 flex items-center justify-center font-bold text-xs shrink-0 p-1 overflow-hidden">
+                  <img src="/lp3i-logo.png" alt="LP3I Logo" className="w-full h-full object-contain" />
                 </div>
                 <h3 className="font-extrabold text-base text-white tracking-tight">
                   Politeknik LP3I Pekanbaru

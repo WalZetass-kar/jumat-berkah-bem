@@ -34,8 +34,8 @@ export const LoginPage: React.FC = () => {
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
         <div className="bg-slate-900 p-8 text-center relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-          <div className="w-16 h-16 bg-blue-600 rounded-2xl mx-auto flex items-center justify-center shadow-lg relative z-10 mb-4">
-            <Heart className="w-8 h-8 fill-white text-white" />
+          <div className="w-16 h-16 bg-white rounded-2xl mx-auto flex items-center justify-center shadow-lg relative z-10 mb-4 p-2 overflow-hidden">
+            <img src="/lp3i-logo.png" alt="LP3I Logo" className="w-full h-full object-contain" />
           </div>
           <h2 className="text-2xl font-black text-white tracking-tight relative z-10">Admin Login</h2>
           <p className="text-slate-400 text-sm mt-1 font-medium relative z-10">Panel Pengelola BEM Luminaire</p>

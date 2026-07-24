@@ -66,8 +66,8 @@ export const Navigation: React.FC<NavigationProps> = ({
           <div className={`flex items-center ${isSidebarCollapsed ? 'justify-center flex-col gap-2' : 'justify-between'} px-1 py-1`}>
             {!isSidebarCollapsed && (
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs">
-                  <Heart className="w-3.5 h-3.5 fill-white" />
+                <div className="w-6 h-6 rounded-lg bg-white text-blue-600 flex items-center justify-center font-bold text-xs p-0.5 overflow-hidden">
+                  <img src="/lp3i-logo.png" alt="LP3I Logo" className="w-full h-full object-contain" />
                 </div>
                 <span className="text-xs font-black tracking-wider text-slate-800 uppercase">
                   Admin BEM
