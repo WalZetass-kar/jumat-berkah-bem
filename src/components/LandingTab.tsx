@@ -26,8 +26,7 @@ import {
   Navigation,
   Lock,
   Phone,
-  Mail,
-  Instagram
+  Mail
 } from 'lucide-react';
 import { WeeklyConfig, Transaction, DistributionSpot, GalleryItem } from '../types';
 import { formatRupiah, formatDateIndo } from '../utils/formatters';

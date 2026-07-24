@@ -160,7 +160,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
     circumferenceInner - (distributionProgressPercent / 100) * circumferenceInner;
 
   const completedSpotsCount = spots.filter((s) => s.status === 'COMPLETED').length;
-  const activeSpotsCount = spots.filter((s) => s.status === 'DISTRIBUTING' || s.status === 'PREPARING').length;
+  const activeSpotsCount = spots.filter((s) => s.status === 'IN_PROGRESS' || s.status === 'PENDING').length;
 
   return (
     <div className="space-y-8 pb-10">
