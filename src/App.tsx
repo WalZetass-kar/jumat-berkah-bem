@@ -9,8 +9,9 @@ import { TransactionsTab } from './components/TransactionsTab';
 import { DistributionTab } from './components/DistributionTab';
 import { ReportsTab } from './components/ReportsTab';
 import { SettingsTab } from './components/SettingsTab';
+import { AdminUsersTab } from './components/AdminUsersTab';
 import { AdminLayout } from './pages/AdminLayout';
-import { LoginPage } from './pages/LoginPage';
+import { SecretPortal } from './pages/SecretPortal';
 
 
 // Helper component to pass outlet context down to the original tabs
@@ -57,6 +58,13 @@ function TabWrapper({ component: Component }: { component: any }) {
       config={appData.config} 
       transactions={appData.transactions} 
       spots={appData.spots} 
+    />;
+  }
+
+  if (Component === AdminUsersTab) {
+    return <Component 
+      config={appData.config} 
+      onSaveConfig={appData.handleSaveConfig} 
     />;
   }
 
@@ -156,7 +164,7 @@ export default function App() {
                 setSearchTerm={() => {}}
                 activeTab="landing"
                 isAdminLoggedIn={!!session}
-                onLoginClick={() => { window.location.href = '/login'; }}
+                onLoginClick={() => { window.location.href = '/portal-rahasia-bem'; }}
                 onLogoutClick={async () => { await supabase.auth.signOut(); }}
               />
               <LandingTab
@@ -165,19 +173,20 @@ export default function App() {
                 spots={appData.spots}
                 galleryItems={appData.galleryItems}
                 isAdminLoggedIn={!!session}
-                onLoginClick={() => { window.location.href = '/login'; }}
+                onLoginClick={() => { window.location.href = '/portal-rahasia-bem'; }}
                 onNavigateToTab={() => {}}
               />
             </>
           } />
           
-          <Route path="/login" element={session ? <Navigate to="/admin/dashboard" replace /> : <LoginPage />} />
+          <Route path="/portal-rahasia-bem" element={session ? <Navigate to="/admin/dashboard" replace /> : <SecretPortal />} />
           
-          <Route path="/admin" element={session ? <AdminLayout appData={appData} /> : <Navigate to="/login" replace />}>
+          <Route path="/admin" element={session ? <AdminLayout appData={appData} /> : <Navigate to="/portal-rahasia-bem" replace />}>
             <Route index element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<TabWrapper component={DashboardTab} />} />
             <Route path="transactions" element={<TabWrapper component={TransactionsTab} />} />
             <Route path="distribution" element={<TabWrapper component={DistributionTab} />} />
+            <Route path="admins" element={<TabWrapper component={AdminUsersTab} />} />
             <Route path="reports" element={<TabWrapper component={ReportsTab} />} />
             <Route path="settings" element={<TabWrapper component={SettingsTab} />} />
           </Route>

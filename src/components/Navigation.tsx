@@ -17,7 +17,7 @@ import {
   Heart
 } from 'lucide-react';
 
-export type TabType = 'landing' | 'dashboard' | 'transactions' | 'distribution' | 'reports' | 'settings';
+export type TabType = 'landing' | 'dashboard' | 'transactions' | 'distribution' | 'admins' | 'reports' | 'settings';
 
 interface NavigationProps {
   activeTab: TabType;
@@ -49,6 +49,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     { id: 'dashboard' as TabType, label: 'Ringkasan Dashboard', icon: LayoutDashboard },
     { id: 'transactions' as TabType, label: 'Buku Kas & Donasi', icon: Wallet },
     { id: 'distribution' as TabType, label: 'Kelola Titik Penyaluran', icon: HeartHandshake },
+    { id: 'admins' as TabType, label: 'Kelola Admin', icon: ShieldCheck },
     { id: 'reports' as TabType, label: 'Laporan Transparansi & WA', icon: FileText },
     { id: 'settings' as TabType, label: 'Pengaturan Modul', icon: Settings },
   ];

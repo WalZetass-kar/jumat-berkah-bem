@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ShieldCheck, Heart } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
 
-export const LoginPage: React.FC = () => {
+export const SecretPortal: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);

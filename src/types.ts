@@ -53,6 +53,15 @@ export interface GalleryItem {
   description: string;
 }
 
+export interface AdminUser {
+  id: string;
+  name: string;
+  role: string;
+  email: string;
+  phone?: string;
+  status: 'Aktif' | 'Nonaktif';
+}
+
 export interface WeeklyConfig {
   organizationName: string;
   motto: string;
@@ -64,6 +73,7 @@ export interface WeeklyConfig {
   targetMonthLabel: string; // e.g., "Juli 2026"
   estimatedCostPerPortion: number;
   currentFridayLabel: string;
+  admins?: AdminUser[];
 }
 
 export interface FridayTrendData {

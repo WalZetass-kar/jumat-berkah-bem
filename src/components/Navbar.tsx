@@ -101,46 +101,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             />
           </div>
 
-          {/* Desktop Admin Action Buttons */}
-          <div className="hidden sm:flex items-center gap-2">
-            {isAdminLoggedIn ? (
-              <>
-                <button
-                  onClick={() => onOpenAddModal('INCOME')}
-                  className="px-3 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer active:scale-95"
-                >
-                  <PlusCircle className="w-3.5 h-3.5" />
-                  <span>+ Donasi</span>
-                </button>
-
-                <button
-                  onClick={() => onOpenAddModal('EXPENSE')}
-                  className="px-3 py-1.5 rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer active:scale-95"
-                >
-                  <PlusCircle className="w-3.5 h-3.5 text-amber-600" />
-                  <span>+ Belanja</span>
-                </button>
-
-                <button
-                  onClick={onLogoutClick}
-                  title="Keluar Admin"
-                  className="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 text-xs font-bold flex items-center gap-1 transition-colors cursor-pointer"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                  <span className="hidden md:inline">Keluar</span>
-                </button>
-              </>
-            ) : (
-              <button
-                onClick={onLoginClick}
-                className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer active:scale-95"
-              >
-                <ShieldCheck className="w-3.5 h-3.5 text-amber-300" />
-                <span>Masuk Admin</span>
-              </button>
-            )}
-          </div>
-
           {/* Burger Menu Button for Mobile & Tablet (< lg) */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -182,56 +142,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             ))}
           </div>
 
-          {/* Mobile Admin Actions */}
-          <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
-            {isAdminLoggedIn ? (
-              <>
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    onClick={() => {
-                      onOpenAddModal('INCOME');
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="py-2.5 px-3 rounded-xl bg-blue-600 text-white text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer"
-                  >
-                    <PlusCircle className="w-4 h-4" />
-                    <span>+ Donasi</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      onOpenAddModal('EXPENSE');
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="py-2.5 px-3 rounded-xl bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer"
-                  >
-                    <PlusCircle className="w-4 h-4 text-amber-600" />
-                    <span>+ Belanja</span>
-                  </button>
-                </div>
-                <button
-                  onClick={() => {
-                    onLogoutClick();
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="w-full py-2.5 px-3 rounded-xl bg-slate-100 text-rose-600 text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer"
-                >
-                  <LogOut className="w-4 h-4" />
-                  <span>Keluar Admin</span>
-                </button>
-              </>
-            ) : (
-              <button
-                onClick={() => {
-                  onLoginClick();
-                  setIsMobileMenuOpen(false);
-                }}
-                className="w-full py-2.5 px-3 rounded-xl bg-slate-900 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
-              >
-                <ShieldCheck className="w-4 h-4 text-amber-300" />
-                <span>Masuk Admin BEM</span>
-              </button>
-            )}
-          </div>
         </div>
       )}
     </header>
