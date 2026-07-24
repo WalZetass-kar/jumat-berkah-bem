@@ -48,6 +48,7 @@ function TabWrapper({ component: Component }: { component: any }) {
       config={appData.config} 
       onUpdateSpotStatus={appData.handleUpdateSpotStatus} 
       onAddSpot={appData.handleAddSpot} 
+      onDeleteSpot={appData.handleDeleteSpot}
     />;
   }
 

@@ -257,7 +257,9 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
                       )}
 
                       <button
-                        onClick={() => onDeleteTransaction(tx.id)}
+                        onClick={() => {
+                          if (window.confirm('Hapus transaksi ini?')) onDeleteTransaction(tx.id);
+                        }}
                         title="Hapus Transaksi"
                         className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                       >

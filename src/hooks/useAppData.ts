@@ -172,10 +172,20 @@ export function useAppData() {
     addToast('Foto Dihapus', 'info', 'Foto dokumentasi telah dihapus dari galeri.');
   };
 
+  const handleDeleteSpot = async (id: string) => {
+    const { error } = await supabase.from('distribution_spots').delete().eq('id', id);
+    if (error) {
+      addToast('Gagal Menghapus Titik', 'error', error.message);
+      return;
+    }
+    setSpots((prev) => prev.filter((s) => s.id !== id));
+    addToast('Titik Penyaluran Dihapus', 'info', 'Lokasi penyaluran telah dihapus dari database.');
+  };
+
   return {
     config, transactions, spots, galleryItems, isDataLoaded,
     handleAddTransaction, handleDeleteTransaction,
-    handleUpdateSpotStatus, handleAddSpot,
+    handleUpdateSpotStatus, handleAddSpot, handleDeleteSpot,
     handleSaveConfig, handleResetData,
     handleAddGalleryItem, handleDeleteGalleryItem
   };

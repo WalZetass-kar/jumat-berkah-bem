@@ -539,7 +539,9 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
                   {onDeleteGalleryItem && (
                     <button
                       type="button"
-                      onClick={() => onDeleteGalleryItem(item.id)}
+                      onClick={() => {
+                        if (window.confirm('Hapus foto dokumentasi ini?')) onDeleteGalleryItem(item.id);
+                      }}
                       title="Hapus Foto"
                       className="absolute top-2 right-2 p-2 rounded-xl bg-slate-950/80 hover:bg-rose-600 text-white transition-colors cursor-pointer"
                     >

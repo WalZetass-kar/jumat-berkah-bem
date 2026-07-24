@@ -11,7 +11,8 @@ import {
   PackageCheck,
   Building,
   Users,
-  Utensils
+  Utensils,
+  Trash2
 } from 'lucide-react';
 import { DistributionSpot, WeeklyConfig } from '../types';
 import { formatRupiah } from '../utils/formatters';
@@ -21,6 +22,7 @@ interface DistributionTabProps {
   config: WeeklyConfig;
   onUpdateSpotStatus: (id: string, status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED') => void;
   onAddSpot: (spot: Omit<DistributionSpot, 'id'>) => void;
+  onDeleteSpot?: (id: string) => void;
 }
 
 export const DistributionTab: React.FC<DistributionTabProps> = ({
@@ -28,6 +30,7 @@ export const DistributionTab: React.FC<DistributionTabProps> = ({
   config,
   onUpdateSpotStatus,
   onAddSpot,
+  onDeleteSpot,
 }) => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [calcPortions, setCalcPortions] = useState<number>(config.targetPortions || 500);
@@ -125,27 +128,41 @@ export const DistributionTab: React.FC<DistributionTabProps> = ({
                     <h3 className="font-extrabold text-lg text-slate-900 mt-1">{spot.name}</h3>
                   </div>
 
-                  {/* Status Selector Switch */}
-                  <select
-                    value={spot.status}
-                    onChange={(e) =>
-                      onUpdateSpotStatus(
-                        spot.id,
-                        e.target.value as 'PENDING' | 'IN_PROGRESS' | 'COMPLETED'
-                      )
-                    }
-                    className={`text-xs font-bold px-3 py-1.5 rounded-xl border cursor-pointer focus:outline-none ${
-                      isDone
-                        ? 'bg-emerald-600 text-white border-emerald-600'
-                        : isInProgress
-                        ? 'bg-sky-600 text-white border-sky-600'
-                        : 'bg-slate-100 text-slate-700 border-slate-200'
-                    }`}
-                  >
-                    <option value="PENDING">Belum Mulai</option>
-                    <option value="IN_PROGRESS">Berjalan</option>
-                    <option value="COMPLETED">Selesai</option>
-                  </select>
+                  {/* Status Selector Switch & Delete Button */}
+                  <div className="flex items-center gap-2">
+                    <select
+                      value={spot.status}
+                      onChange={(e) =>
+                        onUpdateSpotStatus(
+                          spot.id,
+                          e.target.value as 'PENDING' | 'IN_PROGRESS' | 'COMPLETED'
+                        )
+                      }
+                      className={`text-xs font-bold px-3 py-1.5 rounded-xl border cursor-pointer focus:outline-none ${
+                        isDone
+                          ? 'bg-emerald-600 text-white border-emerald-600'
+                          : isInProgress
+                          ? 'bg-sky-600 text-white border-sky-600'
+                          : 'bg-slate-100 text-slate-700 border-slate-200'
+                      }`}
+                    >
+                      <option value="PENDING">Belum Mulai</option>
+                      <option value="IN_PROGRESS">Berjalan</option>
+                      <option value="COMPLETED">Selesai</option>
+                    </select>
+
+                    {onDeleteSpot && (
+                      <button
+                        onClick={() => {
+                          if (window.confirm('Hapus titik penyaluran ini?')) onDeleteSpot(spot.id);
+                        }}
+                        className="p-1.5 rounded-xl bg-slate-100/50 hover:bg-rose-100 text-slate-400 hover:text-rose-600 transition-colors cursor-pointer"
+                        title="Hapus Titik Penyaluran"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 {/* Detail Info */}
