@@ -106,7 +106,13 @@ export function useAppData() {
   };
 
   const handleSaveConfig = async (updatedConfig: WeeklyConfig) => {
-    const { error } = await supabase.from('config').upsert({ id: 1, ...updatedConfig });
+    // Make sure to remove admins property so it doesn't cause Supabase schema errors
+    const configToSave = { ...updatedConfig } as any;
+    if ('admins' in configToSave) {
+      delete configToSave.admins;
+    }
+
+    const { error } = await supabase.from('config').upsert({ id: 1, ...configToSave });
     if (error) {
       addToast('Gagal Menyimpan Pengaturan', 'error', error.message);
       return;

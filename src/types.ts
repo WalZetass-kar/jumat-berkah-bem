@@ -73,7 +73,6 @@ export interface WeeklyConfig {
   targetMonthLabel: string; // e.g., "Juli 2026"
   estimatedCostPerPortion: number;
   currentFridayLabel: string;
-  admins?: AdminUser[];
 }
 
 export interface FridayTrendData {
