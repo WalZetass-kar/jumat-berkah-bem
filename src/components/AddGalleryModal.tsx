@@ -5,7 +5,7 @@ import { GalleryItem } from '../types';
 interface AddGalleryModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAddGalleryItem: (item: Omit<GalleryItem, 'id'>, file: File | null) => void;
+  onAddGalleryItem: (item: Omit<GalleryItem, 'id'>, file: File | null) => Promise<void>;
 }
 
 export const AddGalleryModal: React.FC<AddGalleryModalProps> = ({
@@ -21,6 +21,7 @@ export const AddGalleryModal: React.FC<AddGalleryModalProps> = ({
   const [description, setDescription] = useState('');
   const [imagePreview, setImagePreview] = useState<string>('');
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   if (!isOpen) return null;
 
@@ -38,13 +39,14 @@ export const AddGalleryModal: React.FC<AddGalleryModalProps> = ({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim()) return;
+    if (!title.trim() || isLoading) return;
 
+    setIsLoading(true);
     const finalImage = imageUrl.trim() || imagePreview || 'https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800';
 
-    onAddGalleryItem({
+    await onAddGalleryItem({
       title: title.trim(),
       location: location.trim() || 'Pekanbaru',
       date: date.trim() || 'Jumat Berkah',
@@ -60,6 +62,7 @@ export const AddGalleryModal: React.FC<AddGalleryModalProps> = ({
     setImageUrl('');
     setImagePreview('');
     setImageFile(null);
+    setIsLoading(false);
     onClose();
   };
 
@@ -216,10 +219,20 @@ export const AddGalleryModal: React.FC<AddGalleryModalProps> = ({
             </button>
             <button
               type="submit"
-              className="w-2/3 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+              disabled={isLoading}
+              className={`w-2/3 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md transition-all flex items-center justify-center gap-2 ${isLoading ? 'opacity-70 cursor-not-allowed' : 'cursor-pointer'}`}
             >
-              <Camera className="w-4 h-4" />
-              <span>Simpan & Upload Foto</span>
+              {isLoading ? (
+                <>
+                  <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin"></div>
+                  <span>Mengupload...</span>
+                </>
+              ) : (
+                <>
+                  <Camera className="w-4 h-4" />
+                  <span>Simpan & Upload Foto</span>
+                </>
+              )}
             </button>
           </div>
         </form>

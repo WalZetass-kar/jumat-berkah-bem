@@ -10,7 +10,9 @@ import {
   Trash2, 
   CheckCircle,
   Eye,
-  FileSpreadsheet
+  FileSpreadsheet,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { ConfirmModal } from './ConfirmModal';
 import { Transaction, TransactionType } from '../types';
@@ -35,6 +37,13 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [previewReceipt, setPreviewReceipt] = useState<string | null>(null);
   const [txToDelete, setTxToDelete] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  // Reset page when search or filter changes
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, filterType, selectedCategory]);
 
   // Filter logic
   const filteredTransactions = transactions.filter((tx) => {
@@ -59,6 +68,13 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
     .reduce((sum, t) => sum + t.amount, 0);
 
   const currentBalance = totalIncome - totalExpense;
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage);
+  const paginatedTransactions = filteredTransactions.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   // Export CSV
   const handleExportCSV = () => {
@@ -194,7 +210,7 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
           </div>
         ) : (
           <div className="divide-y divide-slate-100">
-            {filteredTransactions.map((tx) => {
+            {paginatedTransactions.map((tx) => {
               const isIncome = tx.type === 'INCOME';
               return (
                 <div
@@ -273,6 +289,43 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
           </div>
         )}
       </div>
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between bg-white px-4 py-3 border border-slate-200 rounded-2xl shadow-sm mt-4">
+          <div className="hidden sm:block">
+            <p className="text-xs text-slate-700">
+              Menampilkan <span className="font-bold">{(currentPage - 1) * itemsPerPage + 1}</span> hingga{' '}
+              <span className="font-bold">
+                {Math.min(currentPage * itemsPerPage, filteredTransactions.length)}
+              </span>{' '}
+              dari <span className="font-bold">{filteredTransactions.length}</span> transaksi
+            </p>
+          </div>
+          <div className="flex flex-1 justify-between sm:justify-end gap-2">
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className={`relative inline-flex items-center rounded-xl px-3 py-2 text-xs font-bold ring-1 ring-inset ring-slate-300 ${
+                currentPage === 1 ? 'bg-slate-50 text-slate-400 cursor-not-allowed' : 'bg-white text-slate-900 hover:bg-slate-50 cursor-pointer'
+              }`}
+            >
+              <ChevronLeft className="w-4 h-4 mr-1" />
+              Sebelumnya
+            </button>
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className={`relative inline-flex items-center rounded-xl px-3 py-2 text-xs font-bold ring-1 ring-inset ring-slate-300 ${
+                currentPage === totalPages ? 'bg-slate-50 text-slate-400 cursor-not-allowed' : 'bg-white text-slate-900 hover:bg-slate-50 cursor-pointer'
+              }`}
+            >
+              Selanjutnya
+              <ChevronRight className="w-4 h-4 ml-1" />
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Modal Preview Receipt Photo */}
       {previewReceipt && (

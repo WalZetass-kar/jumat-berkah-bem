@@ -6,7 +6,7 @@ import { formatDateIndo } from '../utils/formatters';
 interface AddTransactionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAddTransaction: (transaction: Omit<Transaction, 'id'>) => void;
+  onAddTransaction: (transaction: Omit<Transaction, 'id'>) => Promise<void>;
   defaultType?: TransactionType;
 }
 
@@ -44,6 +44,7 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
   const [verifiedBy, setVerifiedBy] = useState('Panitia');
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [fridayPeriod, setFridayPeriod] = useState(() => formatDateIndo(new Date().toISOString().slice(0, 10)));
+  const [isLoading, setIsLoading] = useState(false);
 
   if (!isOpen) return null;
 
@@ -59,11 +60,13 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
     setCategory(newType === 'INCOME' ? donationCategories[0] : expenseCategories[0]);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!amount || Number(amount) <= 0 || !donorOrVendor) return;
+    if (!amount || Number(amount) <= 0 || !donorOrVendor || isLoading) return;
 
-    onAddTransaction({
+    setIsLoading(true);
+
+    await onAddTransaction({
       type,
       amount: Number(amount),
       category: category as DonationCategory | ExpenseCategory,
@@ -80,6 +83,7 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
     setAmount('');
     setDonorOrVendor('');
     setNotes('');
+    setIsLoading(false);
   };
 
   return (
@@ -244,11 +248,21 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
             </button>
             <button
               type="submit"
-              className={`flex-1 py-3 text-white font-bold rounded-xl shadow-md transition-all cursor-pointer ${
+              disabled={isLoading}
+              className={`flex-1 py-3 text-white font-bold rounded-xl shadow-md transition-all flex items-center justify-center gap-2 ${
+                isLoading ? 'opacity-70 cursor-not-allowed' : 'cursor-pointer'
+              } ${
                 type === 'INCOME' ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-orange-500 hover:bg-orange-600'
               }`}
             >
-              Simpan Transaksi
+              {isLoading ? (
+                <>
+                  <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin"></div>
+                  <span>Menyimpan...</span>
+                </>
+              ) : (
+                <span>Simpan Transaksi</span>
+              )}
             </button>
           </div>
         </form>
