@@ -190,14 +190,25 @@ export function useAppData() {
   };
 
   const handleAddAdminUser = async (newAdmin: any) => {
-    const { data, error } = await supabase.from('admin_users').insert([newAdmin]).select();
-    if (error) {
-      addToast('Gagal Menambah Admin', 'error', error.message);
-      return;
-    }
-    if (data && data.length > 0) {
-      setAdminUsers((prev) => [...prev, data[0]]);
-      addToast('Admin Berhasil Ditambahkan', 'success', `Admin ${newAdmin.name} telah didaftarkan.`);
+    try {
+      const res = await fetch('/api/create-admin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newAdmin),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        addToast('Gagal Menambah Admin', 'error', data.error || 'Server error');
+        return;
+      }
+
+      if (data.admin) {
+        setAdminUsers((prev) => [...prev, data.admin]);
+        addToast('Admin Berhasil Ditambahkan', 'success', `Admin ${newAdmin.name} telah didaftarkan beserta kredensial login-nya.`);
+      }
+    } catch (err: any) {
+      addToast('Koneksi Error', 'error', err.message);
     }
   };
 
