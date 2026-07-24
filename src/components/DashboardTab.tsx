@@ -17,7 +17,6 @@ import {
   MapPin,
   Camera,
   Trash2,
-  Trash2,
   Image as ImageIcon
 } from 'lucide-react';
 import { ConfirmModal } from './ConfirmModal';

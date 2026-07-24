@@ -9,7 +9,6 @@ import {
   Download, 
   Trash2, 
   CheckCircle,
-  CheckCircle,
   Eye,
   FileSpreadsheet
 } from 'lucide-react';
