@@ -1,0 +1,35 @@
+{
+  "name": "pencatatankeuanganjumatberkah",
+  "version": "1.0.0",
+  "description": "<div align=\"center\"> <img width=\"1200\" height=\"475\" alt=\"GHBanner\" src=\"https://ai.google.dev/static/site-assets/images/share-ais-513315318.png\" /> </div>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/genai": "^2.13.0",
+    "@supabase/supabase-js": "^2.110.8",
+    "express": "^5.2.1",
+    "lucide-react": "^1.26.0",
+    "motion": "^12.42.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.1",
+    "recharts": "^3.10.0",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.1.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "tsx": "^4.23.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.5"
+  }
+}

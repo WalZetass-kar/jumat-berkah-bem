@@ -1,0 +1,182 @@
+import { useState, useEffect } from 'react';
+import { supabase } from '../utils/supabase';
+import { initialConfig } from '../data/mockData';
+import { Transaction, DistributionSpot, WeeklyConfig, GalleryItem } from '../types';
+import { useToast } from '../context/ToastContext';
+import { formatRupiah } from '../utils/formatters';
+
+export function useAppData() {
+  const { addToast } = useToast();
+  const [config, setConfig] = useState<WeeklyConfig>(initialConfig);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [spots, setSpots] = useState<DistributionSpot[]>([]);
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [txRes, spotsRes, galleryRes, configRes] = await Promise.all([
+          supabase.from('transactions').select('*').order('created_at', { ascending: false }),
+          supabase.from('distribution_spots').select('*').order('created_at', { ascending: true }),
+          supabase.from('gallery_items').select('*').order('created_at', { ascending: false }),
+          supabase.from('config').select('*').eq('id', 1).single()
+        ]);
+        
+        if (txRes.data) setTransactions(txRes.data as Transaction[]);
+        if (spotsRes.data) setSpots(spotsRes.data as DistributionSpot[]);
+        if (galleryRes.data) setGalleryItems(galleryRes.data as GalleryItem[]);
+        if (configRes.data) setConfig(configRes.data as WeeklyConfig);
+      } catch (err) {
+        console.error("Error fetching data from Supabase", err);
+      } finally {
+        setIsDataLoaded(true);
+      }
+    }
+    fetchData();
+  }, []);
+
+  const handleAddTransaction = async (newTxData: Omit<Transaction, 'id'>) => {
+    const { data, error } = await supabase.from('transactions').insert([newTxData]).select();
+    if (error) {
+      addToast('Gagal Menambah Transaksi', 'error', error.message);
+      return;
+    }
+    if (data && data.length > 0) {
+      setTransactions((prev) => [data[0] as Transaction, ...prev]);
+      addToast(
+        'Transaksi Berhasil Dicatat!',
+        'success',
+        `${newTxData.type === 'INCOME' ? 'Donasi masuk' : 'Belanja operasional'} ${formatRupiah(newTxData.amount)} telah disimpan.`
+      );
+    }
+  };
+
+  const handleDeleteTransaction = async (id: string) => {
+    const { error } = await supabase.from('transactions').delete().eq('id', id);
+    if (error) {
+      addToast('Gagal Menghapus', 'error', error.message);
+      return;
+    }
+    setTransactions((prev) => prev.filter((t) => t.id !== id));
+    addToast('Transaksi Dihapus', 'info', 'Catatan transaksi telah dihapus dari database.');
+  };
+
+  const handleUpdateSpotStatus = async (
+    id: string,
+    status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED'
+  ) => {
+    const spot = spots.find(s => s.id === id);
+    if (!spot) return;
+
+    const distributed =
+      status === 'COMPLETED' ? spot.targetPackages : status === 'PENDING' ? 0 : Math.round(spot.targetPackages * 0.7);
+
+    const { error } = await supabase
+      .from('distribution_spots')
+      .update({ status, distributedPackages: distributed })
+      .eq('id', id);
+
+    if (error) {
+      addToast('Gagal Memperbarui', 'error', error.message);
+      return;
+    }
+
+    setSpots((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, status, distributedPackages: distributed } : s))
+    );
+    
+    const statusText = status === 'COMPLETED' ? 'Selesai Penyaluran' : status === 'IN_PROGRESS' ? 'Sedang Penyaluran' : 'Pending';
+    addToast('Status Penyaluran Diperbarui', 'success', `Status titik penyaluran diubah menjadi "${statusText}".`);
+  };
+
+  const handleAddSpot = async (newSpot: Omit<DistributionSpot, 'id'>) => {
+    const { data, error } = await supabase.from('distribution_spots').insert([{...newSpot, distributedPackages: 0}]).select();
+    if (error) {
+      addToast('Gagal Menambah Titik', 'error', error.message);
+      return;
+    }
+    if (data && data.length > 0) {
+      setSpots((prev) => [...prev, data[0] as DistributionSpot]);
+      addToast('Titik Penyaluran Ditambahkan', 'success', `Lokasi "${newSpot.name}" (${newSpot.targetPackages} porsi) berhasil didaftarkan.`);
+    }
+  };
+
+  const handleSaveConfig = async (updatedConfig: WeeklyConfig) => {
+    const { error } = await supabase.from('config').upsert({ id: 1, ...updatedConfig });
+    if (error) {
+      addToast('Gagal Menyimpan Pengaturan', 'error', error.message);
+      return;
+    }
+    setConfig(updatedConfig);
+    addToast('Pengaturan Berhasil Disimpan', 'success', 'Target bulanan dan informasi rekening bank telah diperbarui.');
+  };
+
+  const handleResetData = async () => {
+    if (window.confirm('Apakah Anda yakin ingin mengosongkan seluruh data di database (berbahaya)?')) {
+      const { error: err1 } = await supabase.from('transactions').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      const { error: err2 } = await supabase.from('distribution_spots').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      
+      if (err1 || err2) {
+        addToast('Gagal Mereset Data', 'error', 'Terjadi kesalahan saat menghapus data.');
+        return;
+      }
+      setTransactions([]);
+      setSpots([]);
+      addToast('Data Telah Dikosongkan', 'warning', 'Seluruh data transaksi dan titik penyaluran telah direset dari database.');
+    }
+  };
+
+  const handleAddGalleryItem = async (newItemData: Omit<GalleryItem, 'id'>, file?: File | null) => {
+    let finalImageUrl = newItemData.imageUrl;
+
+    if (file) {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError, data: uploadData } = await supabase.storage
+        .from('jumat_berkah_gallery')
+        .upload(filePath, file);
+
+      if (uploadError) {
+        addToast('Gagal Upload Foto', 'error', uploadError.message);
+        return;
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('jumat_berkah_gallery')
+        .getPublicUrl(filePath);
+        
+      finalImageUrl = publicUrl;
+    }
+
+    const { data, error } = await supabase.from('gallery_items').insert([{...newItemData, imageUrl: finalImageUrl}]).select();
+    if (error) {
+      addToast('Gagal Mengupload', 'error', error.message);
+      return;
+    }
+    if (data && data.length > 0) {
+      setGalleryItems((prev) => [data[0] as GalleryItem, ...prev]);
+      addToast('Foto Dokumentasi Ditambahkan!', 'success', `Foto "${newItemData.title}" telah dipublikasikan ke Galeri.`);
+    }
+  };
+
+  const handleDeleteGalleryItem = async (id: string) => {
+    const { error } = await supabase.from('gallery_items').delete().eq('id', id);
+    if (error) {
+      addToast('Gagal Menghapus Foto', 'error', error.message);
+      return;
+    }
+    setGalleryItems((prev) => prev.filter((item) => item.id !== id));
+    addToast('Foto Dihapus', 'info', 'Foto dokumentasi telah dihapus dari galeri.');
+  };
+
+  return {
+    config, transactions, spots, galleryItems, isDataLoaded,
+    handleAddTransaction, handleDeleteTransaction,
+    handleUpdateSpotStatus, handleAddSpot,
+    handleSaveConfig, handleResetData,
+    handleAddGalleryItem, handleDeleteGalleryItem
+  };
+}

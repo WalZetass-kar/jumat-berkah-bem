@@ -1,0 +1,75 @@
+export type TransactionType = 'INCOME' | 'EXPENSE';
+
+export type DonationCategory = 
+  | 'Donasi Tunai'
+  | 'Transfer Bank'
+  | 'Sumbangan Nasi Kotak'
+  | 'Sumbangan Sembako'
+  | 'Kotak Amal Jumat';
+
+export type ExpenseCategory = 
+  | 'Nasi Kotak / Makanan Siap Saji'
+  | 'Bahan Baku & Sembako'
+  | 'Air Mineral & Minuman'
+  | 'Kemasan, Plastik & Mangkuk'
+  | 'Operasional & Transportasi'
+  | 'Santunan Cash / Dhuafa';
+
+export interface Transaction {
+  id: string;
+  type: TransactionType;
+  amount: number;
+  category: DonationCategory | ExpenseCategory;
+  date: string; // YYYY-MM-DD
+  fridayPeriod: string; // e.g., "2026-07-24" or "Jumat, 24 Juli 2026"
+  donorOrVendor: string; // e.g., "Hamba Allah", "Ibu Hajah Siti", "Catering Berkah"
+  notes: string;
+  paymentMethod: 'Cash' | 'Transfer BSI' | 'Barang / In-Kind' | 'QRIS';
+  receiptUrl?: string;
+  verifiedBy?: string;
+}
+
+export interface DistributionSpot {
+  id: string;
+  name: string;
+  targetPackages: number;
+  distributedPackages: number;
+  location: string;
+  status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED';
+  coordinator: string;
+  timeSlot: string;
+  notes?: string;
+  category: 'Masjid' | 'Panti Asuhan' | 'Pejuang Jalanan / Ojol' | 'Dhuafa / Pemulung';
+  icon: string;
+}
+
+export interface GalleryItem {
+  id: string;
+  title: string;
+  location: string;
+  date: string;
+  portions: string;
+  imageUrl: string;
+  description: string;
+}
+
+export interface WeeklyConfig {
+  organizationName: string;
+  motto: string;
+  bankInfo: string;
+  accountHolder: string;
+  targetPortions: number; // Target per Jumat
+  targetMonthlyPortions: number; // Target Bulanan (Porsi)
+  targetMonthlyDonation: number; // Target Bulanan (Donasi Rp)
+  targetMonthLabel: string; // e.g., "Juli 2026"
+  estimatedCostPerPortion: number;
+  currentFridayLabel: string;
+}
+
+export interface FridayTrendData {
+  fridayDate: string;
+  label: string;
+  income: number;
+  expense: number;
+  portions: number;
+}

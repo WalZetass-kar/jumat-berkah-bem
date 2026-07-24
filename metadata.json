@@ -1,0 +1,6 @@
+{
+  "name": "Pencatatan Keuangan Jumat Berkah",
+  "description": "Aplikasi pencatatan keuangan dan distribusi program Jumat Berkah berbasis React & Tailwind CSS dengan tampilan modern dan transparan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
