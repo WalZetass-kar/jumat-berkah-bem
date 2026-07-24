@@ -55,8 +55,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-14 sm:h-16 flex items-center justify-between gap-3">
         {/* Brand & Mosque Title */}
         <div className="flex items-center gap-2.5 shrink-0">
-          <div className="w-8 h-8 rounded-xl bg-white text-blue-600 flex items-center justify-center font-bold shadow-xs shrink-0 overflow-hidden p-1">
-            <img src="/lp3i-logo.png" alt="LP3I Logo" className="w-full h-full object-contain" />
+          <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-xs shrink-0 p-1.5 overflow-hidden">
+            <img src="/lp3i-logo.svg" alt="LP3I Logo" className="w-full h-full object-contain" />
           </div>
           <div>
             <div className="flex items-center gap-2">

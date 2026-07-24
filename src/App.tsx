@@ -92,7 +92,55 @@ export default function App() {
   }, []);
 
   if (!appData.isDataLoaded || !isSessionLoaded) {
-    return <div className="min-h-screen flex items-center justify-center bg-slate-50"><div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div></div>;
+    return (
+      <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+        {/* Navbar Skeleton */}
+        <div className="h-14 sm:h-16 bg-white border-b border-slate-200 px-4 sm:px-8 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-slate-200 animate-pulse"></div>
+            <div className="space-y-2">
+              <div className="h-3.5 w-32 bg-slate-200 rounded-md animate-pulse"></div>
+              <div className="h-2 w-20 bg-slate-200 rounded-md animate-pulse"></div>
+            </div>
+          </div>
+          <div className="hidden sm:flex gap-4">
+            <div className="h-4 w-16 bg-slate-200 rounded-md animate-pulse"></div>
+            <div className="h-4 w-16 bg-slate-200 rounded-md animate-pulse"></div>
+            <div className="h-4 w-16 bg-slate-200 rounded-md animate-pulse"></div>
+          </div>
+        </div>
+        
+        {/* Hero Skeleton */}
+        <div className="w-full h-80 bg-slate-900 px-4 sm:px-8 py-16">
+          <div className="max-w-3xl space-y-6">
+            <div className="h-5 w-48 bg-slate-800 rounded-full animate-pulse"></div>
+            <div className="h-12 w-3/4 bg-slate-800 rounded-lg animate-pulse"></div>
+            <div className="h-4 w-full bg-slate-800 rounded-md animate-pulse mt-4"></div>
+            <div className="h-4 w-5/6 bg-slate-800 rounded-md animate-pulse"></div>
+            <div className="flex gap-3 mt-8">
+              <div className="h-12 w-40 bg-slate-800 rounded-2xl animate-pulse"></div>
+              <div className="h-12 w-40 bg-slate-800 rounded-2xl animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Content Cards Skeleton */}
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-8 py-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="h-32 bg-white rounded-2xl border border-slate-200 animate-pulse p-6">
+            <div className="h-4 w-24 bg-slate-200 rounded-md mb-4"></div>
+            <div className="h-8 w-32 bg-slate-200 rounded-lg"></div>
+          </div>
+          <div className="h-32 bg-white rounded-2xl border border-slate-200 animate-pulse p-6">
+            <div className="h-4 w-24 bg-slate-200 rounded-md mb-4"></div>
+            <div className="h-8 w-32 bg-slate-200 rounded-lg"></div>
+          </div>
+          <div className="h-32 bg-white rounded-2xl border border-slate-200 animate-pulse p-6">
+            <div className="h-4 w-24 bg-slate-200 rounded-md mb-4"></div>
+            <div className="h-8 w-32 bg-slate-200 rounded-lg"></div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (

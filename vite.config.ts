@@ -21,14 +21,14 @@ export default defineConfig(() => {
           display: 'standalone',
           icons: [
             {
-              src: '/lp3i-logo.png',
+              src: '/lp3i-logo.svg',
               sizes: '192x192',
-              type: 'image/png'
+              type: 'image/svg+xml'
             },
             {
-              src: '/lp3i-logo.png',
+              src: '/lp3i-logo.svg',
               sizes: '512x512',
-              type: 'image/png'
+              type: 'image/svg+xml'
             }
           ]
         }
