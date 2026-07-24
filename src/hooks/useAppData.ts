@@ -197,15 +197,22 @@ export function useAppData() {
         body: JSON.stringify(newAdmin),
       });
 
-      const data = await res.json();
-      if (!res.ok) {
-        addToast('Gagal Menambah Admin', 'error', data.error || 'Server error');
-        return;
-      }
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        const data = await res.json();
+        if (!res.ok) {
+          addToast('Gagal Menambah Admin', 'error', data.error || 'Server error');
+          return;
+        }
 
-      if (data.admin) {
-        setAdminUsers((prev) => [...prev, data.admin]);
-        addToast('Admin Berhasil Ditambahkan', 'success', `Admin ${newAdmin.name} telah didaftarkan beserta kredensial login-nya.`);
+        if (data.admin) {
+          setAdminUsers((prev) => [...prev, data.admin]);
+          addToast('Admin Berhasil Ditambahkan', 'success', `Admin ${newAdmin.name} telah didaftarkan beserta kredensial login-nya.`);
+        }
+      } else {
+        // Return HTML / not json (usually means we are running locally instead of vercel or 500 vercel error page)
+        addToast('Gagal Menambah Admin', 'error', 'Endpoint API tidak ditemukan. Pastikan Anda mengetes fitur ini langsung di URL Vercel (bukan localhost).');
+        return;
       }
     } catch (err: any) {
       addToast('Koneksi Error', 'error', err.message);
