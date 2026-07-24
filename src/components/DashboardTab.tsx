@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { 
   ArrowUpRight, 
   ArrowDownRight, 
@@ -17,8 +17,10 @@ import {
   MapPin,
   Camera,
   Trash2,
+  Trash2,
   Image as ImageIcon
 } from 'lucide-react';
+import { ConfirmModal } from './ConfirmModal';
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -56,6 +58,8 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
   onOpenAddGalleryModal,
   onDeleteGalleryItem,
 }) => {
+  const [itemToDelete, setItemToDelete] = useState<string | null>(null);
+
   // Calculations
   const totalIncome = transactions
     .filter((t) => t.type === 'INCOME')
@@ -539,9 +543,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
                   {onDeleteGalleryItem && (
                     <button
                       type="button"
-                      onClick={() => {
-                        if (window.confirm('Hapus foto dokumentasi ini?')) onDeleteGalleryItem(item.id);
-                      }}
+                      onClick={() => setItemToDelete(item.id)}
                       title="Hapus Foto"
                       className="absolute top-2 right-2 p-2 rounded-xl bg-slate-950/80 hover:bg-rose-600 text-white transition-colors cursor-pointer"
                     >
@@ -567,6 +569,19 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
         )}
       </div>
 
+      <ConfirmModal
+        isOpen={itemToDelete !== null}
+        title="Hapus Foto Dokumentasi?"
+        message="Tindakan ini tidak dapat dibatalkan. Foto ini akan dihapus dari galeri dan halaman publik."
+        confirmText="Ya, Hapus Foto"
+        cancelText="Batal"
+        onConfirm={() => {
+          if (itemToDelete && onDeleteGalleryItem) {
+            onDeleteGalleryItem(itemToDelete);
+          }
+        }}
+        onCancel={() => setItemToDelete(null)}
+      />
     </div>
   );
 };

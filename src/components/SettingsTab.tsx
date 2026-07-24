@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Settings, Save, RotateCcw, Building, CreditCard, Target, Download, Upload, Database, FileJson, CheckCircle, AlertCircle } from 'lucide-react';
+import { ConfirmModal } from './ConfirmModal';
 import { WeeklyConfig, Transaction, DistributionSpot } from '../types';
 import { useToast } from '../context/ToastContext';
 
@@ -24,6 +25,9 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
   const [formData, setFormData] = useState<WeeklyConfig>({ ...config });
   const [savedSuccess, setSavedSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [restoreDataToConfirm, setRestoreDataToConfirm] = useState<{ config?: WeeklyConfig; transactions?: Transaction[]; spots?: DistributionSpot[] } | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,16 +93,7 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
           return;
         }
 
-        const confirmRestore = window.confirm(
-          `Apakah Anda yakin ingin memulihkan data dari file "${file.name}"?\nData saat ini akan diperbarui dengan isi file ini.`
-        );
-
-        if (confirmRestore) {
-          onRestoreBackup(restoreData);
-          if (restoreData.config) {
-            setFormData(restoreData.config);
-          }
-        }
+        setRestoreDataToConfirm(restoreData);
       } catch (err) {
         addToast('Gagal Membaca File JSON', 'error', 'Pastikan file yang diunggah berformat .json yang sesuai.');
       }
@@ -255,7 +250,7 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
         <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
           <button
             type="button"
-            onClick={onResetData}
+            onClick={() => setShowResetConfirm(true)}
             className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-rose-50 text-rose-700 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
           >
             <RotateCcw className="w-4 h-4" />
@@ -341,6 +336,37 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
           </div>
         </div>
       </div>
+
+      <ConfirmModal
+        isOpen={showResetConfirm}
+        title="Kosongkan Semua Data?"
+        message="Peringatan! Ini akan menghapus seluruh data transaksi, titik penyaluran, dan galeri foto secara permanen. Anda yakin?"
+        confirmText="Ya, Kosongkan Data"
+        cancelText="Batal"
+        onConfirm={() => {
+          onResetData();
+          setShowResetConfirm(false);
+        }}
+        onCancel={() => setShowResetConfirm(false)}
+      />
+
+      <ConfirmModal
+        isOpen={restoreDataToConfirm !== null}
+        title="Pulihkan Data Backup?"
+        message="Memulihkan dari file JSON akan menimpa pengaturan dan seluruh data saat ini. Apakah Anda yakin?"
+        confirmText="Ya, Pulihkan Data"
+        cancelText="Batal"
+        onConfirm={() => {
+          if (restoreDataToConfirm) {
+            onRestoreBackup(restoreDataToConfirm);
+            if (restoreDataToConfirm.config) {
+              setFormData(restoreDataToConfirm.config);
+            }
+          }
+          setRestoreDataToConfirm(null);
+        }}
+        onCancel={() => setRestoreDataToConfirm(null)}
+      />
     </div>
   );
 };

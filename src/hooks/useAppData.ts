@@ -113,18 +113,16 @@ export function useAppData() {
   };
 
   const handleResetData = async () => {
-    if (window.confirm('Apakah Anda yakin ingin mengosongkan seluruh data di database (berbahaya)?')) {
-      const { error: err1 } = await supabase.from('transactions').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-      const { error: err2 } = await supabase.from('distribution_spots').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-      
-      if (err1 || err2) {
-        addToast('Gagal Mereset Data', 'error', 'Terjadi kesalahan saat menghapus data.');
-        return;
-      }
-      setTransactions([]);
-      setSpots([]);
-      addToast('Data Telah Dikosongkan', 'warning', 'Seluruh data transaksi dan titik penyaluran telah direset dari database.');
+    const { error: err1 } = await supabase.from('transactions').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+    const { error: err2 } = await supabase.from('distribution_spots').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+    
+    if (err1 || err2) {
+      addToast('Gagal Mereset Data', 'error', 'Terjadi kesalahan saat menghapus data.');
+      return;
     }
+    setTransactions([]);
+    setSpots([]);
+    addToast('Data Telah Dikosongkan', 'warning', 'Seluruh data transaksi dan titik penyaluran telah direset dari database.');
   };
 
   const handleAddGalleryItem = async (newItemData: Omit<GalleryItem, 'id'>, file?: File | null) => {

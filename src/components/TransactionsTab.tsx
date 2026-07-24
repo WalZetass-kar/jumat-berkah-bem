@@ -9,9 +9,11 @@ import {
   Download, 
   Trash2, 
   CheckCircle,
+  CheckCircle,
   Eye,
   FileSpreadsheet
 } from 'lucide-react';
+import { ConfirmModal } from './ConfirmModal';
 import { Transaction, TransactionType } from '../types';
 import { formatRupiah, formatDateIndo } from '../utils/formatters';
 
@@ -33,6 +35,7 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
   const [filterType, setFilterType] = useState<'ALL' | 'INCOME' | 'EXPENSE'>('ALL');
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [previewReceipt, setPreviewReceipt] = useState<string | null>(null);
+  const [txToDelete, setTxToDelete] = useState<string | null>(null);
 
   // Filter logic
   const filteredTransactions = transactions.filter((tx) => {
@@ -257,9 +260,7 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
                       )}
 
                       <button
-                        onClick={() => {
-                          if (window.confirm('Hapus transaksi ini?')) onDeleteTransaction(tx.id);
-                        }}
+                        onClick={() => setTxToDelete(tx.id)}
                         title="Hapus Transaksi"
                         className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                       >
@@ -291,6 +292,20 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
           </div>
         </div>
       )}
+
+      <ConfirmModal
+        isOpen={txToDelete !== null}
+        title="Hapus Transaksi?"
+        message="Tindakan ini tidak dapat dibatalkan. Data transaksi ini akan dihapus permanen dari buku kas."
+        confirmText="Ya, Hapus Transaksi"
+        cancelText="Batal"
+        onConfirm={() => {
+          if (txToDelete) {
+            onDeleteTransaction(txToDelete);
+          }
+        }}
+        onCancel={() => setTxToDelete(null)}
+      />
     </div>
   );
 };

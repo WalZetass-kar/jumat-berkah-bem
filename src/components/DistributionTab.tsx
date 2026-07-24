@@ -14,6 +14,7 @@ import {
   Utensils,
   Trash2
 } from 'lucide-react';
+import { ConfirmModal } from './ConfirmModal';
 import { DistributionSpot, WeeklyConfig } from '../types';
 import { formatRupiah } from '../utils/formatters';
 
@@ -43,6 +44,7 @@ export const DistributionTab: React.FC<DistributionTabProps> = ({
   const [newCoordinator, setNewCoordinator] = useState('');
   const [newTime, setNewTime] = useState('12:30 WIB');
   const [newCategory, setNewCategory] = useState<DistributionSpot['category']>('Masjid');
+  const [spotToDelete, setSpotToDelete] = useState<string | null>(null);
 
   const handleAddSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -153,9 +155,7 @@ export const DistributionTab: React.FC<DistributionTabProps> = ({
 
                     {onDeleteSpot && (
                       <button
-                        onClick={() => {
-                          if (window.confirm('Hapus titik penyaluran ini?')) onDeleteSpot(spot.id);
-                        }}
+                        onClick={() => setSpotToDelete(spot.id)}
                         className="p-1.5 rounded-xl bg-slate-100/50 hover:bg-rose-100 text-slate-400 hover:text-rose-600 transition-colors cursor-pointer"
                         title="Hapus Titik Penyaluran"
                       >
@@ -378,6 +378,20 @@ export const DistributionTab: React.FC<DistributionTabProps> = ({
           </div>
         </div>
       )}
+
+      <ConfirmModal
+        isOpen={spotToDelete !== null}
+        title="Hapus Titik Penyaluran?"
+        message="Titik penyaluran ini akan dihapus dari daftar dan progres penyalurannya akan hilang."
+        confirmText="Ya, Hapus Titik"
+        cancelText="Batal"
+        onConfirm={() => {
+          if (spotToDelete && onDeleteSpot) {
+            onDeleteSpot(spotToDelete);
+          }
+        }}
+        onCancel={() => setSpotToDelete(null)}
+      />
     </div>
   );
 };
