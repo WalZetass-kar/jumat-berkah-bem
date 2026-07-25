@@ -70,7 +70,14 @@ export const AdminLayout: React.FC<any> = ({ appData }) => {
         onClose={() => setIsAddGalleryModalOpen(false)} 
         onAddGalleryItem={appData.handleAddGalleryItem} 
       />
-      <AIChatBot config={appData.config} transactions={appData.transactions} spots={appData.spots} />
+      <AIChatBot 
+        config={appData.config} 
+        transactions={appData.transactions} 
+        spots={appData.spots} 
+        galleryItems={appData.galleryItems}
+        adminUsers={appData.adminUsers}
+        volunteers={appData.volunteers}
+      />
     </div>
   );
 };

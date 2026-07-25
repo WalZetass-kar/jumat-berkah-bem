@@ -13,13 +13,16 @@ import {
   MapPin,
   Target
 } from 'lucide-react';
-import { WeeklyConfig, Transaction, DistributionSpot } from '../types';
+import { WeeklyConfig, Transaction, DistributionSpot, GalleryItem, Volunteer } from '../types';
 import { formatRupiah } from '../utils/formatters';
 
 interface AIChatBotProps {
   config: WeeklyConfig;
   transactions: Transaction[];
   spots: DistributionSpot[];
+  galleryItems: GalleryItem[];
+  adminUsers: any[];
+  volunteers: Volunteer[];
 }
 
 interface Message {
@@ -33,6 +36,9 @@ export const AIChatBot: React.FC<AIChatBotProps> = ({
   config,
   transactions,
   spots,
+  galleryItems,
+  adminUsers,
+  volunteers,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputMessage, setInputMessage] = useState('');
@@ -89,6 +95,24 @@ export const AIChatBot: React.FC<AIChatBotProps> = ({
       })),
       totalPorsiTerbagi: `${totalDistributed} porsi`,
       rekeningDonasi: config.bankInfo,
+      dataTransaksiTerbaru: transactions.slice(0, 15).map(t => ({
+        tanggal: t.date,
+        jenis: t.type === 'INCOME' ? 'Donasi Masuk' : 'Pengeluaran',
+        nominal: formatRupiah(t.amount),
+        keterangan: t.donorOrVendor || t.notes,
+        kategori: t.category
+      })),
+      dataRelawan: volunteers.map(v => ({
+        nama: v.name,
+        prodi: v.prodi,
+        status: v.status
+      })),
+      dataAdmin: adminUsers.map(a => ({
+        nama: a.name,
+        email: a.email,
+        role: a.role
+      })),
+      jumlahFotoGaleri: galleryItems.length,
     };
   };
 

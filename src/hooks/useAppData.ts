@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabase';
 import { initialConfig } from '../data/mockData';
-import { Transaction, DistributionSpot, WeeklyConfig, GalleryItem } from '../types';
+import { Transaction, DistributionSpot, WeeklyConfig, GalleryItem, Volunteer } from '../types';
 import { useToast } from '../context/ToastContext';
 import { formatRupiah } from '../utils/formatters';
 
@@ -12,17 +12,19 @@ export function useAppData() {
   const [spots, setSpots] = useState<DistributionSpot[]>([]);
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [adminUsers, setAdminUsers] = useState<any[]>([]);
+  const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const [txRes, spotsRes, galleryRes, configRes, adminsRes] = await Promise.all([
+        const [txRes, spotsRes, galleryRes, configRes, adminsRes, volunteersRes] = await Promise.all([
           supabase.from('transactions').select('*').order('created_at', { ascending: false }),
           supabase.from('distribution_spots').select('*').order('created_at', { ascending: true }),
           supabase.from('gallery_items').select('*').order('created_at', { ascending: false }),
           supabase.from('config').select('*').eq('id', 1).single(),
-          supabase.from('admin_users').select('*').order('created_at', { ascending: true })
+          supabase.from('admin_users').select('*').order('created_at', { ascending: true }),
+          supabase.from('volunteers').select('*').order('created_at', { ascending: false })
         ]);
         
         if (txRes.data) setTransactions(txRes.data as Transaction[]);
@@ -30,6 +32,7 @@ export function useAppData() {
         if (galleryRes.data) setGalleryItems(galleryRes.data as GalleryItem[]);
         if (configRes.data) setConfig(configRes.data as WeeklyConfig);
         if (adminsRes.data) setAdminUsers(adminsRes.data);
+        if (volunteersRes.data) setVolunteers(volunteersRes.data as Volunteer[]);
       } catch (err) {
         console.error("Error fetching data from Supabase", err);
       } finally {
@@ -263,7 +266,7 @@ export function useAppData() {
   };
 
   return {
-    config, transactions, spots, galleryItems, adminUsers, isDataLoaded,
+    config, transactions, spots, galleryItems, adminUsers, volunteers, isDataLoaded,
     handleAddTransaction, handleDeleteTransaction,
     handleUpdateSpotStatus, handleAddSpot, handleDeleteSpot,
     handleSaveConfig, handleResetData,
