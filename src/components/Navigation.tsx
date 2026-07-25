@@ -14,10 +14,11 @@ import {
   ChevronRight,
   PanelLeftClose,
   PanelLeftOpen,
-  Heart
+  Heart,
+  Users
 } from 'lucide-react';
 
-export type TabType = 'landing' | 'dashboard' | 'transactions' | 'distribution' | 'admins' | 'reports' | 'settings';
+export type TabType = 'landing' | 'dashboard' | 'transactions' | 'distribution' | 'admins' | 'volunteers' | 'reports' | 'settings';
 
 interface NavigationProps {
   activeTab: TabType;
@@ -50,6 +51,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     { id: 'transactions' as TabType, label: 'Buku Kas & Donasi', short: 'Keuangan', icon: Wallet },
     { id: 'distribution' as TabType, label: 'Kelola Titik Penyaluran', short: 'Penyaluran', icon: HeartHandshake },
     { id: 'admins' as TabType, label: 'Kelola Admin', short: 'Admin', icon: ShieldCheck },
+    { id: 'volunteers' as TabType, label: 'Daftar Relawan', short: 'Relawan', icon: Users },
     { id: 'reports' as TabType, label: 'Laporan Transparansi & WA', short: 'Laporan', icon: FileText },
     { id: 'settings' as TabType, label: 'Pengaturan Modul', short: 'Pengaturan', icon: Settings },
   ];

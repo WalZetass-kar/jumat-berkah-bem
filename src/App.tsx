@@ -10,6 +10,7 @@ import { DistributionTab } from './components/DistributionTab';
 import { ReportsTab } from './components/ReportsTab';
 import { SettingsTab } from './components/SettingsTab';
 import { AdminUsersTab } from './components/AdminUsersTab';
+import { VolunteersTab } from './components/VolunteersTab';
 import { AdminLayout } from './pages/AdminLayout';
 import { SecretPortal } from './pages/SecretPortal';
 
@@ -68,6 +69,10 @@ function TabWrapper({ component: Component }: { component: any }) {
       onUpdateAdminUser={appData.handleUpdateAdminUser}
       onDeleteAdminUser={appData.handleDeleteAdminUser}
     />;
+  }
+
+  if (Component === VolunteersTab) {
+    return <Component />;
   }
 
   if (Component === SettingsTab) {
@@ -189,6 +194,7 @@ export default function App() {
             <Route path="transactions" element={<TabWrapper component={TransactionsTab} />} />
             <Route path="distribution" element={<TabWrapper component={DistributionTab} />} />
             <Route path="admins" element={<TabWrapper component={AdminUsersTab} />} />
+            <Route path="volunteers" element={<TabWrapper component={VolunteersTab} />} />
             <Route path="reports" element={<TabWrapper component={ReportsTab} />} />
             <Route path="settings" element={<TabWrapper component={SettingsTab} />} />
           </Route>

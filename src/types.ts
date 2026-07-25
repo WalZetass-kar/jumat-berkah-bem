@@ -63,6 +63,16 @@ export interface AdminUser {
   status: 'Aktif' | 'Nonaktif';
 }
 
+export interface Volunteer {
+  id: string;
+  name: string;
+  prodi: string;
+  nim: string;
+  wa_number: string;
+  status: 'Menunggu' | 'Dihubungi' | 'Ditolak';
+  created_at?: string;
+}
+
 export interface WeeklyConfig {
   organizationName: string;
   motto: string;

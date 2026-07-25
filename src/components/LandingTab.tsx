@@ -35,6 +35,7 @@ import { GalleryTestimonials } from './GalleryTestimonials';
 import { FaqSection } from './FaqSection';
 import { ShareSection } from './ShareSection';
 import { Leaderboard } from './Leaderboard';
+import { supabase } from '../utils/supabase';
 import confetti from 'canvas-confetti';
 
 interface LandingTabProps {
@@ -167,9 +168,26 @@ export const LandingTab: React.FC<LandingTabProps> = ({
     setShowQrisModal(true);
   };
 
-  const handleVolunteerSubmit = (e: React.FormEvent) => {
+  const [isSubmittingVol, setIsSubmittingVol] = useState(false);
+
+  const handleVolunteerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!volName || !volWa) return;
+    
+    setIsSubmittingVol(true);
+    const { error } = await supabase.from('volunteers').insert([{
+      name: volName,
+      prodi: volProdi,
+      nim: volNim,
+      wa_number: volWa
+    }]);
+    setIsSubmittingVol(false);
+
+    if (error) {
+      alert('Terjadi kesalahan saat mendaftar. Silakan coba lagi.');
+      return;
+    }
+
     setVolSubmitted(true);
     setTimeout(() => {
       setVolSubmitted(false);
@@ -177,7 +195,7 @@ export const LandingTab: React.FC<LandingTabProps> = ({
       setVolName('');
       setVolNim('');
       setVolWa('');
-    }, 2000);
+    }, 2500);
   };
 
   // WhatsApp confirmation text generator
@@ -1137,9 +1155,10 @@ Berikut saya lampirkan bukti transfernya.`;
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2.5 bg-blue-600 text-white font-bold rounded-xl cursor-pointer hover:bg-blue-700"
+                    disabled={isSubmittingVol}
+                    className="flex-1 py-2.5 bg-blue-600 text-white font-bold rounded-xl cursor-pointer hover:bg-blue-700 disabled:opacity-50"
                   >
-                    Kirim Pendaftaran
+                    {isSubmittingVol ? 'Mendaftar...' : 'Daftar Sekarang'}
                   </button>
                 </div>
               </form>
