@@ -115,7 +115,7 @@ export const LandingTab: React.FC<LandingTabProps> = ({
   const progressPercent = totalTarget > 0 ? Math.round((totalDistributed / totalTarget) * 100) : 0;
 
   const handleCopyAccount = () => {
-    navigator.clipboard.writeText("7100202488");
+    navigator.clipboard.writeText(config.bankInfo);
     setCopiedBank(true);
     setTimeout(() => setCopiedBank(false), 2500);
   };
@@ -472,17 +472,17 @@ export const LandingTab: React.FC<LandingTabProps> = ({
             {/* Bank Account Info Card */}
             <div className="p-6 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-xs font-bold text-blue-300 uppercase tracking-wider">Bank Syariah Indonesia (BSI)</span>
+                <span className="text-xs font-bold text-blue-300 uppercase tracking-wider">Informasi Rekening</span>
                 <Building2 className="w-5 h-5 text-blue-400" />
               </div>
 
               <div>
-                <span className="text-xs text-slate-400 block mb-0.5">Nomor Rekening:</span>
+                <span className="text-xs text-slate-400 block mb-0.5">Bank & No. Rekening:</span>
                 <div className="flex items-center justify-between gap-2 bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-800">
-                  <span className="font-mono text-lg font-black text-blue-300 tracking-wider">7100-2024-88</span>
+                  <span className="font-mono text-base font-black text-blue-300 tracking-wider truncate">{config.bankInfo}</span>
                   <button
                     onClick={handleCopyAccount}
-                    className="p-1.5 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                    className="p-1.5 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
                     title="Salin No Rekening"
                   >
                     {copiedBank ? <Check className="w-4 h-4 text-blue-400" /> : <Copy className="w-4 h-4" />}
@@ -493,7 +493,7 @@ export const LandingTab: React.FC<LandingTabProps> = ({
 
               <div>
                 <span className="text-xs text-slate-400 block">Atas Nama:</span>
-                <strong className="text-sm font-extrabold text-white">BEM LP3I Pekanbaru (Kabinet Luminaire)</strong>
+                <strong className="text-sm font-extrabold text-white">{config.accountHolder}</strong>
               </div>
             </div>
 
