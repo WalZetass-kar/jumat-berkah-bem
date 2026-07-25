@@ -1,7 +1,7 @@
 # Lumina Sharing - Jumat Berkah LP3I Pekanbaru
 
 <div align="center">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx7vsQhix8E6D2Ss-p17Bi8YQ-Vo2LrA24e2Q9YbLJpg&s=10" alt="Banner LP3I" width="600" style="border-radius:12px;"/>
+  <img src="public/readme-banner.png" alt="Banner LP3I" width="800" style="border-radius:12px; border: 1px solid #eaeaea;"/>
 </div>
 
 ## Tentang Program
