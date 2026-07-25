@@ -34,6 +34,10 @@ import { formatRupiah, formatDateIndo } from '../utils/formatters';
 import { GalleryTestimonials } from './GalleryTestimonials';
 import { FaqSection } from './FaqSection';
 import { ShareSection } from './ShareSection';
+import { Leaderboard } from './Leaderboard';
+import { SocialProofToast } from './SocialProofToast';
+import { DarkModeToggle } from './DarkModeToggle';
+import confetti from 'canvas-confetti';
 
 interface LandingTabProps {
   config: WeeklyConfig;
@@ -121,6 +125,37 @@ export const LandingTab: React.FC<LandingTabProps> = ({
     setTimeout(() => setCopiedBank(false), 2500);
   };
 
+  const playCoinSound = () => {
+    try {
+      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(987.77, ctx.currentTime);
+      osc.frequency.setValueAtTime(1318.51, ctx.currentTime + 0.1);
+      
+      gain.gain.setValueAtTime(0.1, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.5);
+      
+      osc.start();
+      osc.stop(ctx.currentTime + 0.5);
+    } catch (e) { console.error(e); }
+  };
+
+  const handleDonateClick = () => {
+    playCoinSound();
+    confetti({
+      particleCount: 150,
+      spread: 80,
+      origin: { y: 0.6 },
+      colors: ['#FBBF24', '#F59E0B', '#10B981']
+    });
+    setShowQrisModal(true);
+  };
+
   const handleVolunteerSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!volName || !volWa) return;
@@ -172,9 +207,32 @@ export const LandingTab: React.FC<LandingTabProps> = ({
               {config.motto}. Wadah resmi transparansi infaq, sedekah porsi nasi kotak, dan santunan yatim yang dikelola langsung oleh mahasiswa BEM LP3I Pekanbaru Kabinet Luminaire.
             </p>
 
+            {/* Target Progress Bar */}
+            <div className="pt-2 pb-2">
+              <div className="flex justify-between items-end mb-2">
+                <div>
+                  <p className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-0.5">Target Bulan Ini</p>
+                  <p className="text-sm font-extrabold text-white">{totalDistributed} / {totalTarget} Porsi Tersalurkan</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-lg font-black text-emerald-400">{progressPercent}%</p>
+                </div>
+              </div>
+              <div className="w-full h-3 bg-slate-800 rounded-full overflow-hidden border border-slate-700/50 relative">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progressPercent}%` }}
+                  transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
+                  className="h-full bg-gradient-to-r from-emerald-500 to-amber-400 rounded-full relative"
+                >
+                  <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
+                </motion.div>
+              </div>
+            </div>
+
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
-                onClick={() => setShowQrisModal(true)}
+                onClick={handleDonateClick}
                 className="px-6 py-3.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer active:scale-95"
               >
                 <Heart className="w-4 h-4 fill-slate-950 animate-pulse" />
@@ -331,7 +389,7 @@ export const LandingTab: React.FC<LandingTabProps> = ({
           {/* Quick CTA */}
           <div className="shrink-0 flex items-center gap-3">
             <button
-              onClick={() => setShowQrisModal(true)}
+              onClick={handleDonateClick}
               className="px-6 py-3.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-2 shadow-md transition-all cursor-pointer active:scale-95"
             >
               <Heart className="w-4 h-4 fill-slate-950" />
@@ -566,8 +624,8 @@ export const LandingTab: React.FC<LandingTabProps> = ({
 
             <div className="flex items-center gap-3">
               <button
-                onClick={() => setShowQrisModal(true)}
-                className="px-6 py-3.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm rounded-2xl shadow-md transition-all cursor-pointer flex items-center gap-2"
+                onClick={handleDonateClick}
+                className="px-6 py-3.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm rounded-2xl shadow-md transition-all cursor-pointer flex items-center gap-2 active:scale-95"
               >
                 <QrCode className="w-5 h-5" />
                 <span>Buka QRIS Donasi</span>
@@ -786,6 +844,9 @@ export const LandingTab: React.FC<LandingTabProps> = ({
         </motion.div>
       </div>
 
+      {/* Leaderboard Section */}
+      <Leaderboard transactions={transactions} />
+
       {/* Frequently Asked Questions */}
       <FaqSection />
 
@@ -969,6 +1030,12 @@ export const LandingTab: React.FC<LandingTabProps> = ({
           </div>
         </div>
       )}
+
+      {/* Social Proof Toast */}
+      <SocialProofToast transactions={transactions} />
+      
+      {/* Dark Mode Toggle */}
+      <DarkModeToggle />
     </div>
   );
 };

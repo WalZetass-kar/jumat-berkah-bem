@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Share2, Copy, Check, MessageSquare, Send, Heart, Sparkles } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import { WeeklyConfig } from '../types';
 
 interface ShareSectionProps {
@@ -18,10 +19,22 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ config }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(campaignUrl);
     setCopied(true);
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#10B981', '#34D399', '#FBBF24']
+    });
     setTimeout(() => setCopied(false), 2000);
   };
 
   const handleWaShare = () => {
+    confetti({
+      particleCount: 150,
+      spread: 90,
+      origin: { y: 0.6 },
+      colors: ['#10B981', '#34D399', '#FBBF24', '#3B82F6']
+    });
     const waUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
     window.open(waUrl, '_blank');
   };
