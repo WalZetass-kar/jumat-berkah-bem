@@ -153,6 +153,17 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
               className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-emerald-500"
             />
           </div>
+
+          <div>
+            <label className="block text-xs font-bold text-slate-700 mb-1">No. WhatsApp Konfirmasi Donasi</label>
+            <input
+              type="text"
+              value={formData.contactWa || ''}
+              onChange={(e) => setFormData({ ...formData, contactWa: e.target.value })}
+              placeholder="Contoh: 6281234567890 (Gunakan kode negara 62)"
+              className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-emerald-500"
+            />
+          </div>
         </div>
 
         {/* Bank & Donation Info */}

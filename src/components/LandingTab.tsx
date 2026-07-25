@@ -134,7 +134,8 @@ export const LandingTab: React.FC<LandingTabProps> = ({
   };
 
   // WhatsApp confirmation text generator
-  const waConfirmationUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(
+  const waNumber = config.contactWa || '6281234567890';
+  const waConfirmationUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(
     `Halo BEM LP3I Pekanbaru Kabinet Luminaire,\nSaya ingin mengonfirmasi donasi untuk Program Lumina Sharing Jumat Berkah.`
   )}`;
 

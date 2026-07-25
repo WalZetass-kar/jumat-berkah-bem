@@ -74,6 +74,7 @@ export interface WeeklyConfig {
   estimatedCostPerPortion: number;
   currentFridayLabel: string;
   qrisImageUrl?: string;
+  contactWa?: string;
 }
 
 export interface FridayTrendData {
