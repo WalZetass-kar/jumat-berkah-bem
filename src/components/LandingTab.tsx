@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { WeeklyConfig, Transaction, DistributionSpot, GalleryItem } from '../types';
 import { HeroSection } from './landing/HeroSection';
 import { StatsSection } from './landing/StatsSection';
@@ -8,7 +8,8 @@ import { FaqSection } from './landing/FaqSection';
 import { Footer } from './landing/Footer';
 import { BackToTop } from './landing/BackToTop';
 import confetti from 'canvas-confetti';
-import { X, Copy, Check, MessageSquare } from 'lucide-react';
+import { X, Copy, Check, MessageSquare, Send, QrCode } from 'lucide-react';
+import { supabase } from '../utils/supabase';
 
 interface LandingTabProps {
   config: WeeklyConfig;
@@ -34,12 +35,21 @@ export const LandingTab: React.FC<LandingTabProps> = ({
   const [showDonationFormModal, setShowDonationFormModal] = useState(false);
   const [showQrisModal, setShowQrisModal] = useState(false);
   const [copiedBank, setCopiedBank] = useState(false);
+  const [showVolunteerModal, setShowVolunteerModal] = useState(false);
 
   // Donation form state
   const [donasiName, setDonasiName] = useState('');
   const [donasiAmount, setDonasiAmount] = useState('');
   const [donasiAnonim, setDonasiAnonim] = useState(false);
   const [donasiDoa, setDonasiDoa] = useState('');
+
+  // Volunteer form state
+  const [volName, setVolName] = useState('');
+  const [volProdi, setVolProdi] = useState('Manajemen Informatika');
+  const [volNim, setVolNim] = useState('');
+  const [volWa, setVolWa] = useState('');
+  const [volSubmitted, setVolSubmitted] = useState(false);
+  const [isSubmittingVol, setIsSubmittingVol] = useState(false);
 
   const totalIncome = transactions
     .filter((t) => t.type === 'INCOME')
@@ -70,6 +80,34 @@ export const LandingTab: React.FC<LandingTabProps> = ({
     setShowQrisModal(true);
   };
 
+  const handleVolunteerSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!volName || !volWa) return;
+    
+    setIsSubmittingVol(true);
+    const { error } = await supabase.from('volunteers').insert([{
+      name: volName,
+      prodi: volProdi,
+      nim: volNim,
+      wa_number: volWa
+    }]);
+    setIsSubmittingVol(false);
+
+    if (error) {
+      alert('Terjadi kesalahan saat mendaftar. Silakan coba lagi.');
+      return;
+    }
+
+    setVolSubmitted(true);
+    setTimeout(() => {
+      setVolSubmitted(false);
+      setShowVolunteerModal(false);
+      setVolName('');
+      setVolNim('');
+      setVolWa('');
+    }, 2500);
+  };
+
   const waMessage = `Assalamualaikum min, saya ingin konfirmasi donasi Jumat Berkah.
 
 *Nama:* ${donasiAnonim ? 'Hamba Allah' : (donasiName || '.............')}
@@ -87,7 +125,10 @@ Berikut saya lampirkan bukti transfernya.`;
         config={config} 
         totalDistributed={totalDistributed} 
         totalTarget={totalTarget} 
-        onDonateClick={handleDonateClick} 
+        galleryItems={galleryItems}
+        onDonateClick={handleDonateClick}
+        onVolunteerClick={() => setShowVolunteerModal(true)}
+        onInfoClick={() => setShowQrisModal(true)}
       />
 
       <StatsSection 
@@ -188,24 +229,22 @@ Berikut saya lampirkan bukti transfernya.`;
 
       {/* QRIS & Rekening Modal */}
       {showQrisModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl relative text-center">
-            <button 
-              onClick={() => setShowQrisModal(false)}
-              className="absolute top-4 right-4 p-2 bg-slate-100 hover:bg-slate-200 rounded-full text-slate-500 transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
+        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
+          <div className="bg-white rounded-[2rem] p-6 sm:p-8 max-w-md w-full space-y-6 shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-100">
+            <div>
+              <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-[10px] font-extrabold uppercase">
+                Rekening & QRIS BEM LP3I Pekanbaru
+              </span>
+              <h3 className="font-black text-xl text-slate-900 mt-2">Selesaikan Donasi</h3>
+              <p className="text-xs text-slate-500 mt-0.5">Dapat transfer ke rekening atau scan QRIS dengan GoPay, OVO, ShopeePay, M-Banking</p>
+            </div>
 
-            <h3 className="font-bold text-2xl text-slate-900 mb-2">Selesaikan Donasi</h3>
-            <p className="text-slate-500 text-sm mb-6">Pilih metode pembayaran dan konfirmasi ke admin.</p>
-
-            <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 mb-6">
-              <p className="text-sm text-slate-500 mb-2 font-medium uppercase tracking-wider">Transfer Bank BSI</p>
-              <p className="text-2xl font-black text-slate-900 mb-3 tracking-wider">{config.bankInfo}</p>
+            <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200 text-center">
+              <p className="text-xs text-slate-500 mb-1 font-medium uppercase tracking-wider">Transfer Bank BSI</p>
+              <p className="text-xl font-black text-slate-900 mb-3 tracking-wider">{config.bankInfo}</p>
               <button 
                 onClick={handleCopyAccount}
-                className="mx-auto flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+                className="mx-auto flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors"
               >
                 {copiedBank ? (
                   <><Check className="w-4 h-4 text-emerald-500" /> Tersalin!</>
@@ -215,27 +254,140 @@ Berikut saya lampirkan bukti transfernya.`;
               </button>
             </div>
 
-            {config.qrisImageUrl && (
-              <div className="mb-6">
-                <p className="text-sm text-slate-500 mb-3 font-medium uppercase tracking-wider">Atau scan QRIS</p>
-                <div className="bg-white p-4 rounded-2xl border border-slate-200 inline-block shadow-sm">
-                  <img src={config.qrisImageUrl} alt="QRIS" className="w-48 h-48 object-cover rounded-xl" />
-                </div>
+            {/* QRIS Visual Card */}
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+              <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-inner flex flex-col items-center justify-center">
+                {config.qrisImageUrl ? (
+                  <img src={config.qrisImageUrl} alt="QRIS BEM LP3I" className="w-48 h-48 object-contain rounded-lg" />
+                ) : (
+                  <div className="w-48 h-48 bg-slate-900 text-white p-3 rounded-xl flex flex-col items-center justify-center relative">
+                    <QrCode className="w-24 h-24 text-white" />
+                    <span className="text-[10px] font-mono tracking-widest text-blue-300 mt-2 uppercase text-center">QRIS BELUM TERSEDIA</span>
+                  </div>
+                )}
               </div>
-            )}
+              <div className="text-center space-y-0.5">
+                <strong className="text-xs font-black text-slate-900 block">Atas Nama BEM LP3I Pekanbaru</strong>
+              </div>
+            </div>
 
-            <div className="border-t border-slate-100 pt-6">
-              <p className="text-sm text-slate-500 mb-3 font-medium">Setelah transfer, mohon konfirmasi ke Admin.</p>
-              <a 
+            <div className="flex flex-col gap-3">
+              <a
                 href={waConfirmationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/30"
+                onClick={() => {
+                  confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                  });
+                }}
+                className="w-full py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white font-black text-sm rounded-xl cursor-pointer flex items-center justify-center gap-2 shadow-md transition-all active:scale-95"
               >
-                <MessageSquare className="w-5 h-5" />
-                Konfirmasi via WhatsApp
+                <Send className="w-4 h-4" />
+                <span>Konfirmasi via WhatsApp</span>
               </a>
+              <button
+                onClick={() => setShowQrisModal(false)}
+                className="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl cursor-pointer transition-all"
+              >
+                Tutup QRIS
+              </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Student Volunteer Modal */}
+      {showVolunteerModal && (
+        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
+          <div className="bg-white rounded-[2rem] p-6 sm:p-8 max-w-md w-full space-y-5 shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-100">
+            <div>
+              <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-[10px] font-extrabold uppercase">
+                Relawan BEM Kabinet Luminaire
+              </span>
+              <h3 className="font-black text-xl text-slate-900 mt-1">Pendaftaran Tim Lapangan</h3>
+              <p className="text-xs text-slate-500">Bergabunglah dalam aksi penyaluran Jumat Berkah LP3I Pekanbaru</p>
+            </div>
+
+            {volSubmitted ? (
+              <div className="p-6 bg-blue-50 rounded-2xl border border-blue-200 text-center space-y-2">
+                <Check className="w-10 h-10 text-blue-600 mx-auto" />
+                <h4 className="font-bold text-slate-900 text-sm">Pendaftaran Berhasil!</h4>
+                <p className="text-xs text-slate-600">Tim BEM LP3I Pekanbaru akan menghubungi WhatsApp Anda.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleVolunteerSubmit} className="space-y-3 text-sm">
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Nama Lengkap Mahasiswa</label>
+                  <input
+                    type="text"
+                    required
+                    value={volName}
+                    onChange={(e) => setVolName(e.target.value)}
+                    placeholder="Nama Anda"
+                    className="w-full px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">Program Studi</label>
+                    <select
+                      value={volProdi}
+                      onChange={(e) => setVolProdi(e.target.value)}
+                      className="w-full px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 bg-white"
+                    >
+                      <option value="Manajemen Informatika">Manajemen Informatika</option>
+                      <option value="Akuntansi Keuangan">Akuntansi Keuangan</option>
+                      <option value="Administrasi Bisnis">Administrasi Bisnis</option>
+                      <option value="Hubungan Masyarakat">Hubungan Masyarakat</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">NIM / Semester</label>
+                    <input
+                      type="text"
+                      value={volNim}
+                      onChange={(e) => setVolNim(e.target.value)}
+                      placeholder="Misal: 20240102 / 3"
+                      className="w-full px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">No. WhatsApp Aktif</label>
+                  <input
+                    type="tel"
+                    required
+                    value={volWa}
+                    onChange={(e) => setVolWa(e.target.value)}
+                    placeholder="08123456789"
+                    className="w-full px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div className="pt-2 flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowVolunteerModal(false)}
+                    className="flex-1 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl cursor-pointer hover:bg-slate-200 transition-colors"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmittingVol}
+                    className="flex-1 py-3 bg-blue-600 text-white font-bold rounded-xl cursor-pointer hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                  >
+                    {isSubmittingVol ? 'Mendaftar...' : 'Daftar Sekarang'}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       )}
