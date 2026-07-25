@@ -59,7 +59,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       {/* Desktop Sidebar Navigation */}
       <aside
         className={`hidden md:flex flex-col fixed left-0 ${activeTab === 'landing' ? 'top-14 sm:top-16' : 'top-0'} bottom-0 bg-slate-950 border-r border-slate-800 z-30 justify-between transition-all duration-300 ease-in-out ${
-          isSidebarCollapsed ? 'w-20 p-3' : 'w-72 p-5'
+          isSidebarCollapsed ? 'w-20 p-3' : 'w-64 p-4'
         } shadow-2xl shadow-blue-900/10`}
       >
         <div className="space-y-6 relative z-10">

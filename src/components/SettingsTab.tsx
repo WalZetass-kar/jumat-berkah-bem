@@ -107,7 +107,7 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
   };
 
   return (
-    <div className="space-y-6 max-w-3xl pb-12">
+    <div className="space-y-6 max-w-6xl pb-12">
       {/* Header */}
       <div>
         <h2 className="text-2xl font-black text-slate-900 tracking-tight">
@@ -126,8 +126,13 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
           </div>
         )}
 
-        {/* Organization Info */}
-        <div className="space-y-4">
+        {/* Grid Layout for Settings */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+          
+          {/* Left Column */}
+          <div className="space-y-6">
+            {/* Organization Info */}
+            <div className="space-y-4">
           <h3 className="font-extrabold text-sm text-slate-900 flex items-center gap-2">
             <Building className="w-4 h-4 text-emerald-600" />
             Profil Komunitas / Masjid
@@ -178,8 +183,10 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
           </div>
         </div>
 
-        {/* Bank & Donation Info */}
-        <div className="space-y-4 pt-4 border-t border-slate-100">
+          {/* Right Column */}
+          <div className="space-y-6">
+            {/* Bank & Donation Info */}
+            <div className="space-y-4">
           <h3 className="font-extrabold text-sm text-slate-900 flex items-center gap-2">
             <CreditCard className="w-4 h-4 text-emerald-600" />
             Informasi Rekening Donasi
@@ -304,9 +311,12 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
             </div>
           </div>
         </div>
+          </div>
+        </div>
+        </div>
 
         {/* Submit Button */}
-        <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
+        <div className="pt-6 border-t border-slate-100 flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={() => setShowResetConfirm(true)}
