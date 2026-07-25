@@ -35,6 +35,7 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
   defaultType = 'INCOME',
 }) => {
   const [type, setType] = useState<TransactionType>(defaultType);
+  const [incomeSource, setIncomeSource] = useState<'DONATUR' | 'INFAK_KAMPUS'>('DONATUR');
   const [amount, setAmount] = useState<number | ''>('');
   const [category, setCategory] = useState<string>(
     defaultType === 'INCOME' ? donationCategories[0] : expenseCategories[0]
@@ -58,7 +59,12 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
 
   const handleTypeChange = (newType: TransactionType) => {
     setType(newType);
-    setCategory(newType === 'INCOME' ? donationCategories[0] : expenseCategories[0]);
+    if (newType === 'INCOME') {
+      if (incomeSource === 'INFAK_KAMPUS') setCategory('Ngutip Infak Kampus');
+      else setCategory(donationCategories[0]);
+    } else {
+      setCategory(expenseCategories[0]);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -134,21 +140,58 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
           </button>
         </div>
 
-        {/* Form Body */}
-        <form onSubmit={handleSubmit} className="space-y-4 text-xs">
-          <div>
-            <label className="block font-bold text-slate-700 mb-1">
-              {type === 'INCOME' ? 'Nama Donatur / Infaq' : 'Vendor / Penerima / Keperluan'}
-            </label>
-            <input
-              type="text"
-              required
-              value={donorOrVendor}
-              onChange={(e) => setDonorOrVendor(e.target.value)}
-              placeholder={type === 'INCOME' ? 'Misal: Hamba Allah / Hj. Siti' : 'Misal: Catering Dapur Ibu Nur / Toko Plastik'}
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-slate-900 font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none"
-            />
+        {type === 'INCOME' && (
+          <div className="grid grid-cols-2 p-1.5 bg-emerald-50/50 border border-emerald-100 rounded-2xl gap-2 mt-3 mb-2">
+            <button
+              type="button"
+              onClick={() => {
+                setIncomeSource('DONATUR');
+                setCategory(donationCategories[0]);
+                setDonorOrVendor('');
+              }}
+              className={`py-2 rounded-xl font-bold text-xs transition-all cursor-pointer ${
+                incomeSource === 'DONATUR'
+                  ? 'bg-white text-emerald-700 shadow-sm border border-emerald-200'
+                  : 'text-slate-500 hover:text-emerald-600'
+              }`}
+            >
+              Dari Donatur Pribadi
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIncomeSource('INFAK_KAMPUS');
+                setCategory('Ngutip Infak Kampus');
+                setDonorOrVendor('Mahasiswa/Dosen Kampus (Kolektif)');
+              }}
+              className={`py-2 rounded-xl font-bold text-xs transition-all cursor-pointer ${
+                incomeSource === 'INFAK_KAMPUS'
+                  ? 'bg-white text-emerald-700 shadow-sm border border-emerald-200'
+                  : 'text-slate-500 hover:text-emerald-600'
+              }`}
+            >
+              Kolektif Infak Kampus
+            </button>
           </div>
+        )}
+
+        {/* Form Body */}
+        <form onSubmit={handleSubmit} className="space-y-4 text-xs mt-2">
+          {!(type === 'INCOME' && incomeSource === 'INFAK_KAMPUS') && (
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">
+                {type === 'INCOME' ? 'Nama Donatur' : 'Vendor / Penerima / Keperluan'}
+              </label>
+              <input
+                type="text"
+                required
+                value={donorOrVendor}
+                onChange={(e) => setDonorOrVendor(e.target.value)}
+                placeholder={type === 'INCOME' ? 'Misal: Hamba Allah / Hj. Siti' : 'Misal: Catering Dapur Ibu Nur / Toko Plastik'}
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-slate-900 font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+              />
+            </div>
+          )}
 
           <div className="grid grid-cols-2 gap-3">
             <div>
@@ -169,7 +212,8 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-slate-800 font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none cursor-pointer"
+                disabled={type === 'INCOME' && incomeSource === 'INFAK_KAMPUS'}
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-slate-800 font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none cursor-pointer disabled:opacity-50 disabled:bg-slate-50"
               >
                 {(type === 'INCOME' ? donationCategories : expenseCategories).map((cat) => (
                   <option key={cat} value={cat}>
