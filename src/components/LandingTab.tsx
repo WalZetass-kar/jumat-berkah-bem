@@ -146,47 +146,134 @@ export const LandingTab: React.FC<LandingTabProps> = ({
         {/* Dark Overlay for clear text legibility */}
         <div className="absolute inset-0 bg-slate-950/85"></div>
 
-        <div className="max-w-7xl mx-auto relative z-10 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-600/30 border border-blue-400/30 text-blue-200 text-xs font-bold tracking-wide uppercase">
-            <Sparkles className="w-4 h-4 text-amber-300" />
-            <span>Kampus LP3I Pekanbaru • BEM Kabinet Luminaire</span>
+        <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          
+          {/* Left Column: Text & CTA */}
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-600/30 border border-blue-400/30 text-blue-200 text-xs font-bold tracking-wide uppercase">
+              <Sparkles className="w-4 h-4 text-amber-300" />
+              <span>Kampus LP3I Pekanbaru • BEM Kabinet Luminaire</span>
+            </div>
+
+            <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+              Lumina Sharing <br />
+              <span className="text-amber-300">
+                Jumat Berkah LP3I Pekanbaru
+              </span>
+            </h1>
+
+            <p className="text-sm sm:text-base text-slate-200 leading-relaxed max-w-xl font-normal">
+              {config.motto}. Wadah resmi transparansi infaq, sedekah porsi nasi kotak, dan santunan yatim yang dikelola langsung oleh mahasiswa BEM LP3I Pekanbaru Kabinet Luminaire.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <button
+                onClick={() => setShowQrisModal(true)}
+                className="px-6 py-3.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer active:scale-95"
+              >
+                <Heart className="w-4 h-4 fill-slate-950 animate-pulse" />
+                <span>Donasi Sekarang</span>
+              </button>
+
+              <a
+                href="#donasi-rekening"
+                className="px-5 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <Building2 className="w-4 h-4 text-blue-200" />
+                <span>Info Rekening & QRIS</span>
+              </a>
+
+              <button
+                onClick={() => setShowVolunteerModal(true)}
+                className="px-5 py-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <Users className="w-4 h-4 text-slate-300" />
+                <span>Daftar Relawan</span>
+              </button>
+            </div>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-            Lumina Sharing <br />
-            <span className="text-amber-300">
-              Jumat Berkah LP3I Pekanbaru
-            </span>
-          </h1>
-
-          <p className="text-sm sm:text-base text-slate-200 leading-relaxed max-w-2xl font-normal">
-            {config.motto}. Wadah resmi transparansi infaq, sedekah porsi nasi kotak, dan santunan yatim yang dikelola langsung oleh mahasiswa BEM LP3I Pekanbaru Kabinet Luminaire.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-3 pt-2">
-            <button
-              onClick={() => setShowQrisModal(true)}
-              className="px-6 py-3.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer active:scale-95"
+          {/* Right Column: Animated Glassmorphism Card */}
+          <div className="hidden lg:flex justify-center relative">
+            {/* Glowing Background Blur */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-500/30 blur-[80px] rounded-full animate-pulse"></div>
+            
+            {/* Main Floating Card */}
+            <div 
+              className="relative bg-white/10 backdrop-blur-md border border-white/20 p-7 rounded-[2rem] shadow-2xl w-full max-w-sm transition-transform duration-700 hover:-translate-y-2"
+              style={{ animation: 'float 6s ease-in-out infinite' }}
             >
-              <Heart className="w-4 h-4 fill-slate-950" />
-              <span>Donasi Sekarang (QRIS / Bank)</span>
-            </button>
+              {/* Custom floating animation style */}
+              <style>{`
+                @keyframes float {
+                  0% { transform: translateY(0px); }
+                  50% { transform: translateY(-15px); }
+                  100% { transform: translateY(0px); }
+                }
+                @keyframes float-delayed {
+                  0% { transform: translateY(0px); }
+                  50% { transform: translateY(-10px); }
+                  100% { transform: translateY(0px); }
+                }
+              `}</style>
 
-            <a
-              href="#donasi-rekening"
-              className="px-5 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
-            >
-              <Building2 className="w-4 h-4 text-blue-200" />
-              <span>Info Rekening & QRIS</span>
-            </a>
+              <div className="flex items-center gap-4 border-b border-white/10 pb-5 mb-5">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg">
+                  <Heart className="w-7 h-7 text-white fill-white animate-bounce" />
+                </div>
+                <div>
+                  <p className="text-blue-200 text-xs font-bold uppercase tracking-wider mb-0.5">Target Pekan Ini</p>
+                  <p className="text-white text-2xl font-black">{config.targetPortions} Porsi</p>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 text-sm text-slate-100 font-medium">
+                  <div className="p-1 rounded-full bg-emerald-500/20">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <span>Paket Nasi Kotak Bergizi</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm text-slate-100 font-medium">
+                  <div className="p-1 rounded-full bg-emerald-500/20">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <span>Santunan Anak Yatim</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm text-slate-100 font-medium">
+                  <div className="p-1 rounded-full bg-emerald-500/20">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <span>Sedekah Pejuang Jalanan</span>
+                </div>
+              </div>
 
-            <button
-              onClick={() => setShowVolunteerModal(true)}
-              className="px-5 py-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
-            >
-              <Users className="w-4 h-4 text-slate-300" />
-              <span>Daftar Relawan Mahasiswa</span>
-            </button>
+              {/* Small Floating Badge Bottom Left */}
+              <div 
+                className="absolute -bottom-6 -left-8 bg-slate-900 border border-slate-700 p-3.5 rounded-2xl shadow-xl flex items-center gap-3"
+                style={{ animation: 'float-delayed 5s ease-in-out infinite 1s' }}
+              >
+                <div className="bg-blue-600 p-2 rounded-xl">
+                  <Users className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wide">Relawan BEM</p>
+                  <p className="text-xs text-white font-black">Siap Bergerak</p>
+                </div>
+              </div>
+
+              {/* Small Floating Badge Top Right */}
+              <div 
+                className="absolute -top-6 -right-6 bg-emerald-500/20 backdrop-blur-md border border-emerald-500/30 p-3.5 rounded-2xl shadow-xl flex items-center gap-3"
+                style={{ animation: 'float-delayed 7s ease-in-out infinite 0.5s' }}
+              >
+                <Award className="w-8 h-8 text-emerald-400" />
+                <div>
+                  <p className="text-[10px] text-emerald-200 font-bold uppercase tracking-wide">Terverifikasi</p>
+                  <p className="text-xs text-white font-black">100% Transparan</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
