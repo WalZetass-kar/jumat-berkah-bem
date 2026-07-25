@@ -1028,12 +1028,30 @@ Berikut saya lampirkan bukti transfernya.`;
               </div>
             </div>
 
-            <button
-              onClick={() => setShowQrisModal(false)}
-              className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl cursor-pointer"
-            >
-              Tutup QRIS
-            </button>
+            <div className="flex flex-col gap-3">
+              <a
+                href={waConfirmationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                  });
+                }}
+                className="w-full py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white font-black text-xs rounded-xl cursor-pointer flex items-center justify-center gap-2 shadow-md transition-all active:scale-95"
+              >
+                <Send className="w-4 h-4" />
+                <span>Konfirmasi via WhatsApp</span>
+              </a>
+              <button
+                onClick={() => setShowQrisModal(false)}
+                className="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl cursor-pointer transition-all"
+              >
+                Tutup QRIS
+              </button>
+            </div>
           </div>
         </div>
       )}

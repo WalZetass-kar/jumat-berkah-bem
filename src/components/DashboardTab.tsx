@@ -17,7 +17,9 @@ import {
   MapPin,
   Camera,
   Trash2,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Bell,
+  BellOff
 } from 'lucide-react';
 import { ConfirmModal } from './ConfirmModal';
 import {
@@ -59,6 +61,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
   onDeleteGalleryItem,
 }) => {
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
+  const [showNotifications, setShowNotifications] = useState(true);
 
   // Calculations
   const totalIncome = transactions
@@ -165,6 +168,20 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
 
   return (
     <div className="space-y-8 pb-10">
+      <div className="flex justify-end mb-2">
+        <button
+          onClick={() => setShowNotifications(!showNotifications)}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm ${
+            showNotifications
+              ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
+              : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+          }`}
+        >
+          {showNotifications ? <Bell className="w-4 h-4" /> : <BellOff className="w-4 h-4" />}
+          <span>{showNotifications ? 'Notifikasi Aktif' : 'Notifikasi Senyap'}</span>
+        </button>
+      </div>
+
       {/* Executive Summary Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* Card 1: Saldo Kas Saat Ini */}
@@ -582,7 +599,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
         }}
         onCancel={() => setItemToDelete(null)}
       />
-      <SocialProofToast transactions={transactions} />
+      {showNotifications && <SocialProofToast transactions={transactions} />}
     </div>
   );
 };
