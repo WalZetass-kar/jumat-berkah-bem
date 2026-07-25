@@ -5,7 +5,8 @@ export type DonationCategory =
   | 'Transfer Bank'
   | 'Sumbangan Nasi Kotak'
   | 'Sumbangan Sembako'
-  | 'Kotak Amal Jumat';
+  | 'Kotak Amal Jumat'
+  | 'Ngutip Infak Kampus';
 
 export type ExpenseCategory = 
   | 'Nasi Kotak / Makanan Siap Saji'

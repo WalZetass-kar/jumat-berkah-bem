@@ -16,6 +16,7 @@ const donationCategories: DonationCategory[] = [
   'Sumbangan Nasi Kotak',
   'Sumbangan Sembako',
   'Kotak Amal Jumat',
+  'Ngutip Infak Kampus',
 ];
 
 const expenseCategories: ExpenseCategory[] = [
