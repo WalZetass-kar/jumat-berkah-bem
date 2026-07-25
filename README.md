@@ -1,20 +1,36 @@
+# Lumina Sharing - Jumat Berkah LP3I Pekanbaru
+
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx7vsQhix8E6D2Ss-p17Bi8YQ-Vo2LrA24e2Q9YbLJpg&s=10" alt="Banner LP3I" width="600" style="border-radius:12px;"/>
 </div>
 
-# Run and deploy your AI Studio app
+## Tentang Program
+**Lumina Sharing Jumat Berkah** adalah sebuah platform transparansi pengelolaan dana infaq, donasi, dan sedekah yang dikembangkan khusus untuk **BEM Politeknik LP3I Pekanbaru (Kabinet Luminaire)**. Website ini berfungsi sebagai portal informasi publik sekaligus dasbor manajemen keuangan (kas) untuk program sosial mingguan.
 
-This contains everything you need to run your app locally.
+Program "Jumat Berkah" merupakan aksi pengumpulan sumbangan dari seluruh civitas akademika kampus, yang kemudian disalurkan kembali kepada masyarakat yang membutuhkan (seperti driver ojol, panti asuhan, kaum dhuafa, dan pejuang jalanan) dalam bentuk paket nasi kotak bergizi serta santunan.
 
-View your app in AI Studio: https://ai.studio/apps/c4918cba-2fd8-46f3-a511-a3af9683f7bf
+## Fitur Utama
 
-## Run Locally
+### 👁️ Portal Publik Transparan
+- **Monitoring Saldo Real-Time:** Menampilkan secara terbuka total donasi masuk, total biaya operasional/penyaluran, serta sisa saldo kas yang mengendap.
+- **Live Update Titik Penyaluran:** Publik dapat melihat progres penyaluran di tiap titik lokasi secara langsung.
+- **Daftar Donatur Terbuka:** Transparansi donatur terbaru yang tercatat di dalam sistem (tanpa mengekspos data pribadi sensitif).
+- **Galeri Dokumentasi:** Album kegiatan lapangan dan penyaluran di jalanan yang dapat diakses oleh umum.
+- **Konfirmasi Donasi Instan:** Tersedia QRIS khusus dan tombol konfirmasi otomatis yang terhubung dengan nomor WhatsApp BEM.
 
-**Prerequisites:**  Node.js
+### 🔐 Manajemen Admin (Dashboard)
+- **Pencatatan Keuangan Terstruktur:** Modul bagi admin untuk mencatat transaksi *Pemasukan (Donasi)* dan *Pengeluaran (Belanja/Santunan)*.
+- **Manajemen Titik Penyaluran:** Admin dapat membuat, memperbarui status, dan menyelesaikan target titik lokasi pembagian setiap hari Jumat.
+- **Manajemen Galeri:** Kemudahan unggah foto dokumentasi (Terintegrasi Cloud Storage).
+- **Pengaturan Dinamis:** Admin bebas memperbarui target bulanan, mengganti foto QRIS, dan mengubah kontak WhatsApp konfirmasi kapan saja.
+- **Multi-Admin Management:** Admin utama dapat mendaftarkan atau mencabut hak akses pengurus BEM lain secara langsung dari dashboard.
+- **Backup & Restore Data:** Pengamanan mandiri di mana admin dapat mengekspor seluruh basis data ke dalam file `.json` sebagai cadangan luring.
 
+## Teknologi yang Digunakan
+Sistem aplikasi ini dibangun dan dikembangkan dengan menggunakan tumpukan teknologi web modern:
+- **Frontend / UI:** React.js, TypeScript, Vite, dan Tailwind CSS.
+- **Backend, Auth & Database:** Supabase (PostgreSQL, Supabase Auth, Storage).
+- **Deployment & Serverless:** Vercel.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+---
+*Dikelola dengan penuh integritas oleh Kementerian Sosial dan Masyarakat - BEM Politeknik LP3I Pekanbaru Kabinet Luminaire.*
