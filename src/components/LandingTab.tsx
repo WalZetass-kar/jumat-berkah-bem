@@ -193,86 +193,68 @@ export const LandingTab: React.FC<LandingTabProps> = ({
             </div>
           </div>
 
-          {/* Right Column: Animated Glassmorphism Card */}
-          <div className="hidden lg:flex justify-center relative">
+          {/* Right Column: Animated Image Collage */}
+          <div className="hidden lg:flex justify-center items-center relative min-h-[400px]">
             {/* Glowing Background Blur */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-500/30 blur-[80px] rounded-full animate-pulse"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[28rem] h-[28rem] bg-amber-500/20 blur-[100px] rounded-full animate-pulse"></div>
             
-            {/* Main Floating Card */}
+            {/* Custom floating animation style */}
+            <style>{`
+              @keyframes float-img-1 {
+                0% { transform: rotate(5deg) translate(20px, 0px); }
+                50% { transform: rotate(5deg) translate(20px, -20px); }
+                100% { transform: rotate(5deg) translate(20px, 0px); }
+              }
+              @keyframes float-img-2 {
+                0% { transform: rotate(-6deg) translate(-50px, 40px); }
+                50% { transform: rotate(-6deg) translate(-50px, 20px); }
+                100% { transform: rotate(-6deg) translate(-50px, 40px); }
+              }
+              @keyframes float-badge {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-15px); }
+                100% { transform: translateY(0px); }
+              }
+            `}</style>
+
+            {/* Image 1: Main (Right/Top) */}
             <div 
-              className="relative bg-white/10 backdrop-blur-md border border-white/20 p-7 rounded-[2rem] shadow-2xl w-full max-w-sm transition-transform duration-700 hover:-translate-y-2"
-              style={{ animation: 'float 6s ease-in-out infinite' }}
+              className="absolute z-30 w-64 h-80 rounded-[2rem] overflow-hidden border-[6px] border-white/10 shadow-2xl backdrop-blur-md"
+              style={{ animation: 'float-img-1 6s ease-in-out infinite' }}
             >
-              {/* Custom floating animation style */}
-              <style>{`
-                @keyframes float {
-                  0% { transform: translateY(0px); }
-                  50% { transform: translateY(-15px); }
-                  100% { transform: translateY(0px); }
-                }
-                @keyframes float-delayed {
-                  0% { transform: translateY(0px); }
-                  50% { transform: translateY(-10px); }
-                  100% { transform: translateY(0px); }
-                }
-              `}</style>
+               <img 
+                 src={galleryItems && galleryItems.length > 0 ? galleryItems[0].url : 'https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800'} 
+                 alt="Dokumentasi 1" 
+                 className="w-full h-full object-cover"
+               />
+               <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent p-5">
+                  <p className="text-white text-sm font-black tracking-wide">Aksi Nyata BEM LP3I</p>
+                  <p className="text-amber-300 text-[10px] font-bold uppercase mt-0.5">Jumat Berkah</p>
+               </div>
+            </div>
 
-              <div className="flex items-center gap-4 border-b border-white/10 pb-5 mb-5">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg">
-                  <Heart className="w-7 h-7 text-white fill-white animate-bounce" />
-                </div>
-                <div>
-                  <p className="text-blue-200 text-xs font-bold uppercase tracking-wider mb-0.5">Target Pekan Ini</p>
-                  <p className="text-white text-2xl font-black">{config.targetPortions} Porsi</p>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 text-sm text-slate-100 font-medium">
-                  <div className="p-1 rounded-full bg-emerald-500/20">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  </div>
-                  <span>Paket Nasi Kotak Bergizi</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-slate-100 font-medium">
-                  <div className="p-1 rounded-full bg-emerald-500/20">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  </div>
-                  <span>Santunan Anak Yatim</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-slate-100 font-medium">
-                  <div className="p-1 rounded-full bg-emerald-500/20">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  </div>
-                  <span>Sedekah Pejuang Jalanan</span>
-                </div>
-              </div>
+            {/* Image 2: Secondary (Left/Bottom) */}
+            <div 
+              className="absolute z-20 w-56 h-72 rounded-[2rem] overflow-hidden border-[6px] border-white/5 shadow-2xl backdrop-blur-md"
+              style={{ animation: 'float-img-2 7s ease-in-out infinite 1s' }}
+            >
+               <img 
+                 src={galleryItems && galleryItems.length > 1 ? galleryItems[1].url : 'https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?auto=format&fit=crop&q=80&w=800'} 
+                 alt="Dokumentasi 2" 
+                 className="w-full h-full object-cover grayscale-[30%]"
+               />
+               <div className="absolute inset-0 bg-slate-900/20"></div>
+            </div>
 
-              {/* Small Floating Badge Bottom Left */}
-              <div 
-                className="absolute -bottom-6 -left-8 bg-slate-900 border border-slate-700 p-3.5 rounded-2xl shadow-xl flex items-center gap-3"
-                style={{ animation: 'float-delayed 5s ease-in-out infinite 1s' }}
-              >
-                <div className="bg-blue-600 p-2 rounded-xl">
-                  <Users className="w-4 h-4 text-white" />
-                </div>
-                <div>
-                  <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wide">Relawan BEM</p>
-                  <p className="text-xs text-white font-black">Siap Bergerak</p>
-                </div>
-              </div>
-
-              {/* Small Floating Badge Top Right */}
-              <div 
-                className="absolute -top-6 -right-6 bg-emerald-500/20 backdrop-blur-md border border-emerald-500/30 p-3.5 rounded-2xl shadow-xl flex items-center gap-3"
-                style={{ animation: 'float-delayed 7s ease-in-out infinite 0.5s' }}
-              >
-                <Award className="w-8 h-8 text-emerald-400" />
-                <div>
-                  <p className="text-[10px] text-emerald-200 font-bold uppercase tracking-wide">Terverifikasi</p>
-                  <p className="text-xs text-white font-black">100% Transparan</p>
-                </div>
-              </div>
+            {/* Decoration Badge */}
+            <div 
+              className="absolute z-40 top-12 -right-4 bg-amber-400 text-slate-950 px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2"
+              style={{ animation: 'float-badge 5s ease-in-out infinite 0.5s' }}
+            >
+               <Heart className="w-5 h-5 fill-slate-950 animate-pulse" />
+               <div>
+                 <p className="text-xs font-black tracking-wide">#LuminaSharing</p>
+               </div>
             </div>
           </div>
         </div>
