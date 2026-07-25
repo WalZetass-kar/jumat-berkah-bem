@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { WeeklyConfig, Transaction, DistributionSpot, GalleryItem } from '../types';
-import { Navigation } from './landing/Navigation';
 import { HeroSection } from './landing/HeroSection';
 import { StatsSection } from './landing/StatsSection';
 import { ActivitySection } from './landing/ActivitySection';
@@ -84,13 +83,6 @@ Berikut saya lampirkan bukti transfernya.`;
   return (
     <div className="w-full min-h-screen bg-slate-50 font-sans selection:bg-blue-500/30 selection:text-blue-900">
       
-      <Navigation 
-        isAdminLoggedIn={isAdminLoggedIn} 
-        onLoginClick={onLoginClick} 
-        onLogoutClick={onLogoutClick} 
-        onNavigateToTab={onNavigateToTab} 
-      />
-
       <HeroSection 
         config={config} 
         totalDistributed={totalDistributed} 

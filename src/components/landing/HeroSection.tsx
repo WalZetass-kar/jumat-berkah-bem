@@ -38,7 +38,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       {/* Background Image with elegant overlay */}
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1920')" }}
+        style={{ backgroundImage: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx7vsQhix8E6D2Ss-p17Bi8YQ-Vo2LrA24e2Q9YbLJpg&s=10')" }}
       >
         <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-[2px]"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950"></div>
