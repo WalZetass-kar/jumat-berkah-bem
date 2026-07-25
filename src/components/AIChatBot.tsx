@@ -214,19 +214,19 @@ export const AIChatBot: React.FC<AIChatBotProps> = ({
 
       {/* Floating Chat Modal Box */}
       {isOpen && (
-        <div className="fixed bottom-20 right-3 left-3 sm:left-auto sm:bottom-6 sm:right-6 sm:w-[420px] h-[520px] sm:h-[580px] max-h-[72vh] sm:max-h-[85vh] bg-white rounded-3xl shadow-2xl border border-slate-200 flex flex-col z-50 overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200 print:hidden">
+        <div className="fixed bottom-20 right-3 left-3 sm:left-auto sm:bottom-6 sm:right-6 sm:w-[420px] h-[520px] sm:h-[600px] max-h-[75vh] sm:max-h-[85vh] bg-white/95 backdrop-blur-xl rounded-[2rem] shadow-2xl border border-white/50 flex flex-col z-50 overflow-hidden animate-in fade-in zoom-in-95 slide-in-from-bottom-5 duration-300 print:hidden">
           {/* Header */}
-          <div className="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white p-4 flex items-center justify-between border-b border-white/10">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-emerald-600/40 border border-emerald-400/30 flex items-center justify-center text-emerald-300 shadow-inner">
+          <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 text-white p-5 flex items-center justify-between border-b border-white/10">
+            <div className="flex items-center gap-3.5">
+              <div className="w-11 h-11 rounded-2xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-300 shadow-inner backdrop-blur-md">
                 <Bot className="w-5 h-5 text-emerald-300" />
               </div>
               <div>
-                <div className="flex items-center gap-1.5">
-                  <h3 className="font-extrabold text-sm text-white">Sahabat Berkah AI</h3>
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <div className="flex items-center gap-2">
+                  <h3 className="font-black text-sm text-white tracking-wide">Sahabat Berkah AI</h3>
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
                 </div>
-                <p className="text-[11px] text-emerald-200/80 font-medium">Asisten Cerdas Jumat Berkah BEM</p>
+                <p className="text-[11px] text-emerald-200/70 font-semibold mt-0.5">Asisten Cerdas Jumat Berkah BEM</p>
               </div>
             </div>
 
@@ -248,63 +248,63 @@ export const AIChatBot: React.FC<AIChatBotProps> = ({
           </div>
 
           {/* Quick Suggestions Bar */}
-          <div className="bg-slate-50 border-b border-slate-200 p-2.5 overflow-x-auto flex gap-1.5 scrollbar-thin scrollbar-thumb-slate-300">
+          <div className="bg-slate-50/80 backdrop-blur-sm border-b border-slate-100 p-3 overflow-x-auto flex gap-2 scrollbar-none">
             <button
               onClick={() => handleQuickQuestion('Berapa saldo kas & total donasi masuk saat ini?')}
-              className="px-2.5 py-1 rounded-full bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 text-[11px] font-semibold text-slate-700 hover:text-emerald-800 whitespace-nowrap transition-all flex items-center gap-1 cursor-pointer shrink-0"
+              className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-emerald-400 hover:shadow-emerald-500/10 hover:bg-emerald-50 text-[11px] font-bold text-slate-600 hover:text-emerald-700 whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
             >
-              <Coins className="w-3 h-3 text-emerald-600" />
+              <Coins className="w-3.5 h-3.5 text-emerald-600" />
               <span>Cek Saldo Kas</span>
             </button>
             <button
               onClick={() => handleQuickQuestion('Bagaimana cara cetak laporan PDF atau ekspor file CSV?')}
-              className="px-2.5 py-1 rounded-full bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 text-[11px] font-semibold text-slate-700 hover:text-emerald-800 whitespace-nowrap transition-all flex items-center gap-1 cursor-pointer shrink-0"
+              className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-emerald-400 hover:shadow-emerald-500/10 hover:bg-emerald-50 text-[11px] font-bold text-slate-600 hover:text-emerald-700 whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
             >
-              <FileSpreadsheet className="w-3 h-3 text-emerald-600" />
-              <span>Cara Cetak/CSV</span>
+              <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Cetak Laporan</span>
             </button>
             <button
               onClick={() => handleQuickQuestion('Di mana saja titik lokasi penyaluran nasi Jumat ini?')}
-              className="px-2.5 py-1 rounded-full bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 text-[11px] font-semibold text-slate-700 hover:text-emerald-800 whitespace-nowrap transition-all flex items-center gap-1 cursor-pointer shrink-0"
+              className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-emerald-400 hover:shadow-emerald-500/10 hover:bg-emerald-50 text-[11px] font-bold text-slate-600 hover:text-emerald-700 whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
             >
-              <MapPin className="w-3 h-3 text-emerald-600" />
+              <MapPin className="w-3.5 h-3.5 text-emerald-600" />
               <span>Titik Penyaluran</span>
             </button>
             <button
               onClick={() => handleQuickQuestion('Berapa target porsi dan target donasi bulanan saat ini?')}
-              className="px-2.5 py-1 rounded-full bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 text-[11px] font-semibold text-slate-700 hover:text-emerald-800 whitespace-nowrap transition-all flex items-center gap-1 cursor-pointer shrink-0"
+              className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-emerald-400 hover:shadow-emerald-500/10 hover:bg-emerald-50 text-[11px] font-bold text-slate-600 hover:text-emerald-700 whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
             >
-              <Target className="w-3 h-3 text-emerald-600" />
+              <Target className="w-3.5 h-3.5 text-emerald-600" />
               <span>Target Bulanan</span>
             </button>
           </div>
 
           {/* Messages Thread */}
-          <div className="flex-1 p-4 overflow-y-auto space-y-3.5 bg-slate-50/50">
+          <div className="flex-1 p-5 overflow-y-auto space-y-4 bg-slate-50/30">
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex gap-2.5 ${
+                className={`flex gap-3 ${
                   msg.sender === 'user' ? 'justify-end' : 'justify-start'
                 }`}
               >
                 {msg.sender === 'assistant' && (
-                  <div className="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs shrink-0 font-bold mt-0.5 shadow-sm">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-700 text-white flex items-center justify-center text-xs shrink-0 font-bold mt-1 shadow-md border border-emerald-400/50">
                     <Bot className="w-4 h-4" />
                   </div>
                 )}
 
                 <div
-                  className={`max-w-[82%] p-3.5 rounded-2xl text-xs leading-relaxed space-y-1 ${
+                  className={`max-w-[82%] p-4 rounded-[1.25rem] text-xs leading-relaxed space-y-1.5 shadow-sm ${
                     msg.sender === 'user'
-                      ? 'bg-emerald-700 text-white rounded-br-none shadow-md shadow-emerald-700/10'
-                      : 'bg-white text-slate-800 border border-slate-200/80 rounded-bl-none shadow-sm'
+                      ? 'bg-gradient-to-br from-slate-800 to-slate-900 text-white rounded-br-none shadow-slate-900/20 border border-slate-700'
+                      : 'bg-white text-slate-700 border border-slate-100 rounded-bl-none shadow-slate-200/50'
                   }`}
                 >
                   <p className="whitespace-pre-wrap font-sans">{msg.text}</p>
                   <span
-                    className={`block text-[10px] text-right font-medium ${
-                      msg.sender === 'user' ? 'text-emerald-200' : 'text-slate-400'
+                    className={`block text-[10px] text-right font-semibold ${
+                      msg.sender === 'user' ? 'text-slate-400' : 'text-slate-400'
                     }`}
                   >
                     {msg.timestamp}
@@ -312,7 +312,7 @@ export const AIChatBot: React.FC<AIChatBotProps> = ({
                 </div>
 
                 {msg.sender === 'user' && (
-                  <div className="w-7 h-7 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs shrink-0 font-bold mt-0.5 shadow-sm">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-slate-700 to-slate-900 text-white flex items-center justify-center text-xs shrink-0 font-bold mt-1 shadow-md border border-slate-600/50">
                     <User className="w-4 h-4" />
                   </div>
                 )}
@@ -320,15 +320,15 @@ export const AIChatBot: React.FC<AIChatBotProps> = ({
             ))}
 
             {loading && (
-              <div className="flex gap-2.5 items-center text-slate-500 text-xs font-medium">
-                <div className="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs shrink-0">
+              <div className="flex gap-3 items-center text-slate-500 text-xs font-medium">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-700 text-white flex items-center justify-center text-xs shrink-0 shadow-md border border-emerald-400/50">
                   <Bot className="w-4 h-4" />
                 </div>
-                <div className="p-3 bg-white border border-slate-200 rounded-2xl rounded-bl-none flex items-center gap-1.5 shadow-sm">
+                <div className="px-4 py-3 bg-white border border-slate-100 rounded-[1.25rem] rounded-bl-none flex items-center gap-1.5 shadow-sm">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce"></span>
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:0.2s]"></span>
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:0.4s]"></span>
-                  <span className="text-[11px] text-slate-400 ml-1">Sahabat Berkah sedang berpikir...</span>
+                  <span className="text-[11px] text-slate-400 ml-1.5 font-semibold">Memproses...</span>
                 </div>
               </div>
             )}
@@ -337,32 +337,32 @@ export const AIChatBot: React.FC<AIChatBotProps> = ({
           </div>
 
           {/* Input Form */}
-          <div className="p-3 bg-white border-t border-slate-200">
+          <div className="p-4 bg-white/80 backdrop-blur-md border-t border-slate-100">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 handleSendMessage();
               }}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2.5 bg-slate-50 p-1.5 rounded-[1.25rem] border border-slate-200 focus-within:border-emerald-400 focus-within:ring-4 focus-within:ring-emerald-500/10 transition-all shadow-inner"
             >
               <input
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                placeholder="Ketik pertanyaan seputar Jumat Berkah..."
+                placeholder="Tanyakan sesuatu..."
                 disabled={loading}
-                className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all disabled:opacity-50"
+                className="flex-1 px-3 py-2 bg-transparent text-slate-800 text-xs font-semibold placeholder:text-slate-400 focus:outline-none transition-all disabled:opacity-50"
               />
               <button
                 type="submit"
                 disabled={!inputMessage.trim() || loading}
-                className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white rounded-xl font-bold text-xs flex items-center justify-center transition-all shadow-md shadow-emerald-600/20 cursor-pointer disabled:cursor-not-allowed shrink-0"
+                className="w-9 h-9 bg-gradient-to-br from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 disabled:from-slate-300 disabled:to-slate-400 text-white rounded-xl font-bold flex items-center justify-center transition-all shadow-md shadow-emerald-600/20 cursor-pointer disabled:cursor-not-allowed shrink-0"
               >
                 <Send className="w-4 h-4" />
               </button>
             </form>
-            <p className="text-[10px] text-slate-400 text-center mt-1.5">
-              Powered by Google Gemini 3.6 Flash • AI khusus BEM LP3I Pekanbaru
+            <p className="text-[10px] text-slate-400 font-medium text-center mt-2.5">
+              Powered by Google Gemini 3.6 Flash
             </p>
           </div>
         </div>
