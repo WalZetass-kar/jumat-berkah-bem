@@ -164,6 +164,18 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
               className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-emerald-500"
             />
           </div>
+
+          <div>
+            <label className="block text-xs font-bold text-slate-700 mb-1">Teks Pesan Ajakan Berbagi (WhatsApp/Medsos)</label>
+            <textarea
+              value={formData.shareText || ''}
+              onChange={(e) => setFormData({ ...formData, shareText: e.target.value })}
+              placeholder="Mari bergabung dalam gerakan kebaikan..."
+              rows={4}
+              className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-emerald-500 resize-none"
+            />
+            <p className="text-[10px] text-slate-500 mt-1">Teks ini akan terkirim saat pengunjung menekan tombol "Bagikan ke WhatsApp". Link website akan ditambahkan otomatis di akhir pesan.</p>
+          </div>
         </div>
 
         {/* Bank & Donation Info */}

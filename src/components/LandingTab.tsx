@@ -671,7 +671,7 @@ export const LandingTab: React.FC<LandingTabProps> = ({
       <FaqSection />
 
       {/* Social Share Section */}
-      <ShareSection />
+      <ShareSection config={config} />
 
       {/* Simple & Elegant Full-Width Footer */}
       <footer className="w-full bg-slate-900 text-slate-300 px-4 sm:px-8 md:px-12 py-12 border-t border-slate-800">

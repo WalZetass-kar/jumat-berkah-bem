@@ -75,6 +75,7 @@ export interface WeeklyConfig {
   currentFridayLabel: string;
   qrisImageUrl?: string;
   contactWa?: string;
+  shareText?: string;
 }
 
 export interface FridayTrendData {

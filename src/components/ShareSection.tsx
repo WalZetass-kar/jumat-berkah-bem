@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { Share2, Copy, Check, MessageSquare, Send, Heart, Sparkles } from 'lucide-react';
+import { WeeklyConfig } from '../types';
 
-export const ShareSection: React.FC = () => {
+interface ShareSectionProps {
+  config: WeeklyConfig;
+}
+
+export const ShareSection: React.FC<ShareSectionProps> = ({ config }) => {
   const [copied, setCopied] = useState(false);
 
   const campaignUrl = typeof window !== 'undefined' ? window.location.href : 'https://lp3i-pekanbaru.ac.id/lumina-sharing';
 
-  const shareText = `Mari bergabung dalam gerakan kebaikan "Lumina Sharing - Jumat Berkah" BEM Politeknik LP3I Pekanbaru Kabinet Luminaire. Infaq nasi kotak Rp 15.000/porsi untuk pejuang jalanan & jamaah Jumat.\n\nLihat transparansi kas donasi di sini: ${campaignUrl}`;
+  const defaultShareText = `Mari bergabung dalam gerakan kebaikan "Lumina Sharing - Jumat Berkah" BEM Politeknik LP3I Pekanbaru Kabinet Luminaire. Infaq nasi kotak Rp 15.000/porsi untuk pejuang jalanan & jamaah Jumat.\n\nLihat transparansi kas donasi di sini: ${campaignUrl}`;
+  const shareText = config.shareText || defaultShareText;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(campaignUrl);
