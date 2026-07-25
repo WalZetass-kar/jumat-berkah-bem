@@ -26,11 +26,23 @@ Program "Jumat Berkah" merupakan aksi pengumpulan sumbangan dari seluruh civitas
 - **Multi-Admin Management:** Admin utama dapat mendaftarkan atau mencabut hak akses pengurus BEM lain secara langsung dari dashboard.
 - **Backup & Restore Data:** Pengamanan mandiri di mana admin dapat mengekspor seluruh basis data ke dalam file `.json` sebagai cadangan luring.
 
-## Teknologi yang Digunakan
-Sistem aplikasi ini dibangun dan dikembangkan dengan menggunakan tumpukan teknologi web modern:
-- **Frontend / UI:** React.js, TypeScript, Vite, dan Tailwind CSS.
-- **Backend, Auth & Database:** Supabase (PostgreSQL, Supabase Auth, Storage).
-- **Deployment & Serverless:** Vercel.
+## 💻 Tech Stack
+Proyek ini dibangun menggunakan teknologi modern untuk memastikan performa yang cepat, aman, dan mudah di-maintain:
+
+<p align="left">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <br/>
+  <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
+  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+  <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
+</p>
+
+- **Frontend:** React.js, TypeScript, Vite, Tailwind CSS.
+- **Backend & Database:** Supabase (PostgreSQL, Supabase Auth, Cloud Storage).
+- **Deployment & Serverless API:** Vercel.
 
 ---
 *Dikelola dengan penuh integritas oleh Kementerian Sosial dan Masyarakat - BEM Politeknik LP3I Pekanbaru Kabinet Luminaire.*
