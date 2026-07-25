@@ -35,8 +35,6 @@ import { GalleryTestimonials } from './GalleryTestimonials';
 import { FaqSection } from './FaqSection';
 import { ShareSection } from './ShareSection';
 import { Leaderboard } from './Leaderboard';
-import { SocialProofToast } from './SocialProofToast';
-import { DarkModeToggle } from './DarkModeToggle';
 import confetti from 'canvas-confetti';
 
 interface LandingTabProps {
@@ -109,7 +107,7 @@ export const LandingTab: React.FC<LandingTabProps> = ({
   // Donation Form state
   const [showDonationFormModal, setShowDonationFormModal] = useState(false);
   const [donasiName, setDonasiName] = useState('');
-  const [donasiAmount, setDonasiAmount] = useState('15000');
+  const [donasiAmount, setDonasiAmount] = useState('');
   const [donasiAnonim, setDonasiAnonim] = useState(false);
   const [donasiDoa, setDonasiDoa] = useState('');
 
@@ -186,7 +184,7 @@ export const LandingTab: React.FC<LandingTabProps> = ({
   const waMessage = `Assalamualaikum min, saya ingin konfirmasi donasi Jumat Berkah.
 
 *Nama:* ${donasiAnonim ? 'Hamba Allah' : (donasiName || '.............')}
-*Nominal:* ${donasiAmount === 'lainnya' ? '.............' : `Rp ${donasiAmount}`}
+*Nominal:* ${donasiAmount ? `Rp ${donasiAmount}` : '.............'}
 *Pesan/Doa:* ${donasiDoa || '-'}
 *Metode:* QRIS / Transfer
 
@@ -957,25 +955,15 @@ Berikut saya lampirkan bukti transfernya.`;
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1.5">Nominal Donasi (Rp)</label>
-                <select
+                <input
+                  type="number"
+                  min="1000"
+                  required
                   value={donasiAmount}
                   onChange={(e) => setDonasiAmount(e.target.value)}
+                  placeholder="Misal: 50000"
                   className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 font-bold text-slate-900"
-                >
-                  <option value="15000">Rp 15.000 (1 Porsi)</option>
-                  <option value="30000">Rp 30.000 (2 Porsi)</option>
-                  <option value="75000">Rp 75.000 (5 Porsi)</option>
-                  <option value="150000">Rp 150.000 (10 Porsi)</option>
-                  <option value="lainnya">Nominal Lainnya...</option>
-                </select>
-                {donasiAmount === 'lainnya' && (
-                  <input
-                    type="number"
-                    min="1000"
-                    placeholder="Masukkan nominal bebas"
-                    className="w-full px-4 py-3 mt-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-500"
-                  />
-                )}
+                />
               </div>
 
               <div>
@@ -1142,11 +1130,6 @@ Berikut saya lampirkan bukti transfernya.`;
         </div>
       )}
 
-      {/* Social Proof Toast */}
-      <SocialProofToast transactions={transactions} />
-      
-      {/* Dark Mode Toggle */}
-      <DarkModeToggle />
     </div>
   );
 };

@@ -33,6 +33,7 @@ import {
   } from 'recharts';
 import { Transaction, DistributionSpot, WeeklyConfig, FridayTrendData, GalleryItem } from '../types';
 import { formatRupiah, formatShortRupiah } from '../utils/formatters';
+import { SocialProofToast } from './SocialProofToast';
 
 interface DashboardTabProps {
   config: WeeklyConfig;
@@ -581,6 +582,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
         }}
         onCancel={() => setItemToDelete(null)}
       />
+      <SocialProofToast transactions={transactions} />
     </div>
   );
 };
