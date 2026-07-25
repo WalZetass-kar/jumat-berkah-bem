@@ -27,8 +27,8 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 transition-all">
-      <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl scale-100 transform transition-transform animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-[100] bg-slate-950/60 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 transition-all animate-in fade-in duration-200">
+      <div className="bg-white rounded-[2rem] p-6 sm:p-8 max-w-sm w-full shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-100">
         <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 ${isDestructive ? 'bg-rose-100' : 'bg-blue-100'}`}>
           <AlertTriangle className={`w-6 h-6 ${isDestructive ? 'text-rose-600' : 'text-blue-600'}`} />
         </div>

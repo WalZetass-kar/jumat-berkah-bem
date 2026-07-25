@@ -329,8 +329,8 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
 
       {/* Modal Preview Receipt Photo */}
       {previewReceipt && (
-        <div className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-6 max-w-md w-full space-y-4 shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
+          <div className="bg-white rounded-[2rem] p-6 sm:p-8 max-w-md w-full space-y-4 shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-100">
             <h3 className="font-extrabold text-base text-slate-900">Bukti Transaksi / Nota</h3>
             <div className="rounded-2xl overflow-hidden bg-slate-100 max-h-80 flex items-center justify-center">
               <img src={previewReceipt} alt="Bukti Transaksi" className="object-contain w-full h-full" />

@@ -280,8 +280,8 @@ export const DistributionTab: React.FC<DistributionTabProps> = ({
 
       {/* Modal Add Distribution Spot */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-6 max-w-lg w-full space-y-4 shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
+          <div className="bg-white rounded-[2rem] p-6 sm:p-8 max-w-lg w-full space-y-4 shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-100">
             <h3 className="font-extrabold text-lg text-slate-900">Tambah Titik Penyaluran Baru</h3>
 
             <form onSubmit={handleAddSubmit} className="space-y-3 text-xs">
