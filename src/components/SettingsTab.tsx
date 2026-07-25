@@ -182,6 +182,7 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
             <p className="text-[10px] text-slate-500 mt-1">Teks ini akan terkirim saat pengunjung menekan tombol "Bagikan ke WhatsApp". Link website akan ditambahkan otomatis di akhir pesan.</p>
           </div>
         </div>
+        </div>
 
           {/* Right Column */}
           <div className="space-y-6">
@@ -312,7 +313,6 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
           </div>
         </div>
           </div>
-        </div>
         </div>
 
         {/* Submit Button */}
