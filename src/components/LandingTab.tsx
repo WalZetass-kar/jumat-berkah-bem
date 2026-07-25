@@ -223,7 +223,7 @@ export const LandingTab: React.FC<LandingTabProps> = ({
               style={{ animation: 'float-img-1 6s ease-in-out infinite' }}
             >
                <img 
-                 src={galleryItems && galleryItems.length > 0 ? galleryItems[0].url : 'https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800'} 
+                 src={galleryItems && galleryItems.length > 0 ? galleryItems[0].imageUrl : 'https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800'} 
                  alt="Dokumentasi 1" 
                  className="w-full h-full object-cover"
                />
@@ -239,7 +239,7 @@ export const LandingTab: React.FC<LandingTabProps> = ({
               style={{ animation: 'float-img-2 7s ease-in-out infinite 1s' }}
             >
                <img 
-                 src={galleryItems && galleryItems.length > 1 ? galleryItems[1].url : 'https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?auto=format&fit=crop&q=80&w=800'} 
+                 src={galleryItems && galleryItems.length > 1 ? galleryItems[1].imageUrl : 'https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?auto=format&fit=crop&q=80&w=800'} 
                  alt="Dokumentasi 2" 
                  className="w-full h-full object-cover grayscale-[30%]"
                />
