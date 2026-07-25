@@ -733,10 +733,14 @@ export const LandingTab: React.FC<LandingTabProps> = ({
             {/* QRIS Visual Card */}
             <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
               <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-inner flex flex-col items-center justify-center">
-                <div className="w-48 h-48 bg-slate-900 text-white p-3 rounded-lg flex flex-col items-center justify-center relative">
-                  <QrCode className="w-36 h-36 text-white" />
-                  <span className="text-[9px] font-mono tracking-widest text-blue-300 mt-1 uppercase">BEM LP3I LUMINA</span>
-                </div>
+                {config.qrisImageUrl ? (
+                  <img src={config.qrisImageUrl} alt="QRIS BEM LP3I" className="w-48 h-48 object-contain" />
+                ) : (
+                  <div className="w-48 h-48 bg-slate-900 text-white p-3 rounded-lg flex flex-col items-center justify-center relative">
+                    <QrCode className="w-36 h-36 text-white" />
+                    <span className="text-[9px] font-mono tracking-widest text-blue-300 mt-1 uppercase">BEM LP3I LUMINA</span>
+                  </div>
+                )}
               </div>
               <div className="text-center space-y-0.5">
                 <strong className="text-xs font-black text-slate-900 block">NMID: ID102024889901</strong>

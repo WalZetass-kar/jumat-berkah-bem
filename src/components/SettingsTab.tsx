@@ -8,7 +8,7 @@ interface SettingsTabProps {
   config: WeeklyConfig;
   transactions: Transaction[];
   spots: DistributionSpot[];
-  onSaveConfig: (updated: WeeklyConfig) => void;
+  onSaveConfig: (updated: WeeklyConfig, file?: File | null) => void;
   onResetData: () => void;
   onRestoreBackup: (data: { config?: WeeklyConfig; transactions?: Transaction[]; spots?: DistributionSpot[] }) => void;
 }
@@ -25,13 +25,15 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
   const [formData, setFormData] = useState<WeeklyConfig>({ ...config });
   const [savedSuccess, setSavedSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const qrisInputRef = useRef<HTMLInputElement>(null);
+  const [qrisFile, setQrisFile] = useState<File | null>(null);
 
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [restoreDataToConfirm, setRestoreDataToConfirm] = useState<{ config?: WeeklyConfig; transactions?: Transaction[]; spots?: DistributionSpot[] } | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSaveConfig(formData);
+    onSaveConfig(formData, qrisFile);
     setSavedSuccess(true);
     setTimeout(() => setSavedSuccess(false), 2500);
   };
@@ -178,6 +180,40 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
               onChange={(e) => setFormData({ ...formData, accountHolder: e.target.value })}
               className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-emerald-500"
             />
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-slate-700 mb-1">QRIS Pembayaran (Opsional)</label>
+            <div className="flex items-center gap-4">
+              <input
+                type="file"
+                ref={qrisInputRef}
+                accept="image/*"
+                onChange={(e) => setQrisFile(e.target.files?.[0] || null)}
+                className="hidden"
+              />
+              <button
+                type="button"
+                onClick={() => qrisInputRef.current?.click()}
+                className="px-4 py-2 border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold flex items-center gap-2 transition-colors cursor-pointer"
+              >
+                <Upload className="w-4 h-4" />
+                {qrisFile ? 'Ganti Foto QRIS' : 'Upload Foto QRIS Baru'}
+              </button>
+              
+              {(qrisFile || formData.qrisImageUrl) && (
+                <div className="flex items-center gap-2 text-[11px] text-emerald-600 font-medium">
+                  <CheckCircle className="w-3.5 h-3.5" />
+                  <span>{qrisFile ? qrisFile.name : 'QRIS sudah tersimpan'}</span>
+                </div>
+              )}
+            </div>
+            {formData.qrisImageUrl && !qrisFile && (
+              <div className="mt-3">
+                <p className="text-[10px] text-slate-500 mb-1.5">QRIS yang sedang aktif:</p>
+                <img src={formData.qrisImageUrl} alt="QRIS Aktif" className="w-32 h-32 object-contain border border-slate-200 rounded-xl bg-white p-2" />
+              </div>
+            )}
           </div>
         </div>
 

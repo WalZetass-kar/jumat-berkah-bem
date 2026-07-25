@@ -73,6 +73,7 @@ export interface WeeklyConfig {
   targetMonthLabel: string; // e.g., "Juli 2026"
   estimatedCostPerPortion: number;
   currentFridayLabel: string;
+  qrisImageUrl?: string;
 }
 
 export interface FridayTrendData {

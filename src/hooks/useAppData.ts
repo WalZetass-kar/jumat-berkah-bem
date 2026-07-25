@@ -105,11 +105,32 @@ export function useAppData() {
     }
   };
 
-  const handleSaveConfig = async (updatedConfig: WeeklyConfig) => {
+  const handleSaveConfig = async (updatedConfig: WeeklyConfig, qrisFile?: File | null) => {
     // Make sure to remove admins property so it doesn't cause Supabase schema errors
     const configToSave = { ...updatedConfig } as any;
     if ('admins' in configToSave) {
       delete configToSave.admins;
+    }
+
+    if (qrisFile) {
+      const fileExt = qrisFile.name.split('.').pop();
+      const fileName = `qris_${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('jumat_berkah_gallery')
+        .upload(filePath, qrisFile);
+
+      if (uploadError) {
+        addToast('Gagal Upload QRIS', 'error', uploadError.message);
+        return;
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('jumat_berkah_gallery')
+        .getPublicUrl(filePath);
+        
+      configToSave.qrisImageUrl = publicUrl;
     }
 
     const { error } = await supabase.from('config').upsert({ id: 1, ...configToSave });
