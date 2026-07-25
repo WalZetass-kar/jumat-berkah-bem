@@ -45,8 +45,12 @@ export const Footer: React.FC<FooterProps> = ({ config, onAdminClick }) => {
             <h3 className="text-white font-bold text-sm uppercase tracking-wider">Kontak</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-slate-500 shrink-0" />
-                <p className="text-slate-400 text-sm font-medium">Kampus LP3I Pekanbaru<br/>Jl. Pattimura, Riau</p>
+                <MapPin className="w-5 h-5 text-slate-500 shrink-0 mt-0.5" />
+                <p className="text-slate-400 text-sm font-medium leading-relaxed">
+                  Kampus LP3I Pekanbaru<br/>
+                  Jl. Taman Sari No.11, Tengkerang Selatan,<br/>
+                  Kec. Bukit Raya, Kota Pekanbaru.
+                </p>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-slate-500 shrink-0" />
