@@ -34,7 +34,6 @@ import { formatRupiah, formatDateIndo } from '../utils/formatters';
 import { GalleryTestimonials } from './GalleryTestimonials';
 import { FaqSection } from './FaqSection';
 import { ShareSection } from './ShareSection';
-import { Leaderboard } from './Leaderboard';
 import { supabase } from '../utils/supabase';
 import confetti from 'canvas-confetti';
 
@@ -878,8 +877,7 @@ Berikut saya lampirkan bukti transfernya.`;
         </motion.div>
       </div>
 
-      {/* Leaderboard Section */}
-      <Leaderboard transactions={transactions} />
+      {/* Leaderboard Removed */}
 
       {/* Frequently Asked Questions */}
       <FaqSection />
