@@ -106,6 +106,13 @@ export const LandingTab: React.FC<LandingTabProps> = ({
   const [volWa, setVolWa] = useState('');
   const [volSubmitted, setVolSubmitted] = useState(false);
 
+  // Donation Form state
+  const [showDonationFormModal, setShowDonationFormModal] = useState(false);
+  const [donasiName, setDonasiName] = useState('');
+  const [donasiAmount, setDonasiAmount] = useState('15000');
+  const [donasiAnonim, setDonasiAnonim] = useState(false);
+  const [donasiDoa, setDonasiDoa] = useState('');
+
   const totalIncome = transactions
     .filter((t) => t.type === 'INCOME')
     .reduce((sum, t) => sum + t.amount, 0);
@@ -153,6 +160,12 @@ export const LandingTab: React.FC<LandingTabProps> = ({
       origin: { y: 0.6 },
       colors: ['#FBBF24', '#F59E0B', '#10B981']
     });
+    setShowDonationFormModal(true);
+  };
+
+  const handleDonationFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowDonationFormModal(false);
     setShowQrisModal(true);
   };
 
@@ -170,10 +183,15 @@ export const LandingTab: React.FC<LandingTabProps> = ({
   };
 
   // WhatsApp confirmation text generator
-  const waNumber = config.contactWa || '6281234567890';
-  const waConfirmationUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(
-    `Halo BEM LP3I Pekanbaru Kabinet Luminaire,\nSaya ingin mengonfirmasi donasi untuk Program Lumina Sharing Jumat Berkah.`
-  )}`;
+  const waMessage = `Assalamualaikum min, saya ingin konfirmasi donasi Jumat Berkah.
+
+*Nama:* ${donasiAnonim ? 'Hamba Allah' : (donasiName || '.............')}
+*Nominal:* ${donasiAmount === 'lainnya' ? '.............' : `Rp ${donasiAmount}`}
+*Pesan/Doa:* ${donasiDoa || '-'}
+*Metode:* QRIS / Transfer
+
+Berikut saya lampirkan bukti transfernya.`;
+  const waConfirmationUrl = config.contactWa ? `https://wa.me/${config.contactWa}?text=${encodeURIComponent(waMessage)}` : '#';
 
   return (
     <div className="w-full pb-0 space-y-0">
@@ -898,6 +916,99 @@ export const LandingTab: React.FC<LandingTabProps> = ({
           </div>
         </div>
       </footer>
+      {/* Donation Form Modal */}
+      {showDonationFormModal && (
+        <div className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full space-y-5 shadow-2xl animate-in fade-in zoom-in duration-200">
+            <div>
+              <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-[10px] font-extrabold uppercase">
+                Niatkan Karena Allah
+              </span>
+              <h3 className="font-black text-xl text-slate-900 mt-2">Data Donatur</h3>
+              <p className="text-xs text-slate-500 mt-0.5">Silakan isi form singkat ini sebelum melanjutkan ke pembayaran QRIS</p>
+            </div>
+
+            <form onSubmit={handleDonationFormSubmit} className="space-y-4 text-left">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">Nama Lengkap / Instansi</label>
+                <input
+                  type="text"
+                  required={!donasiAnonim}
+                  disabled={donasiAnonim}
+                  value={donasiAnonim ? 'Hamba Allah' : donasiName}
+                  onChange={(e) => setDonasiName(e.target.value)}
+                  placeholder="Nama Anda"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 disabled:opacity-50"
+                />
+                <label className="flex items-center gap-2 mt-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={donasiAnonim}
+                    onChange={(e) => {
+                      setDonasiAnonim(e.target.checked);
+                      if (e.target.checked) setDonasiName('Hamba Allah');
+                      else setDonasiName('');
+                    }}
+                    className="w-4 h-4 rounded text-amber-500 focus:ring-amber-500"
+                  />
+                  <span className="text-xs text-slate-600 font-medium">Sembunyikan nama saya (Hamba Allah)</span>
+                </label>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">Nominal Donasi (Rp)</label>
+                <select
+                  value={donasiAmount}
+                  onChange={(e) => setDonasiAmount(e.target.value)}
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 font-bold text-slate-900"
+                >
+                  <option value="15000">Rp 15.000 (1 Porsi)</option>
+                  <option value="30000">Rp 30.000 (2 Porsi)</option>
+                  <option value="75000">Rp 75.000 (5 Porsi)</option>
+                  <option value="150000">Rp 150.000 (10 Porsi)</option>
+                  <option value="lainnya">Nominal Lainnya...</option>
+                </select>
+                {donasiAmount === 'lainnya' && (
+                  <input
+                    type="number"
+                    min="1000"
+                    placeholder="Masukkan nominal bebas"
+                    className="w-full px-4 py-3 mt-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-500"
+                  />
+                )}
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">Pesan / Doa (Opsional)</label>
+                <textarea
+                  value={donasiDoa}
+                  onChange={(e) => setDonasiDoa(e.target.value)}
+                  placeholder="Tuliskan doa atau harapan Anda..."
+                  rows={2}
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 resize-none"
+                ></textarea>
+              </div>
+
+              <div className="pt-2 flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowDonationFormModal(false)}
+                  className="w-1/3 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-all"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  className="w-2/3 py-3.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
+                >
+                  <span>Lanjut Pembayaran</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* QRIS Modal */}
       {showQrisModal && (
