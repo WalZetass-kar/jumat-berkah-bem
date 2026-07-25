@@ -49,10 +49,21 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ config }) => {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-3 w-full md:w-auto shrink-0">
+          <style>{`
+            @keyframes share-wiggle {
+              0%, 10% { transform: rotate(0deg); }
+              15% { transform: rotate(-5deg) scale(1.05); }
+              20% { transform: rotate(5deg) scale(1.05); }
+              25% { transform: rotate(-5deg) scale(1.05); }
+              30% { transform: rotate(5deg) scale(1.05); }
+              35%, 100% { transform: rotate(0deg) scale(1); }
+            }
+          `}</style>
           <button
             type="button"
             onClick={handleWaShare}
-            className="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer active:scale-95"
+            className="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
+            style={{ animation: 'share-wiggle 3s ease-in-out infinite' }}
           >
             <MessageSquare className="w-4 h-4" />
             <span>Bagikan ke WhatsApp</span>
