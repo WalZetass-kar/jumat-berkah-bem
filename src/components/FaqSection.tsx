@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { HelpCircle, ChevronDown, ShieldCheck } from 'lucide-react';
 
 export const FaqSection: React.FC = () => {
@@ -33,7 +34,13 @@ export const FaqSection: React.FC = () => {
 
   return (
     <div id="faq-section" className="w-full bg-white border-b border-slate-200/80 px-4 sm:px-8 md:px-12 py-12">
-      <div className="max-w-4xl mx-auto space-y-8">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="max-w-4xl mx-auto space-y-8"
+      >
         <div className="text-center space-y-2">
           <span className="px-3 py-1 rounded-full bg-indigo-100 text-indigo-900 text-[11px] font-extrabold uppercase tracking-wider inline-flex items-center gap-1.5">
             <HelpCircle className="w-3.5 h-3.5 text-indigo-600" />
@@ -80,7 +87,7 @@ export const FaqSection: React.FC = () => {
             );
           })}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

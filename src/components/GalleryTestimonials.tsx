@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Camera, MapPin, Quote, Heart } from 'lucide-react';
 import { GalleryItem } from '../types';
 
@@ -11,7 +12,13 @@ export const GalleryTestimonials: React.FC<GalleryTestimonialsProps> = ({ items 
 
   return (
     <div id="galeri-dokumentasi" className="w-full bg-slate-50 border-b border-slate-200/80 px-4 sm:px-8 md:px-12 py-12">
-      <div className="max-w-7xl mx-auto space-y-10">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="max-w-7xl mx-auto space-y-10"
+      >
         {/* Header Section */}
         <div className="text-center max-w-2xl mx-auto space-y-2">
           <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-[11px] font-extrabold uppercase tracking-wider inline-flex items-center gap-1.5">
@@ -71,7 +78,7 @@ export const GalleryTestimonials: React.FC<GalleryTestimonialsProps> = ({ items 
             ))}
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

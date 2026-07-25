@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Share2, Copy, Check, MessageSquare, Send, Heart, Sparkles } from 'lucide-react';
 import { WeeklyConfig } from '../types';
 
@@ -27,7 +28,13 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ config }) => {
 
   return (
     <div id="bagikan-kebaikan" className="w-full bg-slate-900 text-white border-b border-slate-800 px-4 sm:px-8 md:px-12 py-10">
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 bg-gradient-to-r from-blue-900/60 to-slate-900 p-6 sm:p-8 rounded-3xl border border-blue-800/40 shadow-xl">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, type: 'spring' }}
+        className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 bg-gradient-to-r from-blue-900/60 to-slate-900 p-6 sm:p-8 rounded-3xl border border-blue-800/40 shadow-xl"
+      >
         <div className="space-y-2 text-center md:text-left max-w-xl">
           <span className="px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-[10px] font-extrabold uppercase tracking-wider inline-flex items-center gap-1.5 border border-amber-400/30">
             <Sparkles className="w-3 h-3 text-amber-300" />
@@ -60,7 +67,7 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ config }) => {
             <span>{copied ? 'Tersalin!' : 'Salin Tautan'}</span>
           </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

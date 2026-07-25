@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { 
   Heart, 
   Sparkles, 
@@ -146,7 +147,12 @@ export const LandingTab: React.FC<LandingTabProps> = ({
         {/* Dark Overlay for clear text legibility */}
         <div className="absolute inset-0 bg-slate-950/85"></div>
 
-        <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+        >
           
           {/* Left Column: Text & CTA */}
           <div className="space-y-6">
@@ -261,12 +267,17 @@ export const LandingTab: React.FC<LandingTabProps> = ({
               </div>
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
 
       {/* Simplified Friday Agenda & Countdown Banner */}
       <div id="agenda-jumat" className="w-full bg-slate-900 text-white border-y border-slate-800 px-4 sm:px-8 md:px-12 py-8 sm:py-10">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6"
+        >
           <div className="space-y-2 text-center lg:text-left max-w-xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 text-xs font-bold uppercase tracking-wider">
               <Calendar className="w-3.5 h-3.5 text-amber-300" />
@@ -327,12 +338,17 @@ export const LandingTab: React.FC<LandingTabProps> = ({
               <span>Donasi Sekarang</span>
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Real-time Impact Matrix */}
       <div className="w-full bg-slate-50 border-b border-slate-200/80 px-4 sm:px-8 md:px-12 py-10">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+        >
           <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
             <div className="flex justify-between items-center text-slate-400">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Total Donasi Terkumpul</span>
@@ -379,12 +395,18 @@ export const LandingTab: React.FC<LandingTabProps> = ({
             <p className="text-3xl font-black text-white tracking-tight">{formatRupiah(currentBalance)}</p>
             <p className="text-xs text-slate-400">Kas terbuka LP3I Pekanbaru (Kabinet Luminaire)</p>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* How It Works - 4 Friday Cycle */}
       <div id="mekanisme" className="w-full bg-white border-b border-slate-200/80 px-4 sm:px-8 md:px-12 py-12">
-        <div className="max-w-7xl mx-auto space-y-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-7xl mx-auto space-y-8"
+        >
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-900 text-[11px] font-extrabold uppercase tracking-wider">
               Alur Program Kerja
@@ -452,12 +474,18 @@ export const LandingTab: React.FC<LandingTabProps> = ({
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Program Pillars & Luminaire Cabinet Mission */}
       <div id="pilar-program" className="w-full bg-slate-50 border-b border-slate-200/80 px-4 sm:px-8 md:px-12 py-12">
-        <div className="max-w-7xl mx-auto space-y-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-7xl mx-auto space-y-8"
+        >
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-extrabold uppercase tracking-wider">
               Aksi Nyata BEM LP3I Pekanbaru
@@ -511,12 +539,18 @@ export const LandingTab: React.FC<LandingTabProps> = ({
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Donation Channel Card (Bank Transfer & QRIS) */}
       <div id="donasi-rekening" className="w-full bg-slate-900 text-white px-4 sm:px-8 md:px-12 py-12">
-        <div className="max-w-7xl mx-auto space-y-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-7xl mx-auto space-y-8"
+        >
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-2 max-w-xl">
               <span className="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-[10px] font-extrabold uppercase tracking-widest">
@@ -593,12 +627,18 @@ export const LandingTab: React.FC<LandingTabProps> = ({
               </a>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Distribution Spots Live Progress */}
       <div id="titik-penyaluran" className="w-full bg-white border-b border-slate-200/80 px-4 sm:px-8 md:px-12 py-12">
-        <div className="max-w-7xl mx-auto space-y-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-7xl mx-auto space-y-6"
+        >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <h2 className="text-2xl font-black text-slate-900 tracking-tight">
@@ -684,7 +724,7 @@ export const LandingTab: React.FC<LandingTabProps> = ({
               })}
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
 
       {/* Gallery & Testimonials Section */}
@@ -692,7 +732,13 @@ export const LandingTab: React.FC<LandingTabProps> = ({
 
       {/* Live Recent Donors Section */}
       <div id="donatur-terbaru" className="w-full bg-slate-50 border-b border-slate-200/80 px-4 sm:px-8 md:px-12 py-12">
-        <div className="max-w-7xl mx-auto space-y-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-7xl mx-auto space-y-6"
+        >
           <div className="flex justify-between items-center">
             <div>
               <h2 className="text-xl font-black text-slate-900 tracking-tight">Daftar Donatur Terakhir</h2>
@@ -737,7 +783,7 @@ export const LandingTab: React.FC<LandingTabProps> = ({
                 ))}
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
 
       {/* Frequently Asked Questions */}
