@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, ArrowDownRight, ArrowUpRight, PlusCircle, Check, Calendar } from 'lucide-react';
 import { Transaction, TransactionType, DonationCategory, ExpenseCategory } from '../types';
 import { formatDateIndo } from '../utils/formatters';
+import confetti from 'canvas-confetti';
 
 interface AddTransactionModalProps {
   isOpen: boolean;
@@ -84,6 +85,15 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
       paymentMethod,
       verifiedBy,
     });
+
+    if (type === 'INCOME' && Number(amount) >= 500000) {
+      confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: ['#10B981', '#34D399', '#FBBF24']
+      });
+    }
 
     onClose();
     // Reset Form

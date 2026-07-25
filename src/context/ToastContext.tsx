@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { CheckCircle2, AlertCircle, Info, AlertTriangle, X } from 'lucide-react';
+import { playSuccessSound, playNotificationSound } from '../utils/sounds';
 
 export type ToastType = 'success' | 'error' | 'info' | 'warning';
 
@@ -30,6 +31,12 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const newToast: ToastItem = { id, type, title, description };
 
     setToasts((prev) => [newToast, ...prev].slice(0, 5)); // Keep max 5 toasts
+
+    if (type === 'success') {
+      playSuccessSound();
+    } else {
+      playNotificationSound();
+    }
 
     // Auto dismiss after 3.5 seconds
     setTimeout(() => {

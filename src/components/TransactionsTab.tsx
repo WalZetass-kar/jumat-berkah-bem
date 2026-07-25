@@ -12,7 +12,8 @@ import {
   Eye,
   FileSpreadsheet,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Send
 } from 'lucide-react';
 import { ConfirmModal } from './ConfirmModal';
 import { Transaction, TransactionType } from '../types';
@@ -75,6 +76,27 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  const handleSendWA = (tx: Transaction) => {
+    const isIncome = tx.type === 'INCOME';
+    const message = `*KWITANSI DONASI - JUMAT BERKAH BEM LP3I*
+----------------------------------------
+*No. Ref:* TRX-${tx.id.substring(0, 6).toUpperCase()}
+*Tanggal:* ${formatDateIndo(tx.date)}
+*Kategori:* ${tx.category}
+
+*Nama Donatur:* ${tx.donorOrVendor}
+*Nominal:* ${formatRupiah(tx.amount)}
+*Keterangan:* ${tx.notes || '-'}
+----------------------------------------
+*Status:* LUNAS ✅
+Terima kasih atas donasi Anda! Semoga Allah membalas dengan kebaikan yang berlipat ganda.
+
+_Pesan Otomatis dari Sistem Sahabat Berkah_`;
+
+    const waUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, '_blank');
+  };
 
   // Export CSV
   const handleExportCSV = () => {
@@ -271,6 +293,16 @@ export const TransactionsTab: React.FC<TransactionsTabProps> = ({
                           className="p-2 rounded-xl text-slate-500 hover:bg-slate-200 transition-colors cursor-pointer"
                         >
                           <Eye className="w-4 h-4 text-sky-600" />
+                        </button>
+                      )}
+
+                      {isIncome && (
+                        <button
+                          onClick={() => handleSendWA(tx)}
+                          title="Kirim Kwitansi ke WhatsApp"
+                          className="p-2 rounded-xl text-emerald-500 hover:bg-emerald-50 transition-colors cursor-pointer"
+                        >
+                          <Send className="w-4 h-4" />
                         </button>
                       )}
 

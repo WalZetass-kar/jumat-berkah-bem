@@ -35,6 +35,7 @@ import { GalleryTestimonials } from './GalleryTestimonials';
 import { FaqSection } from './FaqSection';
 import { ShareSection } from './ShareSection';
 import { Leaderboard } from './Leaderboard';
+import { WallOfLove } from './WallOfLove';
 import { supabase } from '../utils/supabase';
 import confetti from 'canvas-confetti';
 
@@ -821,6 +822,9 @@ Berikut saya lampirkan bukti transfernya.`;
 
       {/* Gallery & Testimonials Section */}
       <GalleryTestimonials items={galleryItems} />
+
+      {/* Wall of Love (Donation Messages) */}
+      <WallOfLove transactions={transactions} />
 
       {/* Live Recent Donors Section */}
       <div id="donatur-terbaru" className="w-full bg-slate-50 border-b border-slate-200/80 px-4 sm:px-8 md:px-12 py-12">
