@@ -16,6 +16,7 @@ import { SecretPortal } from './pages/SecretPortal';
 
 
 import { AdminNewsTab } from './components/AdminNewsTab';
+import { NewsDetailPage } from './components/NewsDetailPage';
 
 // Helper component to pass outlet context down to the original tabs
 function TabWrapper({ component: Component }: { component: any }) {
@@ -194,6 +195,22 @@ export default function App() {
                 onLoginClick={() => { window.location.href = '/portal-rahasia-bem'; }}
                 onNavigateToTab={() => {}}
               />
+            </>
+          } />
+
+          <Route path="/berita/:slug" element={
+            <>
+              <Navbar
+                config={appData.config}
+                onOpenAddModal={() => {}}
+                searchTerm=""
+                setSearchTerm={() => {}}
+                activeTab="landing"
+                isAdminLoggedIn={!!session}
+                onLoginClick={() => { window.location.href = '/portal-rahasia-bem'; }}
+                onLogoutClick={async () => { await supabase.auth.signOut(); }}
+              />
+              <NewsDetailPage articles={appData.articles} />
             </>
           } />
           

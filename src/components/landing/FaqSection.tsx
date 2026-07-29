@@ -32,8 +32,8 @@ export const FaqSection: React.FC = () => {
     <section id="faq" className="py-24 bg-slate-50 border-t border-slate-200/60">
       <div className="max-w-3xl mx-auto px-6">
         <div className="text-center mb-16">
-          <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <HelpCircle className="w-8 h-8 text-blue-600" />
+          <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <HelpCircle className="w-8 h-8 text-emerald-600" />
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Tanya Jawab</h2>
           <p className="text-lg text-slate-500">
@@ -53,7 +53,7 @@ export const FaqSection: React.FC = () => {
             >
               <button
                 onClick={() => toggleFaq(index)}
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                className="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
               >
                 <span className="font-bold text-slate-900 text-lg pr-8">{faq.q}</span>
                 <motion.div

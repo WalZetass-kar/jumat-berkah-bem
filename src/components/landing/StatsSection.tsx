@@ -35,10 +35,10 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
             whileHover={{ y: -5 }}
             className="md:col-span-3 lg:col-span-1 bg-slate-900 rounded-3xl p-8 sm:p-10 text-white shadow-2xl relative overflow-hidden group"
           >
-            <div className="absolute -right-6 -top-6 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl group-hover:bg-blue-500/30 transition-colors"></div>
+            <div className="absolute -right-6 -top-6 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl group-hover:bg-emerald-500/30 transition-colors"></div>
             
             <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-8 border border-white/10">
-              <Wallet className="w-7 h-7 text-blue-400" />
+              <Wallet className="w-7 h-7 text-emerald-400" />
             </div>
             
             <p className="text-slate-400 font-medium mb-2 text-lg">Total Donasi Terkumpul</p>
@@ -60,10 +60,10 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
               whileHover={{ y: -5 }}
-              className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-100 transition-all group"
+              className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-emerald-200 transition-all group"
             >
-              <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors">
-                <Package className="w-6 h-6 text-blue-600 group-hover:text-white transition-colors" />
+              <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition-colors">
+                <Package className="w-6 h-6 text-emerald-600 group-hover:text-white transition-colors" />
               </div>
               <p className="text-slate-500 font-medium mb-1 text-sm uppercase tracking-wider">Porsi Nasi Dibagikan</p>
               <h3 className="text-4xl font-bold text-slate-900">
@@ -77,10 +77,10 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
               whileHover={{ y: -5 }}
-              className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-amber-100 transition-all group"
+              className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-teal-200 transition-all group"
             >
-              <div className="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-amber-500 transition-colors">
-                <MapPin className="w-6 h-6 text-amber-600 group-hover:text-white transition-colors" />
+              <div className="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-teal-600 transition-colors">
+                <MapPin className="w-6 h-6 text-teal-600 group-hover:text-white transition-colors" />
               </div>
               <p className="text-slate-500 font-medium mb-1 text-sm uppercase tracking-wider">Titik Penyaluran</p>
               <h3 className="text-4xl font-bold text-slate-900">
@@ -98,8 +98,8 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
             >
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
-                    <Users className="w-5 h-5 text-indigo-600" />
+                  <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+                    <Users className="w-5 h-5 text-emerald-700" />
                   </div>
                   <p className="text-slate-600 font-medium uppercase tracking-wider text-sm">Total Partisipasi Donatur</p>
                 </div>

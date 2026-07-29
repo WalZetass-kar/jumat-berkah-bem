@@ -29,8 +29,8 @@ export const DonorsSection: React.FC<DonorsSectionProps> = ({ transactions }) =>
 
         <div className="max-w-4xl mx-auto w-full">
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
-              <Clock className="w-6 h-6 text-blue-500" />
+            <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+              <Clock className="w-6 h-6 text-emerald-600" />
             </div>
             <h3 className="text-2xl font-bold text-slate-900">Donasi Terbaru</h3>
           </div>
@@ -53,11 +53,11 @@ export const DonorsSection: React.FC<DonorsSectionProps> = ({ transactions }) =>
                   className="group bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all flex items-start justify-between gap-4"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center text-blue-600 font-bold shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-100 to-emerald-50 flex items-center justify-center text-emerald-700 font-bold shrink-0">
                       {(tx.donorOrVendor || 'H').charAt(0).toUpperCase()}
                     </div>
                     <div>
-                      <h4 className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                      <h4 className="font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
                         {tx.donorOrVendor || 'Hamba Allah'}
                       </h4>
                       <div className="flex items-center gap-2 mt-1">

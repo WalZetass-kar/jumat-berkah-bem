@@ -85,7 +85,9 @@ export const NewsPublicSection: React.FC<NewsPublicSectionProps> = ({ articles }
             {filteredArticles.map((article) => (
               <article
                 key={article.id}
-                onClick={() => setActiveArticle(article)}
+                onClick={() => {
+                  window.location.href = `/berita/${article.slug || article.id}`;
+                }}
                 className="bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 rounded-3xl overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-500/50 flex flex-col group cursor-pointer"
               >
                 {/* Thumbnail Image */}
