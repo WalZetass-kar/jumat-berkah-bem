@@ -23,153 +23,106 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onInfoClick
 }) => {
   return (
-    <div id="hero" className="relative w-full min-h-[90vh] flex items-center justify-center pt-24 pb-16 px-6 overflow-hidden bg-slate-950">
-      {/* Background Image with elegant overlay */}
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx7vsQhix8E6D2Ss-p17Bi8YQ-Vo2LrA24e2Q9YbLJpg&s=10')" }}
-      >
-        <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-[2px]"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+    <div id="hero" className="relative w-full bg-[#F8FAFC] py-20 lg:py-28 px-4 sm:px-6 md:px-8 border-b border-slate-200">
+      <div className="max-w-[1280px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
-        {/* Text Content */}
-        <div className="col-span-1 lg:col-span-7 space-y-8 text-center lg:text-left">
+        {/* Left Column Text & CTA */}
+        <div className="col-span-1 lg:col-span-7 space-y-8 text-left">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-semibold tracking-wide"
+            transition={{ duration: 0.4 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-extrabold tracking-wide"
           >
-            <Sparkles className="w-4 h-4 text-emerald-400" />
-            BEM LP3I Pekanbaru Kabinet Luminaire
+            <Sparkles className="w-4 h-4 text-emerald-600" />
+            <span>BEM LP3I Pekanbaru Kabinet Luminaire</span>
           </motion.div>
 
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl sm:text-6xl md:text-7xl font-bold text-white tracking-tight leading-[1.1]"
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="text-4xl sm:text-5xl lg:text-[64px] font-black text-slate-900 tracking-tight leading-[1.1]"
           >
             Lumina Sharing <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-400">
+            <span className="text-emerald-600">
               Jumat Berkah
             </span>
           </motion.h1>
 
           <motion.p 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium"
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-medium"
           >
-            {config.motto}. Wadah resmi transparansi infaq, sedekah porsi nasi kotak, dan santunan yatim yang dikelola langsung oleh mahasiswa.
+            {config.motto || "Sedekah Membawa Keberkahan & Kelapangan Rezeki"}. Wadah resmi transparansi infaq, sedekah porsi nasi kotak, dan santunan yatim yang dikelola langsung oleh mahasiswa.
           </motion.p>
 
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-wrap items-center gap-4 pt-4 justify-center lg:justify-start"
+            transition={{ duration: 0.4, delay: 0.3 }}
+            className="flex flex-wrap items-center gap-4 pt-2"
           >
             <button
               onClick={onDonateClick}
-              className="px-6 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl text-sm sm:text-base transition-all duration-300 shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] flex items-center justify-center gap-2"
+              className="h-[52px] px-8 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold rounded-[16px] text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
-              <Heart className="w-5 h-5 fill-slate-950" />
-              Donasi Sekarang
+              <Heart className="w-5 h-5 fill-white" />
+              <span>Donasi Sekarang</span>
             </button>
             <button
               onClick={onInfoClick}
-              className="px-6 py-4 bg-teal-700 hover:bg-teal-600 text-white font-bold rounded-xl text-sm sm:text-base transition-all duration-300 flex items-center justify-center gap-2"
+              className="h-[52px] px-7 bg-white hover:bg-emerald-50 text-emerald-700 font-extrabold rounded-[16px] border border-emerald-600 text-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
-              <Building2 className="w-5 h-5 text-teal-200" />
-              Info Rekening & QRIS
+              <Building2 className="w-5 h-5 text-emerald-600" />
+              <span>Info Rekening & QRIS</span>
             </button>
             <button
               onClick={onVolunteerClick}
-              className="px-6 py-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl text-sm sm:text-base transition-all duration-300 flex items-center justify-center gap-2"
+              className="h-[52px] px-7 bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-[16px] border border-slate-300 text-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
-              <Users className="w-5 h-5 text-slate-400" />
-              Daftar Relawan
+              <Users className="w-5 h-5 text-slate-500" />
+              <span>Daftar Relawan</span>
             </button>
           </motion.div>
         </div>
 
-        {/* Right Column: Animated Image Collage */}
-        {galleryItems && galleryItems.length > 0 && (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
+        {/* Right Column: Solid Hero Card & Floating Realtime Stats */}
+        <div className="col-span-1 lg:col-span-5 relative">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="col-span-1 lg:col-span-5 hidden lg:flex justify-center items-center relative min-h-[500px]"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="bg-white rounded-[20px] p-6 sm:p-8 border border-slate-200 shadow-[0_8px_24px_rgba(0,0,0,0.06)] space-y-6 relative"
           >
-            {/* Glowing Background Blur */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[28rem] h-[28rem] bg-amber-500/20 blur-[100px] rounded-full animate-pulse"></div>
-            
-            <style>{`
-              @keyframes float-img-1 {
-                0% { transform: rotate(5deg) translate(20px, 0px); }
-                50% { transform: rotate(5deg) translate(20px, -20px); }
-                100% { transform: rotate(5deg) translate(20px, 0px); }
-              }
-              @keyframes float-img-2 {
-                0% { transform: rotate(-6deg) translate(-50px, 40px); }
-                50% { transform: rotate(-6deg) translate(-50px, 20px); }
-                100% { transform: rotate(-6deg) translate(-50px, 40px); }
-              }
-              @keyframes float-badge {
-                0% { transform: translateY(0px); }
-                50% { transform: translateY(-15px); }
-                100% { transform: translateY(0px); }
-              }
-            `}</style>
-
-            {/* Image 1: Main (Right/Top) */}
-            <div 
-              className="absolute z-30 w-72 h-[350px] rounded-[2rem] overflow-hidden border-[6px] border-white/10 shadow-2xl backdrop-blur-md"
-              style={{ animation: 'float-img-1 6s ease-in-out infinite' }}
-            >
-               <img 
-                 src={galleryItems[0].imageUrl} 
-                 alt="Dokumentasi 1" 
-                 className="w-full h-full object-cover bg-slate-800"
-               />
-               <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent p-5">
-                  <p className="text-white text-sm font-black tracking-wide">Aksi Nyata BEM LP3I</p>
-                  <p className="text-amber-300 text-[10px] font-bold uppercase mt-0.5">Jumat Berkah</p>
-               </div>
+            {/* Hero Image / Illustration */}
+            <div className="w-full aspect-[4/3] rounded-[16px] overflow-hidden bg-slate-100 border border-slate-200 relative">
+              <img 
+                src={galleryItems && galleryItems.length > 0 ? galleryItems[0].imageUrl : "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80"} 
+                alt="Dokumentasi BEM LP3I" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute bottom-3 left-3 bg-white border border-slate-200 px-3 py-1.5 rounded-xl shadow-md flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="text-xs font-bold text-slate-900">Penyaluran Berjalan</span>
+              </div>
             </div>
 
-            {/* Image 2: Secondary (Left/Bottom) - Only show if there's a second image */}
-            {galleryItems.length > 1 && (
-              <div 
-                className="absolute z-20 w-64 h-[300px] rounded-[2rem] overflow-hidden border-[6px] border-white/5 shadow-2xl backdrop-blur-md"
-                style={{ animation: 'float-img-2 7s ease-in-out infinite 1s' }}
-              >
-                 <img 
-                   src={galleryItems[1].imageUrl} 
-                   alt="Dokumentasi 2" 
-                   className="w-full h-full object-cover grayscale-[30%] bg-slate-800"
-                 />
-                 <div className="absolute inset-0 bg-slate-900/20"></div>
+            {/* Floating Realtime Stats Row */}
+            <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+              <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Target Porsi</p>
+                <p className="text-xl sm:text-2xl font-black text-slate-900 mt-0.5">{totalTarget} Porsi</p>
               </div>
-            )}
-
-            {/* Decoration Badge */}
-            <div 
-              className="absolute z-40 top-16 -right-4 bg-amber-400 text-slate-950 px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2"
-              style={{ animation: 'float-badge 5s ease-in-out infinite 0.5s' }}
-            >
-               <Heart className="w-5 h-5 fill-slate-950 animate-pulse" />
-               <div>
-                 <p className="text-xs font-black tracking-wide">#LuminaSharing</p>
-               </div>
+              <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
+                <p className="text-xs font-bold text-emerald-800 uppercase tracking-wider">Tersalurkan</p>
+                <p className="text-xl sm:text-2xl font-black text-emerald-700 mt-0.5">{totalDistributed} Kotak</p>
+              </div>
             </div>
           </motion.div>
-        )}
+        </div>
       </div>
     </div>
   );

@@ -29,39 +29,41 @@ export const FaqSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-24 bg-slate-50 border-t border-slate-200/60">
-      <div className="max-w-3xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <HelpCircle className="w-8 h-8 text-emerald-600" />
+    <section id="faq-section" className="py-[120px] bg-[#F8FAFC] border-b border-slate-200">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div className="w-16 h-16 bg-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+            <HelpCircle className="w-8 h-8 text-white" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Tanya Jawab</h2>
-          <p className="text-lg text-slate-500">
-            Pertanyaan yang sering diajukan seputar program Jumat Berkah.
+          <h2 className="text-3xl sm:text-[40px] font-black tracking-tight text-slate-900 leading-tight">
+            Tanya Jawab (FAQ)
+          </h2>
+          <p className="text-slate-600 text-base font-medium">
+            Pertanyaan yang paling sering diajukan seputar program Jumat Berkah BEM LP3I Pekanbaru.
           </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="max-w-3xl mx-auto space-y-4">
           {faqs.map((faq, index) => (
             <motion.div 
               key={index}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+              transition={{ delay: index * 0.08 }}
+              className="bg-white rounded-[20px] border border-[#E5E7EB] shadow-[0_8px_24px_rgba(0,0,0,0.06)] overflow-hidden transition-all duration-300"
             >
               <button
                 onClick={() => toggleFaq(index)}
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                className="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors focus:outline-none cursor-pointer"
               >
-                <span className="font-bold text-slate-900 text-lg pr-8">{faq.q}</span>
+                <span className="font-bold text-slate-900 text-base sm:text-lg pr-6">{faq.q}</span>
                 <motion.div
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
-                  className="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center shrink-0"
+                  className="w-9 h-9 bg-emerald-50 rounded-xl flex items-center justify-center shrink-0 border border-emerald-100"
                 >
-                  <ChevronDown className="w-5 h-5 text-slate-500" />
+                  <ChevronDown className="w-5 h-5 text-emerald-600" />
                 </motion.div>
               </button>
               
@@ -73,7 +75,7 @@ export const FaqSection: React.FC = () => {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="px-6 pb-6 pt-0 text-slate-600 leading-relaxed border-t border-slate-100 mt-4 pt-4">
+                    <div className="px-6 pb-6 pt-0 text-slate-600 text-sm sm:text-base leading-relaxed border-t border-slate-100 mt-2 pt-4 font-normal">
                       {faq.a}
                     </div>
                   </motion.div>

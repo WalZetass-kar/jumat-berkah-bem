@@ -17,95 +17,114 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
   totalDonors 
 }) => {
   return (
-    <section id="statistik" className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Transparansi Penyaluran</h2>
-          <p className="text-lg text-slate-500 max-w-2xl mx-auto">
+    <section id="statistik" className="py-[120px] bg-white border-b border-slate-200">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-extrabold uppercase tracking-wider">
+            <Wallet className="w-4 h-4 text-emerald-600" />
+            <span>Transparansi Laporan</span>
+          </div>
+          <h2 className="text-3xl sm:text-[40px] font-black tracking-tight text-slate-900 leading-tight">
+            Transparansi Penyaluran Donasi
+          </h2>
+          <p className="text-slate-600 text-base font-medium">
             Setiap rupiah yang diamanahkan akan selalu kami laporkan secara terbuka. Berikut adalah pencapaian kolektif kita bersama.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Main Stat Card - Total Donasi */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-[32px] items-stretch">
+          {/* Main Stat Dashboard Box (Kiri Width 5) */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            whileHover={{ y: -5 }}
-            className="md:col-span-3 lg:col-span-1 bg-slate-900 rounded-3xl p-8 sm:p-10 text-white shadow-2xl relative overflow-hidden group"
+            className="lg:col-span-5 bg-slate-900 rounded-[20px] p-8 sm:p-10 text-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] flex flex-col justify-between border border-slate-800"
           >
-            <div className="absolute -right-6 -top-6 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl group-hover:bg-emerald-500/30 transition-colors"></div>
-            
-            <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-8 border border-white/10">
-              <Wallet className="w-7 h-7 text-emerald-400" />
+            <div>
+              <div className="w-14 h-14 bg-emerald-600 rounded-2xl flex items-center justify-center mb-8 shadow-sm">
+                <Wallet className="w-7 h-7 text-white" />
+              </div>
+              
+              <p className="text-slate-400 font-bold mb-2 text-sm uppercase tracking-wider">Total Donasi Terkumpul</p>
+              <h3 className="text-4xl sm:text-5xl font-black tracking-tight text-white mb-6">
+                {formatRupiah(totalIncome)}
+              </h3>
             </div>
-            
-            <p className="text-slate-400 font-medium mb-2 text-lg">Total Donasi Terkumpul</p>
-            <h3 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-6">
-              {formatRupiah(totalIncome)}
-            </h3>
-            
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-semibold">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              Real-time update
+
+            <div className="pt-6 border-t border-slate-800 space-y-4">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-slate-400 font-medium">Status Pengelolaan</span>
+                <span className="text-emerald-400 font-extrabold flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  100% Transparan
+                </span>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed font-normal">
+                Diperbarui secara otomatis melalui catatan kas resmi BEM Politeknik LP3I Pekanbaru.
+              </p>
             </div>
           </motion.div>
 
-          {/* Secondary Stats */}
-          <div className="md:col-span-3 lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
+          {/* Secondary Stats Grid (Kanan Width 7) */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-[32px]">
+            {/* Stat 1: Porsi Nasi */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              whileHover={{ y: -5 }}
-              className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-emerald-200 transition-all group"
+              className="bg-white rounded-[20px] p-8 border border-[#E5E7EB] shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
             >
-              <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition-colors">
-                <Package className="w-6 h-6 text-emerald-600 group-hover:text-white transition-colors" />
+              <div>
+                <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 border border-emerald-100">
+                  <Package className="w-6 h-6 text-emerald-600" />
+                </div>
+                <p className="text-slate-500 font-extrabold mb-1 text-xs uppercase tracking-wider">Porsi Nasi Dibagikan</p>
+                <h3 className="text-3xl font-black text-slate-900">
+                  {totalDistributed} <span className="text-lg text-slate-500 font-bold">Kotak</span>
+                </h3>
               </div>
-              <p className="text-slate-500 font-medium mb-1 text-sm uppercase tracking-wider">Porsi Nasi Dibagikan</p>
-              <h3 className="text-4xl font-bold text-slate-900">
-                {totalDistributed} <span className="text-xl text-slate-400 font-medium">Kotak</span>
-              </h3>
+              <p className="text-xs text-slate-400 mt-4 font-medium">Disalurkan setiap hari Jumat</p>
             </motion.div>
 
+            {/* Stat 2: Titik Penyaluran */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              whileHover={{ y: -5 }}
-              className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-teal-200 transition-all group"
+              className="bg-white rounded-[20px] p-8 border border-[#E5E7EB] shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
             >
-              <div className="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-teal-600 transition-colors">
-                <MapPin className="w-6 h-6 text-teal-600 group-hover:text-white transition-colors" />
+              <div>
+                <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 border border-emerald-100">
+                  <MapPin className="w-6 h-6 text-emerald-600" />
+                </div>
+                <p className="text-slate-500 font-extrabold mb-1 text-xs uppercase tracking-wider">Titik Penyaluran</p>
+                <h3 className="text-3xl font-black text-slate-900">
+                  {totalLocations} <span className="text-lg text-slate-500 font-bold">Lokasi</span>
+                </h3>
               </div>
-              <p className="text-slate-500 font-medium mb-1 text-sm uppercase tracking-wider">Titik Penyaluran</p>
-              <h3 className="text-4xl font-bold text-slate-900">
-                {totalLocations} <span className="text-xl text-slate-400 font-medium">Lokasi</span>
-              </h3>
+              <p className="text-xs text-slate-400 mt-4 font-medium">Area kampus & sekitarnya</p>
             </motion.div>
 
+            {/* Stat 3: Total Partisipasi Donatur */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              whileHover={{ y: -5 }}
-              className="sm:col-span-2 bg-slate-50 rounded-3xl p-8 border border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 hover:bg-slate-100 transition-colors"
+              className="sm:col-span-2 bg-white rounded-[20px] p-8 border border-[#E5E7EB] shadow-[0_8px_24px_rgba(0,0,0,0.06)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 hover:-translate-y-1 transition-all duration-300"
             >
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
-                    <Users className="w-5 h-5 text-emerald-700" />
+                  <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center border border-emerald-100">
+                    <Users className="w-5 h-5 text-emerald-600" />
                   </div>
-                  <p className="text-slate-600 font-medium uppercase tracking-wider text-sm">Total Partisipasi Donatur</p>
+                  <p className="text-slate-500 font-extrabold uppercase tracking-wider text-xs">Total Partisipasi Donatur</p>
                 </div>
-                <h3 className="text-3xl font-bold text-slate-900 mt-3">{totalDonors} Orang Baik</h3>
+                <h3 className="text-3xl font-black text-slate-900 mt-2">{totalDonors} Orang Baik</h3>
               </div>
-              <a href="#donatur" className="px-6 py-3 bg-white border border-slate-200 text-slate-700 font-bold rounded-xl shadow-sm hover:bg-slate-50 transition-colors">
+              <a href="#donatur" className="h-[48px] px-6 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow-sm transition-all flex items-center justify-center shrink-0">
                 Lihat Daftar Donatur
               </a>
             </motion.div>
