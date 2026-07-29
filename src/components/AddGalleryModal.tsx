@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Camera, Upload, Image as ImageIcon, MapPin, Calendar, Heart } from 'lucide-react';
+import { GalleryItem } from '../types';
 import { compressImage } from '../utils/imageCompressor';
 
 interface AddGalleryModalProps {

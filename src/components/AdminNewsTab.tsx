@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Newspaper, Plus, Trash2, Edit3, Eye, Calendar, User, Tag, Sparkles, Image as ImageIcon } from 'lucide-react';
+import { NewsArticle } from '../types';
 import { compressImage } from '../utils/imageCompressor';
 
 interface AdminNewsTabProps {
