@@ -14,7 +14,8 @@ export type ExpenseCategory =
   | 'Air Mineral & Minuman'
   | 'Kemasan, Plastik & Mangkuk'
   | 'Operasional & Transportasi'
-  | 'Santunan Cash / Dhuafa';
+  | 'Santunan Cash / Dhuafa'
+  | 'Lainnya';
 
 export interface Transaction {
   id: string;

@@ -27,6 +27,7 @@ const expenseCategories: ExpenseCategory[] = [
   'Kemasan, Plastik & Mangkuk',
   'Operasional & Transportasi',
   'Santunan Cash / Dhuafa',
+  'Lainnya',
 ];
 
 export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
