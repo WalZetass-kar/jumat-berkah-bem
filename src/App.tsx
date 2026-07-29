@@ -15,6 +15,8 @@ import { AdminLayout } from './pages/AdminLayout';
 import { SecretPortal } from './pages/SecretPortal';
 
 
+import { AdminNewsTab } from './components/AdminNewsTab';
+
 // Helper component to pass outlet context down to the original tabs
 function TabWrapper({ component: Component }: { component: any }) {
   const { appData, setIsAddGalleryModalOpen, setModalDefaultType, setIsModalOpen } = useOutletContext<any>();
@@ -30,6 +32,14 @@ function TabWrapper({ component: Component }: { component: any }) {
       onNavigateToTab={() => {}} 
       onOpenAddGalleryModal={() => setIsAddGalleryModalOpen(true)} 
       onDeleteGalleryItem={appData.handleDeleteGalleryItem} 
+    />;
+  }
+
+  if (Component === AdminNewsTab) {
+    return <Component 
+      articles={appData.articles} 
+      onAddArticle={appData.handleAddArticle} 
+      onDeleteArticle={appData.handleDeleteArticle} 
     />;
   }
   
@@ -178,6 +188,7 @@ export default function App() {
                 config={appData.config}
                 transactions={appData.transactions}
                 spots={appData.spots}
+                articles={appData.articles}
                 galleryItems={appData.galleryItems}
                 isAdminLoggedIn={!!session}
                 onLoginClick={() => { window.location.href = '/portal-rahasia-bem'; }}
@@ -193,6 +204,7 @@ export default function App() {
             <Route path="dashboard" element={<TabWrapper component={DashboardTab} />} />
             <Route path="transactions" element={<TabWrapper component={TransactionsTab} />} />
             <Route path="distribution" element={<TabWrapper component={DistributionTab} />} />
+            <Route path="news" element={<TabWrapper component={AdminNewsTab} />} />
             <Route path="admins" element={<TabWrapper component={AdminUsersTab} />} />
             <Route path="volunteers" element={<TabWrapper component={VolunteersTab} />} />
             <Route path="reports" element={<TabWrapper component={ReportsTab} />} />

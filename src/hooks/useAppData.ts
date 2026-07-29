@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabase';
 import { initialConfig } from '../data/mockData';
-import { Transaction, DistributionSpot, WeeklyConfig, GalleryItem, Volunteer } from '../types';
+import { Transaction, DistributionSpot, WeeklyConfig, GalleryItem, Volunteer, NewsArticle } from '../types';
 import { useToast } from '../context/ToastContext';
 import { formatRupiah } from '../utils/formatters';
 
@@ -13,18 +13,41 @@ export function useAppData() {
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [adminUsers, setAdminUsers] = useState<any[]>([]);
   const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
+  const [articles, setArticles] = useState<NewsArticle[]>([
+    {
+      id: '1',
+      title: 'BEM LP3I Pekanbaru Sukses Gelar Penyaluran 150 Porsi Nasi Kotak Jumat Berkah',
+      slug: 'bem-lp3i-penyaluran-nasi-kotak',
+      category: 'Jumat Berkah',
+      author: 'Humas BEM LP3I',
+      publishedAt: '24 Juli 2026',
+      excerpt: 'Kegiatan penyaluran donasi umat berjalan lancar di Masjid Agung Al-Falah dan panti asuhan setempat.',
+      content: `Alhamdulillah, kegiatan penyaluran Jumat Berkah BEM LP3I Pekanbaru pekan ini berjalan lancar.\n\nSebanyak 150 porsi nasi kotak telah dibagikan kepada jamaah shalat jumat, petugas kebersihan, pengemudi ojek online, dan panti asuhan di sekitar kampus Pekanbaru.\n\nTerima kasih kepada seluruh donatur dan mahasiswa relawan yang telah berpartisipasi.`
+    },
+    {
+      id: '2',
+      title: 'Pelantikan Pengurus BEM Kabinet Luminaire Periode 2026/2027',
+      slug: 'pelantikan-bem-kabinet-luminaire',
+      category: 'Kegiatan BEM',
+      author: 'Pengurus BEM',
+      publishedAt: '15 Juli 2026',
+      excerpt: 'Pengurus BEM LP3I Pekanbaru resmi dilantik untuk mengemban amanah selama satu periode ke depan.',
+      content: `Selamat dan sukses atas dilantiknya pengurus BEM LP3I Pekanbaru Kabinet Luminaire periode 2026/2027.\n\nDengan semangat solidaritas dan kebersamaan, BEM berkomitmen menghadirkan program kerja yang berdampak nyata bagi mahasiswa dan masyarakat.`
+    }
+  ]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const [txRes, spotsRes, galleryRes, configRes, adminsRes, volunteersRes] = await Promise.all([
+        const [txRes, spotsRes, galleryRes, configRes, adminsRes, volunteersRes, articlesRes] = await Promise.all([
           supabase.from('transactions').select('*').order('created_at', { ascending: false }),
           supabase.from('distribution_spots').select('*').order('created_at', { ascending: true }),
           supabase.from('gallery_items').select('*').order('created_at', { ascending: false }),
           supabase.from('config').select('*').eq('id', 1).single(),
           supabase.from('admin_users').select('*').order('created_at', { ascending: true }),
-          supabase.from('volunteers').select('*').order('created_at', { ascending: false })
+          supabase.from('volunteers').select('*').order('created_at', { ascending: false }),
+          supabase.from('news_articles').select('*').order('created_at', { ascending: false })
         ]);
         
         if (txRes.data) setTransactions(txRes.data as Transaction[]);
@@ -33,6 +56,7 @@ export function useAppData() {
         if (configRes.data) setConfig(configRes.data as WeeklyConfig);
         if (adminsRes.data) setAdminUsers(adminsRes.data);
         if (volunteersRes.data) setVolunteers(volunteersRes.data as Volunteer[]);
+        if (articlesRes.data && articlesRes.data.length > 0) setArticles(articlesRes.data as NewsArticle[]);
       } catch (err) {
         console.error("Error fetching data from Supabase", err);
       } finally {
@@ -41,6 +65,48 @@ export function useAppData() {
     }
     fetchData();
   }, []);
+
+  const handleAddArticle = async (newArticleData: Omit<NewsArticle, 'id'>, file?: File | null) => {
+    let finalImageUrl = newArticleData.imageUrl;
+
+    if (file) {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `news_${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('jumat_berkah_gallery')
+        .upload(filePath, file);
+
+      if (!uploadError) {
+        const { data: { publicUrl } } = supabase.storage
+          .from('jumat_berkah_gallery')
+          .getPublicUrl(filePath);
+        finalImageUrl = publicUrl;
+      }
+    }
+
+    const newArticle: NewsArticle = {
+      ...newArticleData,
+      id: Date.now().toString(),
+      imageUrl: finalImageUrl
+    };
+
+    const { data, error } = await supabase.from('news_articles').insert([{ ...newArticleData, imageUrl: finalImageUrl }]).select();
+    if (data && data.length > 0) {
+      setArticles((prev) => [data[0] as NewsArticle, ...prev]);
+    } else {
+      setArticles((prev) => [newArticle, ...prev]);
+    }
+
+    addToast('Berita Diterbitkan!', 'success', `Berita "${newArticleData.title}" telah dipublikasikan ke halaman utama.`);
+  };
+
+  const handleDeleteArticle = async (id: string) => {
+    await supabase.from('news_articles').delete().eq('id', id);
+    setArticles((prev) => prev.filter((a) => a.id !== id));
+    addToast('Berita Dihapus', 'info', 'Berita telah dihapus dari sistem.');
+  };
 
   const handleAddTransaction = async (newTxData: Omit<Transaction, 'id'>) => {
     const { data, error } = await supabase.from('transactions').insert([newTxData]).select();
@@ -266,11 +332,12 @@ export function useAppData() {
   };
 
   return {
-    config, transactions, spots, galleryItems, adminUsers, volunteers, isDataLoaded,
+    config, transactions, spots, galleryItems, adminUsers, volunteers, articles, isDataLoaded,
     handleAddTransaction, handleDeleteTransaction,
     handleUpdateSpotStatus, handleAddSpot, handleDeleteSpot,
     handleSaveConfig, handleResetData,
     handleAddGalleryItem, handleDeleteGalleryItem,
-    handleAddAdminUser, handleUpdateAdminUser, handleDeleteAdminUser
+    handleAddAdminUser, handleUpdateAdminUser, handleDeleteAdminUser,
+    handleAddArticle, handleDeleteArticle
   };
 }

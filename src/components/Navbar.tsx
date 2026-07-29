@@ -43,6 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navLinks = [
     { label: 'Beranda', href: '#hero', id: 'hero' },
+    { label: 'Berita BEM', href: '#berita-bem', id: 'berita-bem' },
     { label: 'Agenda', href: '#agenda-jumat', id: 'agenda-jumat' },
     { label: 'Rekening', href: '#donasi-rekening', id: 'donasi-rekening' },
     { label: 'Titik Penyaluran', href: '#titik-penyaluran', id: 'titik-penyaluran' },
@@ -55,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-14 sm:h-16 flex items-center justify-between gap-3">
         {/* Brand & Mosque Title */}
         <div className="flex items-center gap-2.5 shrink-0">
-          <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-xs shrink-0 p-1.5 overflow-hidden">
+          <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold shadow-xs shrink-0 p-1.5 overflow-hidden">
             <img src="/lp3i-logo.svg" alt="LP3I Logo" className="w-full h-full object-contain" />
           </div>
           <div>
@@ -63,7 +64,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <h1 className="font-extrabold text-slate-900 text-sm sm:text-base tracking-tight leading-none">
                 {config.organizationName || "Politeknik LP3I Pekanbaru"}
               </h1>
-              <span className="hidden sm:inline-block px-2 py-0.5 rounded-full bg-blue-100 text-blue-900 text-[10px] font-extrabold tracking-wide uppercase">
+              <span className="hidden sm:inline-block px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 text-[10px] font-extrabold tracking-wide uppercase">
                 Kabinet Luminaire
               </span>
             </div>
@@ -80,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               key={link.id}
               href={link.href}
               onClick={() => handleNavClick(link.id)}
-              className="px-3 py-1 rounded-lg hover:bg-white hover:text-blue-600 hover:shadow-2xs transition-all whitespace-nowrap"
+              className="px-3 py-1 rounded-lg hover:bg-white hover:text-emerald-600 hover:shadow-2xs transition-all whitespace-nowrap"
             >
               {link.label}
             </a>
@@ -97,7 +98,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Cari donatur..."
-              className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all font-medium"
+              className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all font-medium"
             />
           </div>
 

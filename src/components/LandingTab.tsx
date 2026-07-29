@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { WeeklyConfig, Transaction, DistributionSpot, GalleryItem } from '../types';
+import { WeeklyConfig, Transaction, DistributionSpot, GalleryItem, NewsArticle } from '../types';
 import { HeroSection } from './landing/HeroSection';
 import { StatsSection } from './landing/StatsSection';
 import { ActivitySection } from './landing/ActivitySection';
@@ -7,14 +7,16 @@ import { DonorsSection } from './landing/DonorsSection';
 import { FaqSection } from './landing/FaqSection';
 import { Footer } from './landing/Footer';
 import { BackToTop } from './landing/BackToTop';
+import { NewsPublicSection } from './NewsPublicSection';
 import confetti from 'canvas-confetti';
-import { X, Copy, Check, MessageSquare, Send, QrCode } from 'lucide-react';
+import { X, Copy, Check, Send, QrCode } from 'lucide-react';
 import { supabase } from '../utils/supabase';
 
 interface LandingTabProps {
   config: WeeklyConfig;
   transactions: Transaction[];
   spots: DistributionSpot[];
+  articles?: NewsArticle[];
   galleryItems?: GalleryItem[];
   isAdminLoggedIn?: boolean;
   onLoginClick?: () => void;
@@ -26,6 +28,7 @@ export const LandingTab: React.FC<LandingTabProps> = ({
   config,
   transactions,
   spots,
+  articles = [],
   galleryItems,
   isAdminLoggedIn = false,
   onLoginClick,
@@ -119,7 +122,7 @@ Berikut saya lampirkan bukti transfernya.`;
   const waConfirmationUrl = config.contactWa ? `https://wa.me/${config.contactWa}?text=${encodeURIComponent(waMessage)}` : '#';
 
   return (
-    <div className="w-full min-h-screen bg-slate-50 font-sans selection:bg-blue-500/30 selection:text-blue-900">
+    <div className="w-full min-h-screen bg-slate-50 font-sans selection:bg-emerald-500/30 selection:text-emerald-900">
       
       <HeroSection 
         config={config} 
@@ -130,6 +133,8 @@ Berikut saya lampirkan bukti transfernya.`;
         onVolunteerClick={() => setShowVolunteerModal(true)}
         onInfoClick={() => setShowQrisModal(true)}
       />
+
+      <NewsPublicSection articles={articles} />
 
       <StatsSection 
         totalIncome={totalIncome} 

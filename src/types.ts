@@ -96,3 +96,17 @@ export interface FridayTrendData {
   expense: number;
   portions: number;
 }
+
+export interface NewsArticle {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  excerpt: string;
+  category: 'Kegiatan BEM' | 'Jumat Berkah' | 'Pengumuman' | 'Prestasi' | 'Artikel';
+  author: string;
+  imageUrl?: string;
+  publishedAt: string;
+  views?: number;
+}
+

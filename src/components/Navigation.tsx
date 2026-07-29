@@ -18,7 +18,7 @@ import {
   Users
 } from 'lucide-react';
 
-export type TabType = 'landing' | 'dashboard' | 'transactions' | 'distribution' | 'admins' | 'volunteers' | 'reports' | 'settings';
+export type TabType = 'landing' | 'dashboard' | 'transactions' | 'distribution' | 'news' | 'admins' | 'volunteers' | 'reports' | 'settings';
 
 interface NavigationProps {
   activeTab: TabType;
@@ -50,6 +50,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     { id: 'dashboard' as TabType, label: 'Ringkasan Dashboard', short: 'Dashboard', icon: LayoutDashboard },
     { id: 'transactions' as TabType, label: 'Buku Kas & Donasi', short: 'Keuangan', icon: Wallet },
     { id: 'distribution' as TabType, label: 'Kelola Titik Penyaluran', short: 'Penyaluran', icon: HeartHandshake },
+    { id: 'news' as TabType, label: 'Kelola Berita BEM', short: 'Berita', icon: Globe },
     { id: 'admins' as TabType, label: 'Kelola Admin', short: 'Admin', icon: ShieldCheck },
     { id: 'volunteers' as TabType, label: 'Daftar Relawan', short: 'Relawan', icon: Users },
     { id: 'reports' as TabType, label: 'Laporan Transparansi & WA', short: 'Laporan', icon: FileText },
@@ -62,21 +63,21 @@ export const Navigation: React.FC<NavigationProps> = ({
       <aside
         className={`hidden md:flex flex-col fixed left-0 ${activeTab === 'landing' ? 'top-14 sm:top-16' : 'top-0'} bottom-0 bg-slate-950 border-r border-slate-800 z-30 justify-between transition-all duration-300 ease-in-out ${
           isSidebarCollapsed ? 'w-20 p-3' : 'w-64 p-4'
-        } shadow-2xl shadow-blue-900/10`}
+        } shadow-2xl shadow-emerald-900/10`}
       >
         <div className="space-y-6 relative z-10">
           {/* Header & Toggle Button */}
           <div className={`flex items-center ${isSidebarCollapsed ? 'justify-center flex-col gap-3' : 'justify-between'} px-1 py-1`}>
             {!isSidebarCollapsed && (
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 text-white flex items-center justify-center font-bold text-xs p-1.5 shadow-lg shadow-blue-600/30">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 text-white flex items-center justify-center font-bold text-xs p-1.5 shadow-lg shadow-emerald-600/30">
                   <img src="/lp3i-logo.svg" alt="LP3I" className="w-full h-full object-contain filter brightness-0 invert" />
                 </div>
                 <div>
                   <span className="text-sm font-black tracking-widest text-white uppercase block leading-tight">
                     Admin BEM
                   </span>
-                  <span className="text-[10px] text-blue-400 font-bold tracking-wider">LP3I PEKANBARU</span>
+                  <span className="text-[10px] text-emerald-400 font-bold tracking-wider">LP3I PEKANBARU</span>
                 </div>
               </div>
             )}
@@ -109,11 +110,11 @@ export const Navigation: React.FC<NavigationProps> = ({
                     isSidebarCollapsed ? 'justify-center p-3' : 'px-4 py-3.5'
                   } ${
                     isActive
-                      ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-md shadow-blue-500/25 border border-blue-400/20'
+                      ? 'bg-gradient-to-r from-emerald-600 to-teal-500 text-white shadow-md shadow-emerald-500/25 border border-emerald-400/20'
                       : 'text-slate-400 hover:bg-slate-800/50 hover:text-white border border-transparent'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 shrink-0 transition-colors ${isActive ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'}`} />
+                  <Icon className={`w-4 h-4 shrink-0 transition-colors ${isActive ? 'text-white' : 'text-slate-500 group-hover:text-emerald-400'}`} />
                   {!isSidebarCollapsed && <span className="truncate tracking-wide">{item.label}</span>}
                 </button>
               );
@@ -129,7 +130,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                 type="button"
                 onClick={onOpenAddModal}
                 title="+ Catat Transaksi"
-                className="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white flex items-center justify-center font-bold shadow-lg shadow-emerald-600/30 transition-all cursor-pointer active:scale-95 hover:scale-105"
+                className="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center font-bold shadow-lg shadow-emerald-600/30 transition-all cursor-pointer active:scale-95 hover:scale-105"
               >
                 <Plus className="w-5 h-5" />
               </button>
@@ -146,8 +147,8 @@ export const Navigation: React.FC<NavigationProps> = ({
           ) : (
             <div className="bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700/50 p-5 rounded-2xl text-white relative overflow-hidden shadow-2xl">
               {/* Decorative elements */}
-              <div className="absolute -top-10 -right-10 w-24 h-24 bg-blue-500/20 rounded-full blur-2xl"></div>
-              <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-emerald-500/20 rounded-full blur-2xl"></div>
+              <div className="absolute -top-10 -right-10 w-24 h-24 bg-emerald-500/20 rounded-full blur-2xl"></div>
+              <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-teal-500/20 rounded-full blur-2xl"></div>
               
               <div className="relative z-10">
                 <p className="text-xs font-black text-white leading-tight uppercase tracking-wider">
@@ -159,9 +160,9 @@ export const Navigation: React.FC<NavigationProps> = ({
                   <button
                     type="button"
                     onClick={onOpenAddModal}
-                    className="w-full py-2.5 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/30 active:scale-95"
+                    className="w-full py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/30 active:scale-95"
                   >
-                    <Plus className="w-4 h-4" />
+                    <Plus className="w-4 h-4 stroke-[3]" />
                     <span>+ Catat Transaksi</span>
                   </button>
 
@@ -182,7 +183,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             <div className="text-[10px] text-slate-500 text-center font-bold tracking-widest flex items-center justify-center gap-1.5 uppercase">
               <span>LP3I</span>
               <div className="w-1 h-1 rounded-full bg-slate-600"></div>
-              <span className="text-blue-500">Pekanbaru</span>
+              <span className="text-emerald-500">Pekanbaru</span>
             </div>
           )}
         </div>
