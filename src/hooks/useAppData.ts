@@ -17,6 +17,13 @@ export function useAppData() {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
+    
+    // Safety fallback timeout to prevent infinite white screen if Supabase is unreachable
+    const timer = setTimeout(() => {
+      if (isMounted) setIsDataLoaded(true);
+    }, 3500);
+
     async function fetchData() {
       try {
         const [txRes, spotsRes, galleryRes, configRes, adminsRes, volunteersRes, articlesRes] = await Promise.all([
@@ -53,10 +60,18 @@ export function useAppData() {
       } catch (err) {
         console.error("Error fetching data from Supabase", err);
       } finally {
-        setIsDataLoaded(true);
+        if (isMounted) {
+          setIsDataLoaded(true);
+          clearTimeout(timer);
+        }
       }
     }
     fetchData();
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timer);
+    };
   }, []);
 
   const handleAddArticle = async (newArticleData: Omit<NewsArticle, 'id'>, file?: File | null) => {
