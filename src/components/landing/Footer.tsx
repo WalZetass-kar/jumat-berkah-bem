@@ -79,11 +79,8 @@ export const Footer: React.FC<FooterProps> = ({ config, onAdminClick }) => {
           <p className="text-emerald-200 flex items-center gap-1.5">
             Dibuat dengan <Heart className="w-4 h-4 text-emerald-300 fill-emerald-300" /> oleh <span className="text-white font-bold">WalZetass-Kar</span>
           </p>
-          <div className="flex items-center gap-6">
+          <div>
             <p className="text-emerald-200">© 2026 Lumina Sharing BEM LP3I. All rights reserved.</p>
-            <button onClick={onAdminClick} className="text-emerald-200 hover:text-white transition-colors flex items-center gap-1.5 font-bold bg-emerald-800 px-3 py-1.5 rounded-lg border border-emerald-700 cursor-pointer">
-              <ShieldCheck className="w-4 h-4" /> Admin Portal
-            </button>
           </div>
         </div>
       </div>
