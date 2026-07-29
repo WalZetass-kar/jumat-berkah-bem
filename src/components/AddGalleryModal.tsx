@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Camera, Upload, Image as ImageIcon, MapPin, Calendar, Heart } from 'lucide-react';
-import { GalleryItem } from '../types';
+import { compressImage } from '../utils/imageCompressor';
 
 interface AddGalleryModalProps {
   isOpen: boolean;
@@ -25,17 +25,24 @@ export const AddGalleryModal: React.FC<AddGalleryModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleImageFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImageFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const result = reader.result as string;
-        setImagePreview(result);
-        setImageUrl(result);
-      };
-      reader.readAsDataURL(file);
+      try {
+        const compressedBlob = await compressImage(file, 1200, 0.8);
+        const compressedFile = new File([compressedBlob], file.name, { type: 'image/jpeg' });
+        setImageFile(compressedFile);
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const result = reader.result as string;
+          setImagePreview(result);
+          setImageUrl(result);
+        };
+        reader.readAsDataURL(compressedFile);
+      } catch (err) {
+        setImageFile(file);
+      }
     }
   };
 

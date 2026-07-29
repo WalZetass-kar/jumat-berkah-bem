@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Newspaper, Plus, Trash2, Edit3, Eye, Calendar, User, Tag, Sparkles, Image as ImageIcon } from 'lucide-react';
-import { NewsArticle } from '../types';
+import { compressImage } from '../utils/imageCompressor';
 
 interface AdminNewsTabProps {
   articles: NewsArticle[];
@@ -22,9 +22,16 @@ export const AdminNewsTab: React.FC<AdminNewsTabProps> = ({
   const [imageUrl, setImageUrl] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setImageFile(e.target.files[0]);
+      const originalFile = e.target.files[0];
+      try {
+        const compressedBlob = await compressImage(originalFile, 1200, 0.8);
+        const compressedFile = new File([compressedBlob], originalFile.name, { type: 'image/jpeg' });
+        setImageFile(compressedFile);
+      } catch (err) {
+        setImageFile(originalFile);
+      }
     }
   };
 

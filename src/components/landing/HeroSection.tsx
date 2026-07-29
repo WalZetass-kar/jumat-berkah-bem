@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Heart, Building2, Users } from 'lucide-react';
+import { Sparkles, Heart, Building2, Users, Clock } from 'lucide-react';
 import { WeeklyConfig, GalleryItem } from '../../types';
 
 interface HeroSectionProps {
@@ -22,6 +22,49 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onVolunteerClick,
   onInfoClick
 }) => {
+  // Countdown State
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    const getNextFriday = () => {
+      const now = new Date();
+      const nextFriday = new Date(now);
+      const dayOfWeek = now.getDay(); // 0 = Sun, 5 = Fri
+      let daysUntilFriday = (5 - dayOfWeek + 7) % 7;
+      
+      // Jika sekarang hari Jumat setelah jam 11:30, set ke Jumat depan
+      if (dayOfWeek === 5 && (now.getHours() > 11 || (now.getHours() === 11 && now.getMinutes() >= 30))) {
+        daysUntilFriday = 7;
+      }
+      
+      nextFriday.setDate(now.getDate() + daysUntilFriday);
+      nextFriday.setHours(11, 30, 0, 0); // 11:30 AM
+      return nextFriday.getTime();
+    };
+
+    const targetTime = getNextFriday();
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const difference = targetTime - now;
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((difference % (1000 * 60)) / 1000),
+        });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div id="hero" className="relative w-full py-20 lg:py-28 px-4 sm:px-6 md:px-8 border-b border-slate-200 overflow-hidden bg-slate-900 text-white">
       {/* Background Image Kampus LP3I Pekanbaru */}
@@ -36,6 +79,29 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         
         {/* Left Column Text & CTA */}
         <div className="col-span-1 lg:col-span-7 space-y-8 text-left">
+          
+          {/* Countdown Timer Badge */}
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="inline-flex flex-wrap items-center gap-3 px-4 py-2.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold"
+          >
+            <div className="flex items-center gap-1.5 font-extrabold text-white">
+              <Clock className="w-4 h-4 text-emerald-400 animate-pulse" />
+              <span>Aksi Penyaluran Berikutnya:</span>
+            </div>
+            <div className="flex items-center gap-2 font-mono text-xs">
+              <span className="bg-slate-800/90 text-emerald-400 px-2 py-1 rounded-lg border border-slate-700 font-bold">{timeLeft.days}d</span>
+              <span>:</span>
+              <span className="bg-slate-800/90 text-emerald-400 px-2 py-1 rounded-lg border border-slate-700 font-bold">{timeLeft.hours}h</span>
+              <span>:</span>
+              <span className="bg-slate-800/90 text-emerald-400 px-2 py-1 rounded-lg border border-slate-700 font-bold">{timeLeft.minutes}m</span>
+              <span>:</span>
+              <span className="bg-slate-800/90 text-emerald-400 px-2 py-1 rounded-lg border border-slate-700 font-bold">{timeLeft.seconds}s</span>
+            </div>
+          </motion.div>
+
           <motion.h1 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
