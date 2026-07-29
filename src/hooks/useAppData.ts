@@ -13,28 +13,7 @@ export function useAppData() {
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [adminUsers, setAdminUsers] = useState<any[]>([]);
   const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
-  const [articles, setArticles] = useState<NewsArticle[]>([
-    {
-      id: '1',
-      title: 'BEM LP3I Pekanbaru Sukses Gelar Penyaluran 150 Porsi Nasi Kotak Jumat Berkah',
-      slug: 'bem-lp3i-penyaluran-nasi-kotak',
-      category: 'Jumat Berkah',
-      author: 'Humas BEM LP3I',
-      publishedAt: '24 Juli 2026',
-      excerpt: 'Kegiatan penyaluran donasi umat berjalan lancar di Masjid Agung Al-Falah dan panti asuhan setempat.',
-      content: `Alhamdulillah, kegiatan penyaluran Jumat Berkah BEM LP3I Pekanbaru pekan ini berjalan lancar.\n\nSebanyak 150 porsi nasi kotak telah dibagikan kepada jamaah shalat jumat, petugas kebersihan, pengemudi ojek online, dan panti asuhan di sekitar kampus Pekanbaru.\n\nTerima kasih kepada seluruh donatur dan mahasiswa relawan yang telah berpartisipasi.`
-    },
-    {
-      id: '2',
-      title: 'Pelantikan Pengurus BEM Kabinet Luminaire Periode 2026/2027',
-      slug: 'pelantikan-bem-kabinet-luminaire',
-      category: 'Kegiatan BEM',
-      author: 'Pengurus BEM',
-      publishedAt: '15 Juli 2026',
-      excerpt: 'Pengurus BEM LP3I Pekanbaru resmi dilantik untuk mengemban amanah selama satu periode ke depan.',
-      content: `Selamat dan sukses atas dilantiknya pengurus BEM LP3I Pekanbaru Kabinet Luminaire periode 2026/2027.\n\nDengan semangat solidaritas dan kebersamaan, BEM berkomitmen menghadirkan program kerja yang berdampak nyata bagi mahasiswa dan masyarakat.`
-    }
-  ]);
+  const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   useEffect(() => {
