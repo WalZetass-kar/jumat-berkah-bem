@@ -23,8 +23,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onInfoClick
 }) => {
   return (
-    <div id="hero" className="relative w-full bg-[#F8FAFC] py-20 lg:py-28 px-4 sm:px-6 md:px-8 border-b border-slate-200">
-      <div className="max-w-[1280px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <div id="hero" className="relative w-full py-20 lg:py-28 px-4 sm:px-6 md:px-8 border-b border-slate-200 overflow-hidden bg-slate-900 text-white">
+      {/* Background Image Kampus LP3I Pekanbaru */}
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('https://plb.ac.id/id/wp-content/uploads/2024/03/kampus-pekanbaru.jpg')" }}
+      >
+        <div className="absolute inset-0 bg-slate-950/85"></div>
+      </div>
+
+      <div className="max-w-[1280px] mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         {/* Left Column Text & CTA */}
         <div className="col-span-1 lg:col-span-7 space-y-8 text-left">
@@ -32,9 +40,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-extrabold tracking-wide"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-extrabold tracking-wide"
           >
-            <Sparkles className="w-4 h-4 text-emerald-600" />
+            <Sparkles className="w-4 h-4 text-emerald-400" />
             <span>BEM LP3I Pekanbaru Kabinet Luminaire</span>
           </motion.div>
 
@@ -42,10 +50,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-[64px] font-black text-slate-900 tracking-tight leading-[1.1]"
+            className="text-4xl sm:text-5xl lg:text-[64px] font-black text-white tracking-tight leading-[1.1]"
           >
             Lumina Sharing <br />
-            <span className="text-emerald-600">
+            <span className="text-emerald-400">
               Jumat Berkah
             </span>
           </motion.h1>
@@ -54,7 +62,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
-            className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-medium"
+            className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl font-medium"
           >
             {config.motto || "Sedekah Membawa Keberkahan & Kelapangan Rezeki"}. Wadah resmi transparansi infaq, sedekah porsi nasi kotak, dan santunan yatim yang dikelola langsung oleh mahasiswa.
           </motion.p>
@@ -67,58 +75,59 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           >
             <button
               onClick={onDonateClick}
-              className="h-[52px] px-8 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold rounded-[16px] text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+              className="h-[52px] px-8 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-[16px] text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
               <Heart className="w-5 h-5 fill-white" />
               <span>Donasi Sekarang</span>
             </button>
             <button
               onClick={onInfoClick}
-              className="h-[52px] px-7 bg-white hover:bg-emerald-50 text-emerald-700 font-extrabold rounded-[16px] border border-emerald-600 text-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+              className="h-[52px] px-7 bg-slate-800 hover:bg-slate-700 text-white font-extrabold rounded-[16px] border border-slate-700 text-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
-              <Building2 className="w-5 h-5 text-emerald-600" />
+              <Building2 className="w-5 h-5 text-emerald-400" />
               <span>Info Rekening & QRIS</span>
             </button>
             <button
               onClick={onVolunteerClick}
-              className="h-[52px] px-7 bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-[16px] border border-slate-300 text-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+              className="h-[52px] px-7 bg-slate-800/80 hover:bg-slate-700 text-slate-200 font-bold rounded-[16px] border border-slate-700 text-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
-              <Users className="w-5 h-5 text-slate-500" />
+              <Users className="w-5 h-5 text-slate-400" />
               <span>Daftar Relawan</span>
             </button>
           </motion.div>
         </div>
 
-        {/* Right Column: Solid Hero Card & Floating Realtime Stats */}
+        {/* Right Column: Floating Realtime Stats Box Only (Foto anak/dummy telah dihapus) */}
         <div className="col-span-1 lg:col-span-5 relative">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white rounded-[20px] p-6 sm:p-8 border border-slate-200 shadow-[0_8px_24px_rgba(0,0,0,0.06)] space-y-6 relative"
+            className="bg-white rounded-[20px] p-6 sm:p-8 border border-slate-200 shadow-[0_8px_24px_rgba(0,0,0,0.12)] space-y-6 text-slate-900"
           >
-            {/* Hero Image / Illustration */}
-            <div className="w-full aspect-[4/3] rounded-[16px] overflow-hidden bg-slate-100 border border-slate-200 relative">
-              <img 
-                src={galleryItems && galleryItems.length > 0 ? galleryItems[0].imageUrl : "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80"} 
-                alt="Dokumentasi BEM LP3I" 
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute bottom-3 left-3 bg-white border border-slate-200 px-3 py-1.5 rounded-xl shadow-md flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="text-xs font-bold text-slate-900">Penyaluran Berjalan</span>
+            {galleryItems && galleryItems.length > 0 ? (
+              <div className="w-full aspect-[4/3] rounded-[16px] overflow-hidden bg-slate-100 border border-slate-200 relative">
+                <img 
+                  src={galleryItems[0].imageUrl} 
+                  alt={galleryItems[0].title || "Dokumentasi Resmi BEM"} 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute bottom-3 left-3 bg-white border border-slate-200 px-3 py-1.5 rounded-xl shadow-md flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span className="text-xs font-bold text-slate-900">Dokumentasi Resmi BEM</span>
+                </div>
               </div>
-            </div>
+            ) : null}
 
-            {/* Floating Realtime Stats Row */}
-            <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100">
-              <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Target Porsi</p>
-                <p className="text-xl sm:text-2xl font-black text-slate-900 mt-0.5">{totalTarget} Porsi</p>
+            {/* Realtime Stats Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">TARGET PORSI</p>
+                <p className="text-2xl font-black text-slate-900 mt-1">{totalTarget} Porsi</p>
               </div>
-              <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
-                <p className="text-xs font-bold text-emerald-800 uppercase tracking-wider">Tersalurkan</p>
-                <p className="text-xl sm:text-2xl font-black text-emerald-700 mt-0.5">{totalDistributed} Kotak</p>
+              <div className="bg-emerald-50 p-5 rounded-xl border border-emerald-200">
+                <p className="text-xs font-bold text-emerald-800 uppercase tracking-wider">TERSALURKAN</p>
+                <p className="text-2xl font-black text-emerald-700 mt-1">{totalDistributed} Kotak</p>
               </div>
             </div>
           </motion.div>
