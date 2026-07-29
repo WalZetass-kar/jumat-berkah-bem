@@ -188,11 +188,11 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
         <div className="bg-slate-900 p-6 rounded-3xl text-white shadow-md border border-slate-800 flex flex-col justify-between relative overflow-hidden group">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-blue-300 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
-                <Wallet className="w-4 h-4 text-blue-400" />
+              <span className="text-emerald-400 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                <Wallet className="w-4 h-4 text-emerald-400" />
                 Saldo Kas Saat Ini
               </span>
-              <span className="px-2 py-0.5 rounded-full bg-blue-900 text-blue-200 text-[10px] font-bold border border-blue-700/50">
+              <span className="px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 text-[10px] font-bold border border-emerald-800/50">
                 Kas Bersih
               </span>
             </div>
@@ -205,14 +205,14 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
         </div>
 
         {/* Card 2: Total Paket Terbagikan */}
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between hover:border-blue-300 transition-colors">
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between hover:border-emerald-300 transition-colors">
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-slate-500 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
-                <Package className="w-4 h-4 text-blue-600" />
+                <Package className="w-4 h-4 text-emerald-600" />
                 Total Paket Terbagikan
               </span>
-              <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold">
+              <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold">
                 {distributionProgressPercent}% Target
               </span>
             </div>
@@ -224,7 +224,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
           <div className="mt-4">
             <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden mb-1.5">
               <div 
-                className="bg-blue-600 h-full rounded-full transition-all duration-500" 
+                className="bg-emerald-600 h-full rounded-full transition-all duration-500" 
                 style={{ width: `${distributionProgressPercent}%` }}
               ></div>
             </div>
@@ -235,16 +235,16 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
         </div>
 
         {/* Card 3: Jumlah Titik Penyaluran Aktif */}
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between hover:border-blue-300 transition-colors">
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between hover:border-emerald-300 transition-colors">
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-slate-500 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
-                <MapPin className="w-4 h-4 text-blue-600" />
+                <MapPin className="w-4 h-4 text-emerald-600" />
                 Titik Penyaluran Aktif
               </span>
               <button 
                 onClick={() => onNavigateToTab('distribution')}
-                className="text-[10px] font-bold text-blue-600 hover:underline cursor-pointer flex items-center gap-0.5"
+                className="text-[10px] font-bold text-emerald-600 hover:underline cursor-pointer flex items-center gap-0.5"
               >
                 Peta <ChevronRight className="w-3 h-3" />
               </button>
@@ -255,8 +255,8 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
             </div>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-medium">
-            <span className="text-blue-700 font-bold flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+            <span className="text-emerald-700 font-bold flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
               {completedSpotsCount} Selesai
             </span>
             <span className="text-amber-700 font-bold flex items-center gap-1">
@@ -267,14 +267,14 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
         </div>
 
         {/* Card 4: Capaian Donasi & Aksi Cepat */}
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between hover:border-blue-300 transition-colors">
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between hover:border-emerald-300 transition-colors">
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-slate-500 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
-                <Coins className="w-4 h-4 text-blue-600" />
+                <Coins className="w-4 h-4 text-emerald-600" />
                 Capaian Donasi Masuk
               </span>
-              <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold">
+              <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold">
                 {monthlyBudgetProgressPercent}%
               </span>
             </div>
@@ -297,7 +297,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
       <div className="p-6 md:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 text-blue-600 mb-1">
+            <div className="flex items-center gap-2 text-emerald-600 mb-1">
               <BarChart2 className="w-5 h-5" />
               <span className="text-xs font-bold uppercase tracking-wider">Visualisasi Grafik Recharts</span>
             </div>
@@ -306,16 +306,16 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-3 text-xs font-bold">
-            <div className="flex items-center gap-1.5 bg-blue-50 text-blue-800 px-3 py-1.5 rounded-full border border-blue-200">
-              <span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+            <div className="flex items-center gap-1.5 bg-emerald-50 text-emerald-800 px-3 py-1.5 rounded-full border border-emerald-200">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
               <span>Donasi Masuk</span>
             </div>
             <div className="flex items-center gap-1.5 bg-rose-50 text-rose-800 px-3 py-1.5 rounded-full border border-rose-200">
               <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
               <span>Belanja / Outflow</span>
             </div>
-            <div className="flex items-center gap-1.5 bg-sky-50 text-sky-800 px-3 py-1.5 rounded-full border border-sky-200">
-              <span className="w-2.5 h-2.5 rounded-full bg-sky-500"></span>
+            <div className="flex items-center gap-1.5 bg-teal-50 text-teal-800 px-3 py-1.5 rounded-full border border-teal-200">
+              <span className="w-2.5 h-2.5 rounded-full bg-teal-500"></span>
               <span>Porsi Nasi</span>
             </div>
           </div>
@@ -345,7 +345,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
               <YAxis 
                 yAxisId="right"
                 orientation="right"
-                tick={{ fontSize: 10, fontWeight: 600, fill: '#0284c7' }}
+                tick={{ fontSize: 10, fontWeight: 600, fill: '#0d9488' }}
                 tickFormatter={(val) => `${val} Porsi`}
                 axisLine={false}
                 tickLine={false}
@@ -383,7 +383,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
                 yAxisId="left"
                 dataKey="income" 
                 name="Donasi Masuk (Rp)" 
-                fill="#2563eb" 
+                fill="#10b981" 
                 radius={[8, 8, 0, 0]} 
                 maxBarSize={40}
               />
@@ -400,9 +400,9 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
                 type="monotone" 
                 dataKey="portions" 
                 name="Porsi Nasi Terbagikan" 
-                stroke="#0284c7" 
+                stroke="#0d9488" 
                 strokeWidth={3}
-                dot={{ r: 5, fill: '#0284c7', strokeWidth: 2, stroke: '#ffffff' }}
+                dot={{ r: 5, fill: '#0d9488', strokeWidth: 2, stroke: '#ffffff' }}
                 activeDot={{ r: 7 }}
               />
             </ComposedChart>
@@ -450,7 +450,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
                         <span
                           className={`px-2.5 py-1 text-[10px] font-bold rounded uppercase tracking-wider ${
                             isIncome
-                              ? 'bg-blue-50 text-blue-600'
+                              ? 'bg-emerald-50 text-emerald-600'
                               : tx.category.includes('Nasi') || tx.category.includes('Bahan')
                               ? 'bg-orange-50 text-orange-600'
                               : 'bg-purple-50 text-purple-600'
@@ -464,7 +464,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
                       </td>
                       <td
                         className={`px-6 py-4 text-right font-bold text-sm ${
-                          isIncome ? 'text-blue-600' : 'text-orange-600'
+                          isIncome ? 'text-emerald-600' : 'text-orange-600'
                         }`}
                       >
                         {isIncome ? '+ ' : '- '}{formatRupiah(tx.amount)}
@@ -491,14 +491,14 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
                   <div key={spot.id} className="space-y-2">
                     <div className="flex justify-between text-xs font-bold uppercase tracking-wide">
                       <span className="text-slate-600 line-clamp-1">{spot.name}</span>
-                      <span className={isComplete ? 'text-blue-600' : 'text-orange-500'}>
+                      <span className={isComplete ? 'text-emerald-600' : 'text-orange-500'}>
                         {percent}% {isComplete ? 'Selesai' : 'Terkumpul'}
                       </span>
                     </div>
                     <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
                       <div
                         className={`h-full rounded-full transition-all duration-500 ${
-                          isComplete ? 'bg-blue-500' : 'bg-orange-500'
+                          isComplete ? 'bg-emerald-500' : 'bg-orange-500'
                         }`}
                         style={{ width: `${percent}%` }}
                       ></div>
@@ -509,13 +509,13 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
             </div>
           </div>
 
-          <div className="bg-blue-800 p-6 rounded-3xl text-white relative overflow-hidden shadow-md">
+          <div className="bg-emerald-800 p-6 rounded-3xl text-white relative overflow-hidden shadow-md">
             <div className="relative z-10">
-              <p className="text-blue-200 text-xs font-bold uppercase tracking-widest mb-1">Pesan Berkah</p>
+              <p className="text-emerald-200 text-xs font-bold uppercase tracking-widest mb-1">Pesan Berkah</p>
               <p className="text-sm italic font-medium leading-relaxed">
                 "Tangan di atas lebih baik daripada tangan di bawah."
               </p>
-              <div className="mt-4 pt-4 border-t border-blue-700 text-[10px] uppercase font-bold text-blue-300">
+              <div className="mt-4 pt-4 border-t border-emerald-700 text-[10px] uppercase font-bold text-emerald-300">
                 Reminder: Laporan Transparansi Siap Kirim WA
               </div>
             </div>

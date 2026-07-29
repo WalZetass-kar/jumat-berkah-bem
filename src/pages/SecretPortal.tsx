@@ -33,8 +33,8 @@ export const SecretPortal: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
         <div className="bg-slate-900 p-8 text-center relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-          <div className="w-16 h-16 bg-blue-600 rounded-2xl mx-auto flex items-center justify-center shadow-lg relative z-10 mb-4 p-3 overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+          <div className="w-16 h-16 bg-emerald-600 rounded-2xl mx-auto flex items-center justify-center shadow-lg relative z-10 mb-4 p-3 overflow-hidden">
             <img src="/lp3i-logo.svg" alt="LP3I Logo" className="w-full h-full object-contain" />
           </div>
           <h2 className="text-2xl font-black text-white tracking-tight relative z-10">Admin Login</h2>
@@ -44,13 +44,13 @@ export const SecretPortal: React.FC = () => {
         <form onSubmit={handleLogin} className="p-8 space-y-6">
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Email Admin</label>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Email Admin / Dev</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="admin@bem.com"
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                placeholder="admin@lp3i.ac.id"
                 required
               />
             </div>
@@ -60,7 +60,7 @@ export const SecretPortal: React.FC = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 placeholder="••••••••"
                 required
               />
@@ -70,7 +70,7 @@ export const SecretPortal: React.FC = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm shadow-md transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+            className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-sm shadow-md transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center gap-2 cursor-pointer"
           >
             {isLoading ? (
               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
@@ -83,7 +83,7 @@ export const SecretPortal: React.FC = () => {
           </button>
           
           <div className="text-center">
-            <button type="button" onClick={() => navigate('/')} className="text-xs text-slate-500 hover:text-blue-600 font-bold transition-colors">
+            <button type="button" onClick={() => navigate('/')} className="text-xs text-slate-500 hover:text-emerald-600 font-bold transition-colors cursor-pointer">
               &larr; Kembali ke Landing Page
             </button>
           </div>
