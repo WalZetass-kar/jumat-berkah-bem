@@ -36,16 +36,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         
         {/* Left Column Text & CTA */}
         <div className="col-span-1 lg:col-span-7 space-y-8 text-left">
-          <motion.div 
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-extrabold tracking-wide"
-          >
-            <Sparkles className="w-4 h-4 text-emerald-400" />
-            <span>BEM LP3I Pekanbaru Kabinet Luminaire</span>
-          </motion.div>
-
           <motion.h1 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
