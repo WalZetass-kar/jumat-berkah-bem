@@ -79,29 +79,28 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
-            <Users className="w-7 h-7 text-blue-600" />
-            Kelola Admin
+            <Users className="w-7 h-7 text-emerald-600" />
+            Kelola Akses Pengelola (Admin & Developer)
           </h2>
           <p className="text-slate-500 font-medium text-sm mt-1">
-            Daftar pengurus BEM yang memiliki akses panel admin.
+            Daftar pengurus BEM dan tim Developer yang memiliki akses ke portal admin.
           </p>
         </div>
         <button
           onClick={() => handleOpenModal()}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center gap-2"
+          className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer"
         >
           <PlusCircle className="w-4 h-4" />
-          <span>Tambah Admin</span>
+          <span>Tambah Pengguna</span>
         </button>
       </div>
 
-      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex gap-3">
-        <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-        <div className="text-sm text-amber-800">
-          <p className="font-bold mb-1">Penting: Tabel Data Admin</p>
+      <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex gap-3">
+        <AlertCircle className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+        <div className="text-sm text-emerald-900">
+          <p className="font-bold mb-1">Peran Akses: Admin & Developer</p>
           <p>
-            Data di bawah ini berfungsi sebagai pencatatan tim pengelola. 
-            Jika Anda menambahkan admin baru, harap pastikan juga Anda mendaftarkan mereka atau berbagi akses kredensial autentikasi sistem.
+            Sistem memiliki 2 tingkatan peran: <strong>Admin</strong> (untuk pengurus & bendahara BEM) dan <strong>Developer</strong> (untuk tim pengembang sistem & IT kampus).
           </p>
         </div>
       </div>
@@ -111,12 +110,14 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({
           <div key={admin.id} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all">
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-lg">
+                <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-black text-lg">
                   {admin.name.charAt(0).toUpperCase()}
                 </div>
                 <div>
                   <h3 className="font-bold text-slate-800">{admin.name}</h3>
-                  <span className="text-xs font-semibold text-slate-500">{admin.role}</span>
+                  <span className="text-xs font-extrabold px-2 py-0.5 rounded-md bg-slate-100 text-emerald-700 border border-emerald-200/50">
+                    {admin.role || 'Admin'}
+                  </span>
                 </div>
               </div>
               <span className={`px-2 py-1 rounded-lg text-[10px] font-bold ${admin.status === 'Aktif' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-600'}`}>
@@ -140,14 +141,14 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({
             <div className="flex gap-2 border-t border-slate-100 pt-4">
               <button
                 onClick={() => handleOpenModal(admin)}
-                className="flex-1 py-2 bg-slate-50 hover:bg-blue-50 text-slate-600 hover:text-blue-600 rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
+                className="flex-1 py-2 bg-slate-50 hover:bg-emerald-50 text-slate-600 hover:text-emerald-700 rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <Pencil className="w-3.5 h-3.5" />
                 Edit
               </button>
               <button
                 onClick={() => setDeleteConfirmAdmin(admin)}
-                className="flex-1 py-2 bg-slate-50 hover:bg-rose-50 text-slate-600 hover:text-rose-600 rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
+                className="flex-1 py-2 bg-slate-50 hover:bg-rose-50 text-slate-600 hover:text-rose-600 rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 Hapus
@@ -162,12 +163,12 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({
           <div className="bg-white rounded-[2rem] w-full max-w-md shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-300 border border-slate-100">
             <div className="px-6 sm:px-8 py-5 border-b border-slate-100 flex justify-between items-center bg-white">
               <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-blue-600" />
-                {editingAdmin ? 'Edit Data Admin' : 'Tambah Admin Baru'}
+                <ShieldCheck className="w-5 h-5 text-emerald-600" />
+                {editingAdmin ? 'Edit Data Pengguna' : 'Tambah Pengguna Baru'}
               </h2>
               <button 
                 onClick={() => setIsModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100 transition-colors"
+                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
               >
                 ×
               </button>
@@ -181,21 +182,22 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
-                  placeholder="Misal: Budi Santoso"
+                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
+                  placeholder="Nama Lengkap"
                 />
               </div>
               
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">Jabatan / Peran</label>
-                <input
-                  type="text"
+                <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">Peran / Role *</label>
+                <select
                   required
-                  value={formData.role}
+                  value={formData.role || 'Admin'}
                   onChange={(e) => setFormData({...formData, role: e.target.value})}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
-                  placeholder="Misal: Koordinator Lapangan"
-                />
+                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-bold text-slate-800"
+                >
+                  <option value="Admin">Admin (Pengurus BEM)</option>
+                  <option value="Developer">Developer (Pengembang IT)</option>
+                </select>
               </div>
               
               <div>
@@ -205,8 +207,8 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
-                  placeholder="admin@lp3i.ac.id"
+                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
+                  placeholder="email@lp3i.ac.id"
                 />
               </div>
 
@@ -218,11 +220,11 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({
                     required={!editingAdmin}
                     value={(formData as any).password || ''}
                     onChange={(e) => setFormData({...formData, password: e.target.value} as any)}
-                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
+                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
                     placeholder="Minimal 6 karakter"
                     minLength={6}
                   />
-                  <p className="text-[10px] text-slate-500 mt-1">Sandi ini akan digunakan oleh admin untuk login ke dashboard.</p>
+                  <p className="text-[10px] text-slate-500 mt-1">Sandi ini akan digunakan untuk login ke portal.</p>
                 </div>
               )}
               
@@ -232,7 +234,7 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({
                   type="text"
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
+                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
                   placeholder="0812xxxxxx"
                 />
               </div>
@@ -242,7 +244,7 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({
                 <select
                   value={formData.status}
                   onChange={(e) => setFormData({...formData, status: e.target.value as any})}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
+                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
                 >
                   <option value="Aktif">Aktif</option>
                   <option value="Nonaktif">Nonaktif</option>
@@ -253,14 +255,14 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-bold transition-colors"
+                  className="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-bold transition-colors cursor-pointer"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition-all disabled:opacity-70 flex items-center justify-center gap-2"
+                  className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition-all disabled:opacity-70 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {isSaving ? 'Menyimpan...' : 'Simpan Data'}
                 </button>

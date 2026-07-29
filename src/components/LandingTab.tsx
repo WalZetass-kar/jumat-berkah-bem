@@ -184,7 +184,7 @@ Berikut saya lampirkan bukti transfernya.`;
                   value={donasiAmount}
                   onChange={(e) => setDonasiAmount(e.target.value)}
                   placeholder="Misal: 50000"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all font-bold text-slate-900"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all font-bold text-slate-900"
                 />
               </div>
 
@@ -197,14 +197,14 @@ Berikut saya lampirkan bukti transfernya.`;
                   value={donasiAnonim ? 'Hamba Allah' : donasiName}
                   onChange={(e) => setDonasiName(e.target.value)}
                   placeholder="Nama Lengkap"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-900 disabled:bg-slate-50 disabled:text-slate-500"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all text-slate-900 disabled:bg-slate-50 disabled:text-slate-500"
                 />
                 <label className="flex items-center gap-2 mt-2 cursor-pointer w-fit">
                   <input 
                     type="checkbox" 
                     checked={donasiAnonim}
                     onChange={(e) => setDonasiAnonim(e.target.checked)}
-                    className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300"
+                    className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300"
                   />
                   <span className="text-sm font-medium text-slate-600">Sembunyikan nama saya (Hamba Allah)</span>
                 </label>
@@ -217,13 +217,13 @@ Berikut saya lampirkan bukti transfernya.`;
                   onChange={(e) => setDonasiDoa(e.target.value)}
                   placeholder="Tuliskan doa atau pesan Anda..."
                   rows={3}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-900 resize-none"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all text-slate-900 resize-none"
                 ></textarea>
               </div>
 
               <button 
                 type="submit"
-                className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-500/30 mt-2"
+                className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-emerald-600/30 mt-2 cursor-pointer"
               >
                 Lanjut ke Pembayaran
               </button>
@@ -237,7 +237,7 @@ Berikut saya lampirkan bukti transfernya.`;
         <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
           <div className="bg-white rounded-[2rem] p-6 sm:p-8 max-w-md w-full space-y-6 shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-100">
             <div>
-              <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-[10px] font-extrabold uppercase">
+              <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold uppercase">
                 Rekening & QRIS BEM LP3I Pekanbaru
               </span>
               <h3 className="font-black text-xl text-slate-900 mt-2">Selesaikan Donasi</h3>
@@ -249,7 +249,7 @@ Berikut saya lampirkan bukti transfernya.`;
               <p className="text-xl font-black text-slate-900 mb-3 tracking-wider">{config.bankInfo}</p>
               <button 
                 onClick={handleCopyAccount}
-                className="mx-auto flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+                className="mx-auto flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
               >
                 {copiedBank ? (
                   <><Check className="w-4 h-4 text-emerald-500" /> Tersalin!</>
@@ -267,7 +267,7 @@ Berikut saya lampirkan bukti transfernya.`;
                 ) : (
                   <div className="w-48 h-48 bg-slate-900 text-white p-3 rounded-xl flex flex-col items-center justify-center relative">
                     <QrCode className="w-24 h-24 text-white" />
-                    <span className="text-[10px] font-mono tracking-widest text-blue-300 mt-2 uppercase text-center">QRIS BELUM TERSEDIA</span>
+                    <span className="text-[10px] font-mono tracking-widest text-emerald-400 mt-2 uppercase text-center">QRIS BELUM TERSEDIA</span>
                   </div>
                 )}
               </div>
@@ -288,7 +288,7 @@ Berikut saya lampirkan bukti transfernya.`;
                     origin: { y: 0.6 }
                   });
                 }}
-                className="w-full py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white font-black text-sm rounded-xl cursor-pointer flex items-center justify-center gap-2 shadow-md transition-all active:scale-95"
+                className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm rounded-xl cursor-pointer flex items-center justify-center gap-2 shadow-md transition-all active:scale-95"
               >
                 <Send className="w-4 h-4" />
                 <span>Konfirmasi via WhatsApp</span>
@@ -309,7 +309,7 @@ Berikut saya lampirkan bukti transfernya.`;
         <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
           <div className="bg-white rounded-[2rem] p-6 sm:p-8 max-w-md w-full space-y-5 shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-100">
             <div>
-              <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-[10px] font-extrabold uppercase">
+              <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold uppercase">
                 Relawan BEM Kabinet Luminaire
               </span>
               <h3 className="font-black text-xl text-slate-900 mt-1">Pendaftaran Tim Lapangan</h3>
@@ -317,8 +317,8 @@ Berikut saya lampirkan bukti transfernya.`;
             </div>
 
             {volSubmitted ? (
-              <div className="p-6 bg-blue-50 rounded-2xl border border-blue-200 text-center space-y-2">
-                <Check className="w-10 h-10 text-blue-600 mx-auto" />
+              <div className="p-6 bg-emerald-50 rounded-2xl border border-emerald-200 text-center space-y-2">
+                <Check className="w-10 h-10 text-emerald-600 mx-auto" />
                 <h4 className="font-bold text-slate-900 text-sm">Pendaftaran Berhasil!</h4>
                 <p className="text-xs text-slate-600">Tim BEM LP3I Pekanbaru akan menghubungi WhatsApp Anda.</p>
               </div>
@@ -332,7 +332,7 @@ Berikut saya lampirkan bukti transfernya.`;
                     value={volName}
                     onChange={(e) => setVolName(e.target.value)}
                     placeholder="Nama Anda"
-                    className="w-full px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
 
@@ -342,7 +342,7 @@ Berikut saya lampirkan bukti transfernya.`;
                     <select
                       value={volProdi}
                       onChange={(e) => setVolProdi(e.target.value)}
-                      className="w-full px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 bg-white"
+                      className="w-full px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 bg-white"
                     >
                       <option value="Manajemen Informatika">Manajemen Informatika</option>
                       <option value="Akuntansi Keuangan">Akuntansi Keuangan</option>
@@ -358,7 +358,7 @@ Berikut saya lampirkan bukti transfernya.`;
                       value={volNim}
                       onChange={(e) => setVolNim(e.target.value)}
                       placeholder="Misal: 20240102 / 3"
-                      className="w-full px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
                 </div>
@@ -371,7 +371,7 @@ Berikut saya lampirkan bukti transfernya.`;
                     value={volWa}
                     onChange={(e) => setVolWa(e.target.value)}
                     placeholder="08123456789"
-                    className="w-full px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3.5 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
 
@@ -386,7 +386,7 @@ Berikut saya lampirkan bukti transfernya.`;
                   <button
                     type="submit"
                     disabled={isSubmittingVol}
-                    className="flex-1 py-3 bg-blue-600 text-white font-bold rounded-xl cursor-pointer hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                    className="flex-1 py-3 bg-emerald-600 text-white font-bold rounded-xl cursor-pointer hover:bg-emerald-500 disabled:opacity-50 transition-colors"
                   >
                     {isSubmittingVol ? 'Mendaftar...' : 'Daftar Sekarang'}
                   </button>
