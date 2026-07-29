@@ -61,9 +61,9 @@ export const Navigation: React.FC<NavigationProps> = ({
     <>
       {/* Desktop Sidebar Navigation */}
       <aside
-        className={`hidden md:flex flex-col fixed left-0 ${activeTab === 'landing' ? 'top-14 sm:top-16' : 'top-0'} bottom-0 bg-slate-950 border-r border-slate-800 z-30 justify-between transition-all duration-300 ease-in-out ${
+        className={`hidden md:flex flex-col fixed left-0 ${activeTab === 'landing' ? 'top-14 sm:top-16' : 'top-0'} bottom-0 bg-white border-r border-slate-200 z-30 justify-between transition-all duration-300 ease-in-out ${
           isSidebarCollapsed ? 'w-20 p-3' : 'w-64 p-4'
-        } shadow-2xl shadow-emerald-900/10 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-800`}
+        } shadow-sm overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200`}
       >
         <div className="flex flex-col h-full justify-between gap-6">
           <div className="space-y-4">
@@ -71,14 +71,14 @@ export const Navigation: React.FC<NavigationProps> = ({
             <div className={`flex items-center ${isSidebarCollapsed ? 'justify-center flex-col gap-3' : 'justify-between'} px-1 py-1`}>
               {!isSidebarCollapsed && (
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 text-white flex items-center justify-center font-bold text-xs p-1.5 shadow-lg shadow-emerald-600/30">
+                  <div className="w-9 h-9 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs p-1.5 shadow-md shrink-0">
                     <img src="/lp3i-logo.svg" alt="LP3I" className="w-full h-full object-contain filter brightness-0 invert" />
                   </div>
                   <div>
-                    <span className="text-sm font-black tracking-widest text-white uppercase block leading-tight">
+                    <span className="text-sm font-black tracking-widest text-slate-900 uppercase block leading-tight">
                       Admin BEM
                     </span>
-                    <span className="text-[10px] text-emerald-400 font-bold tracking-wider">LP3I PEKANBARU</span>
+                    <span className="text-[10px] text-emerald-700 font-extrabold tracking-wider">LP3I PEKANBARU</span>
                   </div>
                 </div>
               )}
@@ -87,7 +87,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                 type="button"
                 onClick={() => setIsSidebarCollapsed((prev) => !prev)}
                 title={isSidebarCollapsed ? "Buka Sidebar" : "Tutup/Kecilkan Sidebar"}
-                className="p-2 rounded-xl bg-slate-800/50 hover:bg-slate-700 text-slate-400 hover:text-white transition-all cursor-pointer border border-slate-700/50"
+                className="p-2 rounded-xl bg-slate-100 hover:bg-emerald-50 text-slate-600 hover:text-emerald-700 transition-all cursor-pointer border border-slate-200"
               >
                 {isSidebarCollapsed ? (
                   <PanelLeftOpen className="w-4 h-4" />
@@ -111,11 +111,11 @@ export const Navigation: React.FC<NavigationProps> = ({
                       isSidebarCollapsed ? 'justify-center p-3' : 'px-4 py-3'
                     } ${
                       isActive
-                        ? 'bg-gradient-to-r from-emerald-600 to-teal-500 text-white shadow-md shadow-emerald-500/25 border border-emerald-400/20'
-                        : 'text-slate-400 hover:bg-slate-800/50 hover:text-white border border-transparent'
+                        ? 'bg-emerald-600 text-white shadow-md'
+                        : 'text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 border border-transparent'
                     }`}
                   >
-                    <Icon className={`w-4 h-4 shrink-0 transition-colors ${isActive ? 'text-white' : 'text-slate-500 group-hover:text-emerald-400'}`} />
+                    <Icon className={`w-4 h-4 shrink-0 transition-colors ${isActive ? 'text-white' : 'text-slate-500 group-hover:text-emerald-600'}`} />
                     {!isSidebarCollapsed && <span className="truncate tracking-wide">{item.label}</span>}
                   </button>
                 );
@@ -124,14 +124,14 @@ export const Navigation: React.FC<NavigationProps> = ({
           </div>
 
           {/* Sidebar Footer Callout / Quick Actions */}
-          <div className="space-y-4 pt-2 border-t border-slate-800/60 shrink-0">
+          <div className="space-y-4 pt-2 border-t border-slate-200 shrink-0">
             {isSidebarCollapsed ? (
               <div className="flex flex-col items-center gap-3">
                 <button
                   type="button"
                   onClick={onOpenAddModal}
                   title="+ Catat Transaksi"
-                  className="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center font-bold shadow-lg shadow-emerald-600/30 transition-all cursor-pointer active:scale-95 hover:scale-105"
+                  className="w-11 h-11 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-bold shadow-md transition-all cursor-pointer active:scale-95 hover:bg-emerald-700"
                 >
                   <Plus className="w-5 h-5" />
                 </button>
@@ -140,28 +140,24 @@ export const Navigation: React.FC<NavigationProps> = ({
                   type="button"
                   onClick={onLogoutClick}
                   title="Keluar Admin"
-                  className="w-11 h-11 rounded-2xl bg-slate-800 hover:bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold transition-all cursor-pointer border border-slate-700 hover:border-rose-500/50"
+                  className="w-11 h-11 rounded-2xl bg-rose-50 text-rose-600 hover:bg-rose-100 flex items-center justify-center font-bold transition-all cursor-pointer border border-rose-200"
                 >
                   <LogOut className="w-4 h-4" />
                 </button>
               </div>
             ) : (
-              <div className="bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700/50 p-4 rounded-2xl text-white relative overflow-hidden shadow-xl">
-                {/* Decorative elements */}
-                <div className="absolute -top-10 -right-10 w-24 h-24 bg-emerald-500/20 rounded-full blur-2xl"></div>
-                <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-teal-500/20 rounded-full blur-2xl"></div>
-                
+              <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl text-slate-900 relative overflow-hidden shadow-xs">
                 <div className="relative z-10">
-                  <p className="text-xs font-black text-white leading-tight uppercase tracking-wider">
+                  <p className="text-xs font-black text-emerald-900 leading-tight uppercase tracking-wider">
                     BEM Luminaire
                   </p>
-                  <p className="text-[10px] text-slate-400 mt-0.5 font-medium">Kabinet 2026/2027</p>
+                  <p className="text-[10px] text-emerald-700 font-bold mt-0.5">Kabinet 2026/2027</p>
 
                   <div className="mt-3 space-y-2">
                     <button
                       type="button"
                       onClick={onOpenAddModal}
-                      className="w-full py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs transition-all cursor-pointer flex items-center justify-center gap-2 shadow-md shadow-emerald-500/30 active:scale-95 rounded-xl"
+                      className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm active:scale-95 rounded-xl"
                     >
                       <Plus className="w-4 h-4 stroke-[3]" />
                       <span>+ Catat Transaksi</span>
@@ -170,9 +166,9 @@ export const Navigation: React.FC<NavigationProps> = ({
                     <button
                       type="button"
                       onClick={onLogoutClick}
-                      className="w-full py-1.5 bg-slate-800/80 hover:bg-rose-500/90 text-slate-300 hover:text-white border border-slate-600/50 hover:border-rose-500/50 rounded-xl font-bold text-[11px] transition-all cursor-pointer flex items-center justify-center gap-2"
+                      className="w-full py-2 bg-white hover:bg-rose-50 text-slate-700 hover:text-rose-600 border border-slate-200 hover:border-rose-300 rounded-xl font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-2"
                     >
-                      <LogOut className="w-3.5 h-3.5" />
+                      <LogOut className="w-3.5 h-3.5 text-rose-600" />
                       <span>Keluar Admin</span>
                     </button>
                   </div>
@@ -181,10 +177,10 @@ export const Navigation: React.FC<NavigationProps> = ({
             )}
 
             {!isSidebarCollapsed && (
-              <div className="text-[10px] text-slate-500 text-center font-bold tracking-widest flex items-center justify-center gap-1.5 uppercase pb-1">
+              <div className="text-[10px] text-slate-500 text-center font-extrabold tracking-widest flex items-center justify-center gap-1.5 uppercase pb-1">
                 <span>LP3I</span>
-                <div className="w-1 h-1 rounded-full bg-slate-600"></div>
-                <span className="text-emerald-500">Pekanbaru</span>
+                <div className="w-1 h-1 rounded-full bg-slate-400"></div>
+                <span className="text-emerald-700">Pekanbaru</span>
               </div>
             )}
           </div>
