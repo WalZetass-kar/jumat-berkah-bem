@@ -35,7 +35,21 @@ export function useAppData() {
         if (configRes.data) setConfig(configRes.data as WeeklyConfig);
         if (adminsRes.data) setAdminUsers(adminsRes.data);
         if (volunteersRes.data) setVolunteers(volunteersRes.data as Volunteer[]);
-        if (articlesRes.data && articlesRes.data.length > 0) setArticles(articlesRes.data as NewsArticle[]);
+        if (articlesRes.data && articlesRes.data.length > 0) {
+          const mappedArticles: NewsArticle[] = articlesRes.data.map((item: any) => ({
+            id: item.id,
+            title: item.title,
+            slug: item.slug,
+            content: item.content,
+            excerpt: item.excerpt,
+            category: item.category,
+            author: item.author,
+            imageUrl: item.image_url || item.imageUrl,
+            publishedAt: item.published_at || item.publishedAt,
+            views: item.views || 0
+          }));
+          setArticles(mappedArticles);
+        }
       } catch (err) {
         console.error("Error fetching data from Supabase", err);
       } finally {
@@ -65,20 +79,43 @@ export function useAppData() {
       }
     }
 
-    const newArticle: NewsArticle = {
-      ...newArticleData,
-      id: Date.now().toString(),
-      imageUrl: finalImageUrl
+    const dbPayload = {
+      title: newArticleData.title,
+      slug: newArticleData.slug,
+      content: newArticleData.content,
+      excerpt: newArticleData.excerpt,
+      category: newArticleData.category,
+      author: newArticleData.author,
+      image_url: finalImageUrl,
+      published_at: newArticleData.publishedAt,
+      views: 0
     };
 
-    const { data, error } = await supabase.from('news_articles').insert([{ ...newArticleData, imageUrl: finalImageUrl }]).select();
+    const { data, error } = await supabase.from('news_articles').insert([dbPayload]).select();
+    
+    if (error) {
+      addToast('Gagal Menerbitkan Berita', 'error', error.message);
+      return;
+    }
+
     if (data && data.length > 0) {
-      setArticles((prev) => [data[0] as NewsArticle, ...prev]);
-    } else {
+      const insertedItem = data[0];
+      const newArticle: NewsArticle = {
+        id: insertedItem.id,
+        title: insertedItem.title,
+        slug: insertedItem.slug,
+        content: insertedItem.content,
+        excerpt: insertedItem.excerpt,
+        category: insertedItem.category,
+        author: insertedItem.author,
+        imageUrl: insertedItem.image_url,
+        publishedAt: insertedItem.published_at,
+        views: insertedItem.views
+      };
       setArticles((prev) => [newArticle, ...prev]);
     }
 
-    addToast('Berita Diterbitkan!', 'success', `Berita "${newArticleData.title}" telah dipublikasikan ke halaman utama.`);
+    addToast('Berita Diterbitkan!', 'success', `Berita "${newArticleData.title}" telah dipublikasikan dan tersimpan ke database.`);
   };
 
   const handleDeleteArticle = async (id: string) => {
